@@ -13,4 +13,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "static_pages#home"
+
+  get "get_section_questions/:section_id" => 'poll#get_section_questions'
+  get "add_section_question/:question_id" => 'poll#add_section_question'
+  get "question/get_options/:question_id" => 'question#get_options'
+  get "question/get_semaphore/:question_id" => 'question#get_semaphore'
+
 end

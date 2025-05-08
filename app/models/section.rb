@@ -1,7 +1,7 @@
 class Section < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
-    ["color", "created_at", "description", "id", "title", "updated_at"]
+    ["color", "created_at", "description", "id", "title", "updated_at", "weight"]
   end
 
 end

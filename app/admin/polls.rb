@@ -1,6 +1,6 @@
 ActiveAdmin.register Poll do
   # Specify parameters which should be permitted for assignment
-  permit_params :title, :description, :area_id, :provision_id, :last_disclaimer, poll_questions_attributes:[:question_id, :_destroy, :id]
+  permit_params :title, :description, :area_id, :provision_id, :last_disclaimer, poll_questions_attributes:[:question_id, :question_weight, :poll_id, :_destroy, :id, :condition_question, :condition_operator, :condition_value, :section_yellow, :section_red], poll_sections_attributes:[:id, :section_id, :poll_id, :disabled, :_destroy, semaphore_attributes: [:id, :formula, :green_text, :green_value, :yellow_text, :red_text, :red_value, :_destroy]]
 
   # or consider:
   #
@@ -53,20 +53,44 @@ ActiveAdmin.register Poll do
 
   # Add or remove fields to toggle their visibility in the form
   form do |f|
-    f.semantic_errors(*f.object.errors.attribute_names)
-    f.inputs do
-      f.input :title
-      f.input :description
-      f.input :area
-      f.input :provision
-      f.input :last_disclaimer
+      div '', id: 'poll-form', data: {controller: "pollform", "pollform-target": 'form'} do
+      #text_node javascript_include_tag "/gemma.js"
+      f.semantic_errors(*f.object.errors.attribute_names)
+      f.inputs do
+        f.input :title
+        f.input :description
+        f.input :area
+        f.input :provision
+        f.input :last_disclaimer
+      end
+      questions = []
+      condition_options = []
+      div '', id: 'poll-sections' do
+        text_node "<script>window.questions=[]; window.section={}; window.new_questions=[];</script>".html_safe
+        if !f.object.new_record?
+          logger.debug("\nQUESTIONS: #{f.object.questions.ids.to_json} \n\n\n")
+          text_node "<script>window.questions=#{f.object.questions.ids.to_json};</script>".html_safe
+          condition_options = f.object.questions.ids
+        end
+        isec = 0
+        Section.all.order(:weight).each do |section|
+          text_node "<script>window.section[#{section.id}]={questions:[]};</script>".html_safe
+          div '', id: "poll-section-#{section.id}", class: "section" do
+            render partial: 'poll/poll_admin_section', locals: { section: section, poll_id: f.object.id, isec: isec, sec: questions.length, condition_options: condition_options }
+            isec += 1
+            if !f.object.new_record?
+              section_questions = Question.includes(:poll_questions).where(section_id: section.id, 'poll_questions.poll_id': f.object.id).pluck(:id)
+              questions = questions | section_questions
+            end
+          end
+        end
+        #TODO: Section Semaphore (Evaluar el agregar sección)
+      end
+      div '', id: 'poll-add-section' do
+        select_tag :add_section, options_for_select(Section.all.map {|s| [s.title, s.id]}),data: {action: 'change->polls#get_section'}
+      end
+      f.actions
     end
-    #Todo: change for edit
-    has_many :poll_questions, allow_destroy: true do |q|
-      q.input :question_id, label: "Pregunta", as: :searchable_select, collection: Question.all.map{|s| [s.title, s.id]}
-    end
-    #f.object.new_record?
-    f.actions
   end
   before_save do |object|
     #params[:organization][:zone_ids].reject! { |c| c.empty? }
@@ -78,5 +102,10 @@ ActiveAdmin.register Poll do
     #end
     logger.debug "\nBEFORE SAVE RESOURCE\n #{params[:poll].inspect}\n\n"
     #super
+  end
+  member_action :foo, method: [:delete, :get] do
+    puts "\n\nPASA MEMBER FOO\n\n"
+    @tft = 'Turbo Frame for Button'
+    #edirect_to collection_path, notice: "Imagen borrada"
   end
 end

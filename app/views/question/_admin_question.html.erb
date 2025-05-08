@@ -1,0 +1,47 @@
+<div id='question-<%= question.id %>' class='question' data-controller="polls" data-polls-question-value="<%= question.id %>" data-polls-section-value="<%= section_id %>" data-polls-target="question">
+  <div class="question-top">
+    <div class='id boxed'><%= question.id %></div>
+    <div class='title boxed'><%= question.title %></div>
+    <div class='condition'>
+      <span class='label'>Condición</span>
+      <%= select_tag "poll[poll_questions_attributes][#{sec}][condition_question]", options_for_select([["ID pregunta", ""]] | condition_options, (poll_question.present? && poll_question.condition_question.present?) ? poll_question.condition_question : ''), class: "question-condition question-condition-#{question.id}" %>
+      <%= select_tag "poll[poll_questions_attributes][#{sec}][condition_operator]", options_for_select([['Condición', ""], ['=', 'Igual'],['>', 'Mayor'],['<', "Menor"]], (poll_question.present? && poll_question.condition_operator.present?) ? poll_question.condition_operator : '') %>
+      <input name="poll[poll_questions_attributes][<%= sec %>][condition_value]" type="integer" class="boxed" <%= (poll_question.present? && poll_question.condition_value.present?) ? "value=#{poll_question.condition_value}" : '' %> />
+      <input name="poll[poll_questions_attributes][<%= sec %>][question_weight]" type="hidden" value="<%= qsec %>" data-polls-target="weight" />
+    </div>
+    <div class='actions'>
+      <%= button_tag "Ver valores", data:{ action: "click->polls#questionGetOptions"} %>
+      <%= button_tag "Semáforo", data:{ action: "click->polls#questionGetSemaphore" } %>
+      <%= button_tag "Up", data:{ action: "click->polls#questionUp" } %>
+      <%= button_tag "Down", data:{ action: "click->polls#questionDown" } %>
+      <%= button_tag "Borrar", data:{ action: "click->polls#questionDelete" } %>
+    </div>
+    <input name="poll[poll_questions_attributes][<%= sec %>][question_id]" type="hidden" value="<%= question.id %>"></input>
+    <input name="poll[poll_questions_attributes][<%= sec %>][_destroy]" type="hidden" value="0"></input>
+    <% if poll_question.present? && poll_question.id.present? %>
+      <input name="poll[poll_questions_attributes][<%= sec %>][id]" type="hidden" value="<%= poll_question.id %>"></input>
+    <% end %>
+    <% if poll_id.present? %>
+      <input name="poll[poll_questions_attributes][<%= sec %>][poll_id]" type="hidden" value="<%= poll_id %>"></input>
+    <% end %>
+  </div>
+  <div class="question-bottom">
+    <input name="poll[poll_questions_attributes][<%= sec %>][section_yellow]" type="checkbox" <%= (poll_question.present? && poll_question.section_yellow.present?) ? 'checked' : '' %>>
+    <label for="poll[poll_questions_attributes][<%= sec %>][section_yellow]">Amarillo automático para la sección</label>
+    <input name="poll[poll_questions_attributes][<%= sec %>][section_red]" type="checkbox" <%= (poll_question.present? && poll_question.section_red.present?) ? 'checked' : '' %>>
+    <label for="poll[poll_questions_attributes][<%= sec %>][section_red]">Rojo automático para la sección</label>
+  </div>
+  <%= turbo_frame_tag "dinamic_question_#{question.id}", class:"dinamic-question" %>
+</div>
+<script>
+  window.section[<%= section_id %>]['questions'].push(<%= question.id %>)
+  //TODO: Change condition_question to this: https://stimulus.hotwired.dev/reference/targets
+  document.querySelectorAll('.question-condition').forEach((condition) => {
+    console.log("CONDITIONS UPDATE SELECT", condition);
+    window.questions.forEach(q => {
+      if ( condition.querySelector('option[value="'+q+'"]') == null && !condition.classList.contains('question-condition-'+q) ) {
+        condition.appendChild(new Option(q,q));
+      }
+    });
+  })
+</script>

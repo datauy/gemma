@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_27_142802) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_15_203432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -105,8 +105,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_142802) do
     t.bigint "question_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "semaphore_id", default: 1, null: false
+    t.integer "condition_question"
+    t.string "condition_operator"
+    t.integer "condition_value"
+    t.boolean "section_yellow"
+    t.boolean "section_red"
+    t.integer "question_weight"
     t.index ["poll_id"], name: "index_poll_questions_on_poll_id"
     t.index ["question_id"], name: "index_poll_questions_on_question_id"
+    t.index ["semaphore_id"], name: "index_poll_questions_on_semaphore_id"
+  end
+
+  create_table "poll_sections", force: :cascade do |t|
+    t.bigint "section_id", null: false
+    t.bigint "poll_id", null: false
+    t.bigint "semaphore_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "disabled"
+    t.index ["poll_id"], name: "index_poll_sections_on_poll_id"
+    t.index ["section_id"], name: "index_poll_sections_on_section_id"
+    t.index ["semaphore_id"], name: "index_poll_sections_on_semaphore_id"
   end
 
   create_table "polls", force: :cascade do |t|
@@ -136,13 +156,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_142802) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "section_id", null: false
+    t.bigint "semaphore_id", default: 1, null: false
     t.index ["section_id"], name: "index_questions_on_section_id"
+    t.index ["semaphore_id"], name: "index_questions_on_semaphore_id"
   end
 
   create_table "sections", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.string "color"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "weight"
+  end
+
+  create_table "semaphores", force: :cascade do |t|
+    t.string "formula"
+    t.text "green_text"
+    t.integer "green_value"
+    t.text "yellow_text"
+    t.text "red_text"
+    t.integer "red_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -166,7 +200,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_142802) do
   add_foreign_key "poll_areas", "provisions"
   add_foreign_key "poll_questions", "polls"
   add_foreign_key "poll_questions", "questions"
+  add_foreign_key "poll_questions", "semaphores"
+  add_foreign_key "poll_sections", "polls"
+  add_foreign_key "poll_sections", "sections"
+  add_foreign_key "poll_sections", "semaphores"
   add_foreign_key "polls", "areas"
   add_foreign_key "polls", "provisions"
   add_foreign_key "questions", "sections"
+  add_foreign_key "questions", "semaphores"
 end

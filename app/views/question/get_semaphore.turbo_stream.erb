@@ -1,0 +1,3 @@
+<%= turbo_stream.update("dinamic_question_#{@question.id}") do %>
+  <%= render partial: 'question/semaphore', locals: { semaphore: @question.semaphore } %>
+<% end %>

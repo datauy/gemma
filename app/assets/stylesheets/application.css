@@ -8,3 +8,9 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+ :root {
+  /* Fonts */
+  --body-text-general-strong: Inter;
+  /* font sizes */
+  --body-text-general-strong-size: 16px;
+  }

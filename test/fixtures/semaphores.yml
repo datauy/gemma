@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  formula: MyString
+  green_text: MyText
+  green_value: 1
+  yellow_text: MyText
+  red_text: MyText
+  red_value: 1
+
+two:
+  formula: MyString
+  green_text: MyText
+  green_value: 1
+  yellow_text: MyText
+  red_text: MyText
+  red_value: 1

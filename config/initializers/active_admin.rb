@@ -1,3 +1,15 @@
+ActiveAdmin.importmap.draw do
+  pin "@rails/actioncable", to: "actioncable.esm.js", preload: true
+  pin "@rails/activestorage", to: "activestorage.esm.js", preload: true
+
+  pin "@hotwired/turbo-rails", to: "turbo.js", preload: true
+  pin "@hotwired/stimulus", to: "stimulus.js", preload: true
+  pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
+
+  pin "application", preload: true
+  pin_all_from "app/javascript/controllers", under: "controllers"
+end
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #

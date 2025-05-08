@@ -1,11 +1,11 @@
 ActiveAdmin.register Question do
   # Specify parameters which should be permitted for assignment
-  permit_params :qtype, :title, :description, :section_id, options_attributes: [:title, :ovalue]
+  permit_params :qtype, :title, :description, :section, :section_id, :semaphore_id, options_attributes: [:title, :ovalue, :prefix, :sufix, :id, :_destroy, :otype], semaphore_attributes: [:green_text,:green_value,:yellow_text,:red_text,:red_value, :id, :_destroy]
 
   # or consider:
   #
   # permit_params do
-  #   permitted = [:qtype, :title, :description, :section]
+  #   permitted = [:qtype, :title, :description, :section, :section_id, :semaphore_id]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
@@ -21,6 +21,7 @@ ActiveAdmin.register Question do
   filter :section
   filter :created_at
   filter :updated_at
+  filter :semaphore
 
   # Add or remove columns to toggle their visibility in the index action
   index do
@@ -32,6 +33,7 @@ ActiveAdmin.register Question do
     column :section
     column :created_at
     column :updated_at
+    column :semaphore
     actions
   end
 
@@ -45,48 +47,42 @@ ActiveAdmin.register Question do
       row :section
       row :created_at
       row :updated_at
+      row :semaphore
     end
   end
 
   # Add or remove fields to toggle their visibility in the form
   form do |f|
     f.semantic_errors(*f.object.errors.attribute_names)
-    f.inputs do
-      f.input :qtype, input_html: {onchange: "question_type_change()"}
-      f.input :title
-      f.input :description
-      f.input :section_id, as: :select, collection: Section.all.map { |s| [s.title, s.id] }
+    inputs "", heading: false, class: "main-options" do
+      f.inputs do
+        f.input :qtype, input_html: {data: {controller: 'question', action: 'change->question#filter_options'}}
+        f.input :title
+        f.input :description
+        f.input :section_id, as: :select, collection: Section.all.map { |s| [s.title, s.id] }
+      end
     end
     #Todo: change for edit
-    inputs "Options", id: "input_Opciones", class: "options" do
-      has_many :options, allow_destroy: true do |c|
-        c.input :title, :label => "Etiqueta"
-        c.input :ovalue, :label => "Valor"
-        c.input :otype, as: :hidden, value: 1
+    option_counter = 0
+    f.inputs "", heading: false, id: "options-section" do
+      f.has_many :options, heading: false, allow_destroy: true do |c|
+        option_counter = option_counter + 1
+        c.inputs "Opción #{option_counter}" do
+        c.input :prefix, :label => "Prefijo", input_html: {class: 'options-prefix', rows: 1}
+        c.input :title, label: false, input_html: {class: 'options-title'}
+        c.input :ovalue, :label => "Valor", input_html: {class: 'options-value'}
+        c.input :sufix, :label => "Sufijo", input_html: {class: 'options-sufix', rows: 1}
+        c.input :otype, as: :hidden, input_html: {class: 'options-otype'}
       end
     end
-    inputs "Numeric", id: "input_Numérica", class: "options"  do
-      has_many :options, allow_destroy: true do |c|
-        c.input :title, :label => "Etiqueta"
-        c.input :ovalue, :label => "Valor"
-        c.input :otype, as: :hidden, value: 2
-      end
+    f.inputs "", heading: false, id: "semaphore-section", for: [:semaphore, f.object.semaphore || Semaphore.new] do |s|
+      s.input :green_text, input_html: {placeholder: "Texto a mostrar si tiene este resultado", class: 'options-green', rows: 5}
+      s.input :green_value, label: " > "
+      s.input :yellow_text, input_html: {placeholder: "Texto a mostrar si tiene este resultado", class: 'options-yellow', rows: 5}
+      s.input :red_text, input_html: {placeholder: "Texto a mostrar si tiene este resultado", class: 'options-red', rows: 5}
+      s.input :red_value, label: " < "
     end
-    inputs "Text", id: "input_Texto",class: "options"  do
-      has_many :options, allow_destroy: true do |c|
-        c.input :title, :label => "Etiqueta"
-        c.input :ovalue, :label => "Valor"
-        c.input :otype, as: :hidden, value: 3
-      end
-    end
-    inputs "Attachment", id: "input_Adjunto", class: "options"  do
-      has_many :options, allow_destroy: true do |c|
-        c.input :title, :label => "Etiqueta"
-        c.input :ovalue, :label => "Valor"
-        c.input :otype, as: :hidden, value: 4
-      end
-    end
+  end
     f.actions
-    text_node javascript_include_tag "/gemma.js"
   end
 end

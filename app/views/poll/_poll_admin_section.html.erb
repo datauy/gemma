@@ -1,0 +1,40 @@
+<div class="section-header" style="background: <%= section.color ? section.color : '#f5f5f5'%>">
+  <h3>Sección <%= section.title %></h3>
+  <div class="section-actions">
+    <%= button_tag 'Agregar pregunta',
+    data: { 
+      controller: 'polls',
+      action: 'click->polls#getSectionQuestions',
+      'polls-section-value': section.id,
+      'polls-id-value': poll_id
+    }%>
+  </div>
+</div>
+<div id="<%= "new_poll_question_#{section.id}"%>">
+  <% questions = Question.where( section_id: section.id ).order(:title).pluck(:title, :id) %>
+  <%= select_tag :"new_question_#{section.id}", 
+    options_for_select(questions),
+    include_blank: "Question",
+    class: 'new_poll_question', 
+    data: {
+      controller: 'polls',
+      action: 'polls#selectQuestion',
+      'polls-id-value': poll_id,
+      'polls-section-value': section.id,
+      'polls-position-value': isec
+    }
+  %>
+</div>
+<% qsec = 0 %>
+<%= turbo_frame_tag "added_poll_question_#{section.id}", class: 'section-questions' do %>
+  <% PollQuestion.includes(:question).where('question.section_id': section.id, poll_id: poll_id).order(:question_weight).each do |poll_question| %>
+    <% qsec += 1 %>
+    <%= render partial: 'question/admin_question', locals: { poll_question: poll_question, question: poll_question.question, poll_id: poll_id, sec: sec, qsec: qsec, condition_options: condition_options, section_id: section.id } %>
+    <% sec += 1 %>
+  <% end %>
+<% end %>
+<%= turbo_frame_tag "section_semaphore_#{section.id}", class: 'section-semaphore' do %>
+  <% if qsec > 0 %> 
+    <%= render partial: 'poll/section_semaphore', locals: { isec: isec, section_id: section.id, poll_id: poll_id } %>
+  <% end %>
+<% end %>

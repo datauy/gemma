@@ -1,0 +1,17 @@
+<%= turbo_stream.append("added_poll_question_#{@section_id}") do %>
+  <%= render partial: 'question/admin_question', locals: { 
+    question: @question, 
+    poll_id: @poll_id, 
+    sec: @qqtty, 
+    qsec: 99,
+    section_id: @section_id,
+    poll_question: PollQuestion.new, 
+    condition_options: [] } %>
+<% end %>
+<% logger.debug("\n\nRENDER ADD SECTION SQTTY: #{@sqtty}\n") %>
+<% if @sqtty == "0" %>
+  ENTRA A SEMAPHORE SQTTY = 0
+  <%= turbo_stream.update("section_semaphore_#{@section_id}") do %>
+    <%= render partial: 'poll/section_semaphore', locals: { isec: @isec, section_id: @section_id, poll_id: @poll_id } %>
+  <% end %>
+<% end %>

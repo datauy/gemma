@@ -1,0 +1,22 @@
+.question {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h3 {
+  font-size: var(--body-text-general-strong-size);
+  line-height: 22px;
+  font-weight: 600;
+  font-family: var(--body-text-general-strong);
+  color: #000;
+}
+.dinamic-question > div {
+  display: flex;
+  justify-content: space-evenly;
+  .option-header {
+    font-weight: 600;
+  }
+  .option {
+    
+  }
+}

@@ -1,11 +1,11 @@
 ActiveAdmin.register Section do
   # Specify parameters which should be permitted for assignment
-  permit_params :title, :description, :color
+  permit_params :title, :description, :color, :weight
 
   # or consider:
   #
   # permit_params do
-  #   permitted = [:title, :description, :color]
+  #   permitted = [:title, :description, :color, :weight]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
@@ -20,6 +20,7 @@ ActiveAdmin.register Section do
   filter :color
   filter :created_at
   filter :updated_at
+  filter :weight
 
   # Add or remove columns to toggle their visibility in the index action
   index do
@@ -30,6 +31,7 @@ ActiveAdmin.register Section do
     column :color
     column :created_at
     column :updated_at
+    column :weight
     actions
   end
 
@@ -42,6 +44,7 @@ ActiveAdmin.register Section do
       row :color
       row :created_at
       row :updated_at
+      row :weight
     end
   end
 
@@ -52,6 +55,7 @@ ActiveAdmin.register Section do
       f.input :title
       f.input :description
       f.input :color
+      f.input :weight
     end
     f.actions
   end

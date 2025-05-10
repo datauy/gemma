@@ -17,6 +17,7 @@
       <%= button_tag "Borrar", data:{ action: "click->polls#questionDelete" } %>
     </div>
     <input name="poll[poll_questions_attributes][<%= sec %>][question_id]" type="hidden" value="<%= question.id %>"></input>
+    <input name="poll[poll_questions_attributes][<%= sec %>][semaphore_id]" type="hidden" value="<%= question.semaphore_id %>"></input>
     <input name="poll[poll_questions_attributes][<%= sec %>][_destroy]" type="hidden" value="0"></input>
     <% if poll_question.present? && poll_question.id.present? %>
       <input name="poll[poll_questions_attributes][<%= sec %>][id]" type="hidden" value="<%= poll_question.id %>"></input>
@@ -26,10 +27,10 @@
     <% end %>
   </div>
   <div class="question-bottom">
-    <input name="poll[poll_questions_attributes][<%= sec %>][section_yellow]" type="checkbox" <%= (poll_question.present? && poll_question.section_yellow.present?) ? 'checked' : '' %>>
-    <label for="poll[poll_questions_attributes][<%= sec %>][section_yellow]">Amarillo automático para la sección</label>
-    <input name="poll[poll_questions_attributes][<%= sec %>][section_red]" type="checkbox" <%= (poll_question.present? && poll_question.section_red.present?) ? 'checked' : '' %>>
-    <label for="poll[poll_questions_attributes][<%= sec %>][section_red]">Rojo automático para la sección</label>
+    <input id="input-section-yellow" name="poll[poll_questions_attributes][<%= sec %>][section_yellow]" type="checkbox" <%= (poll_question.present? && poll_question.section_yellow.present?) ? 'checked' : '' %>>
+    <label for="input-section-yellow">Amarillo automático para la sección</label>
+    <input id="input-section-red" name="poll[poll_questions_attributes][<%= sec %>][section_red]" type="checkbox" <%= (poll_question.present? && poll_question.section_red.present?) ? 'checked' : '' %>>
+    <label for="input-section-red">Rojo automático para la sección</label>
   </div>
   <%= turbo_frame_tag "dinamic_question_#{question.id}", class:"dinamic-question" %>
 </div>

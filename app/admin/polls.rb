@@ -1,6 +1,6 @@
 ActiveAdmin.register Poll do
   # Specify parameters which should be permitted for assignment
-  permit_params :title, :description, :area_id, :provision_id, :last_disclaimer, poll_questions_attributes:[:question_id, :question_weight, :poll_id, :_destroy, :id, :condition_question, :condition_operator, :condition_value, :section_yellow, :section_red], poll_sections_attributes:[:id, :section_id, :poll_id, :disabled, :_destroy, semaphore_attributes: [:id, :formula, :green_text, :green_value, :yellow_text, :red_text, :red_value, :_destroy]]
+  permit_params :title, :description, :area_id, :provision_id, :last_disclaimer, poll_questions_attributes:[:question_id, :question_weight, :poll_id, :_destroy, :id, :semaphore_id, :condition_question, :condition_operator, :condition_value, :section_yellow, :section_red], poll_sections_attributes:[:id, :section_id, :poll_id, :disabled, :_destroy, semaphore_attributes: [:id, :formula, :green_text, :green_value, :yellow_text, :red_text, :red_value, :_destroy]]
 
   # or consider:
   #
@@ -57,10 +57,10 @@ ActiveAdmin.register Poll do
       #text_node javascript_include_tag "/gemma.js"
       f.semantic_errors(*f.object.errors.attribute_names)
       f.inputs do
-        f.input :title
+        f.input :title, required: true
         f.input :description
-        f.input :area
-        f.input :provision
+        f.input :area, required: true
+        f.input :provision, required: true
         f.input :last_disclaimer
       end
       questions = []

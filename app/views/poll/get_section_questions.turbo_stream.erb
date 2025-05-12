@@ -1,7 +1,7 @@
 <%= turbo_stream.update("new_poll_question_#{@section_id}") do %>
   <%= select_tag :"new_question", 
   options_for_select(@questions),
-  include_blank: "Question",
+  include_blank: "Pregunta",
   class: 'new_poll_question', 
   data: {
     controller: 'polls',

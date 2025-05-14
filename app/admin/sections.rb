@@ -1,5 +1,7 @@
 ActiveAdmin.register Section do
   # Specify parameters which should be permitted for assignment
+  menu priority: 1
+
   permit_params :title, :description, :color, :weight
 
   # or consider:

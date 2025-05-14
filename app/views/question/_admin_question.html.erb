@@ -36,13 +36,4 @@
 </div>
 <script>
   window.section[<%= section_id %>]['questions'].push(<%= question.id %>)
-  //TODO: Change condition_question to this: https://stimulus.hotwired.dev/reference/targets
-  document.querySelectorAll('.question-condition').forEach((condition) => {
-    console.log("CONDITIONS UPDATE SELECT", condition);
-    window.questions.forEach(q => {
-      if ( condition.querySelector('option[value="'+q+'"]') == null && !condition.classList.contains('question-condition-'+q) ) {
-        condition.appendChild(new Option(q,q));
-      }
-    });
-  })
 </script>

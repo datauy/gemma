@@ -91,8 +91,8 @@ es:
         from: From
         to: To
     has_many_delete: Borrar
-    has_many_new: Add New %{model}
-    has_many_remove: Remove
+    has_many_new: Agregar %{model}
+    has_many_remove: Borrar
     index_list:
       table: Tabla
     logout: Sign out
@@ -149,9 +149,11 @@ es:
       question: "Pregunta"
       poll: "Cuestionario"
       section: "Sección"
-      provision: "Características"
+      area: "Filtro 1"
+      provision: "Filtro 2"
       admin_user: "Administradores"
       semaphore: "Semáforo"
+      option: "Opción"
     attributes:
       active_admin/comment:
         author_type: Author type
@@ -194,11 +196,9 @@ es:
         description: "Descripción"
         created_at: "Creado"
         updated_at: "Actualizado"
-      areas:
+      area:
         title: 'Título'
         description: "Descripción"
         created_at: "Creado"
         updated_at: "Actualizado"
-
-  date:
       

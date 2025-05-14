@@ -5,7 +5,10 @@ export default class extends Controller {
   static targets = ["weight", "question"]
   
   connect() {
-    console.log("CONNECT POLLS", this.idValue);
+    if ( this.hasQuestionValue ) {
+      console.log("CONNECT POLLS", this.questionValue);
+      this.update_conditions()
+    }
   }
   questionUp(e) {
     e.preventDefault()
@@ -65,16 +68,17 @@ export default class extends Controller {
       this.questionTarget.hidden = true
       //Remove from select?
     }
-    //Remove from lisis
+    //Remove from lists
     let sindex = window.section[this.sectionValue]['questions'].indexOf(this.questionValue)
     if (sindex != -1 ) {
       window.section[this.sectionValue]['questions'].splice(sindex, 1)
     }
-    window.questions.push(e.target.value)
+    //window.questions.push(e.target.value)
     let qindex = window.questions.indexOf(this.questionValue)
     if (qindex != -1 ) {
       window.questions.splice(qindex, 1)
     }
+    window.deleted_questions.push(this.questionValue)
     //Todo make targwts
     //Check for questions or empty section container
     let sectionContainer = document.getElementById('poll-section-'+this.sectionValue)
@@ -100,6 +104,7 @@ export default class extends Controller {
         semaphore.remove()
       }
     }
+    this.update_conditions()
   }
   questionGetSemaphore(e) {
     e.preventDefault()
@@ -167,6 +172,11 @@ export default class extends Controller {
       window.questions.push(e.target.value)
       window.new_questions.push(e.target.value)
       window.section[this.sectionValue]['questions'].push(e.target.value)
+      //Remove from deleted
+      let qindex = window.deleted_questions.indexOf(this.questionValue)
+      if (qindex != -1 ) {
+        window.deleted_questions.splice(qindex, 1)
+      }
       //remove from select
       for (let i = 0; i < e.target.options.length; i++) {
         if ( e.target.options[i].value == e.target.value ) {
@@ -176,6 +186,7 @@ export default class extends Controller {
       //hide select
       e.target.classList.toggle('active')
       Turbo.renderStreamMessage(html)
+      this.update_conditions()
     })
   }
   //
@@ -222,6 +233,28 @@ export default class extends Controller {
         })
       })
     })*/
+  }
+  update_conditions() {
+    //TODO: Change condition_question to this: https://stimulus.hotwired.dev/reference/targets
+    document.querySelectorAll('.question-condition').forEach((condition) => {
+      console.log("CONDITIONS UPDATE SELECT", condition);
+      window.questions.forEach(q => {
+        if ( condition.querySelector('option[value="'+q+'"]') == null && !condition.classList.contains('question-condition-'+q) ) {
+          condition.appendChild(new Option(q,q));
+        }
+        //Remove self
+        if ( condition.classList.contains('question-condition-'+q) && condition.querySelector('option[value="'+q+'"]') != null ) {
+          condition.querySelector('option[value="'+q+'"]').remove()
+        }
+      });
+      //Delete questions
+      window.deleted_questions.forEach(q => {
+        let deleted_option = condition.querySelector('option[value="'+q+'"]')
+        if (deleted_option != null ) {
+          deleted_option.remove()
+        }
+      })
+    })
   }
   delay(milliseconds){
     return new Promise(resolve => {

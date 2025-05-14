@@ -8,9 +8,7 @@
     poll_question: PollQuestion.new, 
     condition_options: [] } %>
 <% end %>
-<% logger.debug("\n\nRENDER ADD SECTION SQTTY: #{@sqtty}\n") %>
 <% if @sqtty == "0" %>
-  ENTRA A SEMAPHORE SQTTY = 0
   <%= turbo_stream.update("section_semaphore_#{@section_id}") do %>
     <%= render partial: 'poll/section_semaphore', locals: { isec: @isec, section_id: @section_id, poll_id: @poll_id } %>
   <% end %>

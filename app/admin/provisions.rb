@@ -1,5 +1,6 @@
 ActiveAdmin.register Provision do
   # Specify parameters which should be permitted for assignment
+  menu priority: 3
   permit_params :title, :description
 
   # or consider:

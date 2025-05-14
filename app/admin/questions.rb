@@ -1,5 +1,6 @@
 ActiveAdmin.register Question do
   # Specify parameters which should be permitted for assignment
+  menu priority: 4
   permit_params :qtype, :title, :description, :section, :section_id, :semaphore_id, options_attributes: [:title, :ovalue, :prefix, :sufix, :id, :_destroy, :otype], semaphore_attributes: [:green_text,:green_value,:yellow_text,:red_text,:red_value, :id, :_destroy]
 
   # or consider:

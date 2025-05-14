@@ -1,5 +1,6 @@
 ActiveAdmin.register Poll do
   # Specify parameters which should be permitted for assignment
+  menu priority: 5
   permit_params :title, :description, :area_id, :provision_id, :last_disclaimer, poll_questions_attributes:[:question_id, :question_weight, :poll_id, :_destroy, :id, :semaphore_id, :condition_question, :condition_operator, :condition_value, :section_yellow, :section_red], poll_sections_attributes:[:id, :section_id, :poll_id, :disabled, :_destroy, semaphore_attributes: [:id, :formula, :green_text, :green_value, :yellow_text, :red_text, :red_value, :_destroy]]
 
   # or consider:
@@ -66,7 +67,7 @@ ActiveAdmin.register Poll do
       questions = []
       condition_options = []
       div '', id: 'poll-sections' do
-        text_node "<script>window.questions=[]; window.section={}; window.new_questions=[];</script>".html_safe
+        text_node "<script>window.questions=[]; window.section={}; window.new_questions=[]; window.deleted_questions=[];</script>".html_safe
         if !f.object.new_record?
           logger.debug("\nQUESTIONS: #{f.object.questions.ids.to_json} \n\n\n")
           text_node "<script>window.questions=#{f.object.questions.ids.to_json};</script>".html_safe

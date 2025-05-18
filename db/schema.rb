@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_15_203432) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_18_032429) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -75,6 +75,45 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_203432) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "companies", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "fake_name"
+    t.integer "state"
+    t.string "address"
+    t.integer "activity"
+    t.integer "size"
+    t.integer "man_workers"
+    t.integer "woman_workers"
+    t.integer "start_year"
+    t.string "contact_name"
+    t.string "contact_position"
+    t.string "contact_tel"
+    t.string "contact_email"
+    t.boolean "is_confirmed"
+    t.boolean "is_main_company"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_companies_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_companies_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_companies_on_reset_password_token", unique: true
+  end
+
+  create_table "company_main_companies", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.integer "main_company", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_company_main_companies_on_company_id"
+  end
+
   create_table "options", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -107,7 +146,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_203432) do
     t.datetime "updated_at", null: false
     t.bigint "semaphore_id", default: 1, null: false
     t.integer "condition_question"
-    t.string "condition_operator"
+    t.integer "condition_operator"
     t.integer "condition_value"
     t.boolean "section_yellow"
     t.boolean "section_red"
@@ -156,7 +195,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_203432) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "section_id", null: false
-    t.bigint "semaphore_id", default: 1, null: false
+    t.bigint "semaphore_id", null: false
     t.index ["section_id"], name: "index_questions_on_section_id"
     t.index ["semaphore_id"], name: "index_questions_on_semaphore_id"
   end
@@ -195,6 +234,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_203432) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "company_main_companies", "companies"
   add_foreign_key "options", "questions"
   add_foreign_key "poll_areas", "areas"
   add_foreign_key "poll_areas", "provisions"

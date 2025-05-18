@@ -23,6 +23,14 @@
   </head>
 
   <body>
+    <header>
+      <%= render partial: '/layouts/header' %>
+    </header>
+    <p class="notice"><%= notice %></p> 
+    <p class="alert"><%= alert %></p> 
     <%= yield %>
+    <footer>
+      <%= render partial: '/layouts/footer' %>
+    </footer>
   </body>
 </html>

@@ -1,0 +1,69 @@
+<div id="content">
+  <h1>Sign up</h1>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "companies/shared/error_messages", resource: resource %>
+
+    <div class="field">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email de empresa" %>
+    </div>
+    <div class="field">
+      <%= f.text_field :name, autocomplete: "name", placeholder: "Razón social" %>
+    </div>
+    <div class="field">
+      <%= f.text_field :fake_name, autocomplete: "fake_name", placeholder: "Nombre fantasía" %>
+    </div>
+    <div class="field">
+      <%= f.select :state, Company.states, include_blank: "Departamento" , autocomplete: "state", placeholder: "Departamento" %>
+    </div>
+    <div class="field">
+      <%= f.text_field :address, autocomplete: "address", placeholder: "Dirección" %>
+    </div>
+    <div class="field">
+      <%= f.select :activity, Company.activities, include_blank: "Giro principal", autocomplete: "activity" %>
+    </div>
+    <div class="field">
+      <%= f.select :size, Company.sizes, include_blank: "Tamaño de la empresa", autocomplete: "size" %>
+    </div>
+    <div class="field">
+      <%= f.number_field :man_workers, autocomplete: "man_workers", placeholder: "Trabajadores hombres" %>
+    </div>
+    <div class="field">
+      <%= f.number_field :woman_workers, autocomplete: "woman_workers", placeholder: "Trabajadoras Mujeres" %>
+    </div>
+    <div class="field">
+      <%= f.number_field :start_year, autocomplete: "start_year", placeholder: "Año de comienzo de actividad" %>
+    </div>
+    <div class="field">
+      <%= f.text_field :contact_name, autocomplete: "contact_name", placeholder: "Nombre de la persona de contacto" %>
+    </div>
+    <div class="field">
+      <%= f.text_field :contact_position, autocomplete: "contact_position", placeholder: "Cargo de la persona de contacto" %>
+    </div>
+    <div class="field">
+      <%= f.text_field :contact_tel, autocomplete: "contact_tel", placeholder: "Teléfono de contacto" %>
+    </div>
+    <div class="field">
+      <%= f.email_field :contact_email, autocomplete: "contact_email", placeholder: "Email de contacto" %>
+    </div>
+
+    <div class="field">
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password" %>
+    </div>
+
+    <div class="field">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirmar password" %>
+    </div>
+
+    
+
+    <div class="actions">
+      <%= f.submit "Sign up" %>
+    </div>
+  <% end %>
+
+  <%= render "companies/shared/links" %>
+</div>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :companies, :controllers => { registrations: 'companies/registrations' }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -14,9 +15,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "static_pages#home"
 
+  #admin todo: agregar autentiación por defecto, en poll como admin.
   get "get_section_questions/:section_id" => 'poll#get_section_questions'
   get "add_section_question/:question_id" => 'poll#add_section_question'
   get "question/get_options/:question_id" => 'question#get_options'
   get "question/get_semaphore/:question_id" => 'question#get_semaphore'
 
+  # Public pages
+  get "sobre-el-proyecto" => "static_pages#about"
+  get "planes" => "static_pages#pricing"
 end

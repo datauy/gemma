@@ -154,6 +154,7 @@ es:
       admin_user: "Administradores"
       semaphore: "Semáforo"
       option: "Opción"
+      company: "Empresa"
     attributes:
       active_admin/comment:
         author_type: Author type
@@ -201,4 +202,22 @@ es:
         description: "Descripción"
         created_at: "Creado"
         updated_at: "Actualizado"
+      company:
+        name: "Razón social"
+        email: "Email de empresa"
+        fake_name: "Nombre Fantasía"
+        state: "Departamento"
+        address: "Dirección"
+        activity: "Actividad principal"
+        size: "Tamaño de la empresa"
+        man_workers: "Trabajadores masculinos"
+        woman_workers: "Trabajadoras femeninas"
+        start_year: "Año de comienzo de actividades"
+        contact_name: "Nombre de la persona responsable"
+        contact_position: "Cargo de la persona responsable"
+        contact_tel: "Teléfono de la persona responsable"
+        contact_email: "Email de la persona responsable"
+        is_confirmed: "Confirmada"
+        is_main_company: "Empresa tractora"
+        password: "Contraseña"
       

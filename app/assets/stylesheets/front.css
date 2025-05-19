@@ -9,10 +9,14 @@
   /* Color Variables */
   --Gris-Fusin: #9da9a3;
   --Grises-Gris-01: #1f1f1f;
+  --Grises-Gris-02: #2c2c2c;
   --Grises-Gris-03: #878787;
   --Grises-Gris-04: #c6c6c6;
   --Grises-Blanco: #fff;
   --Mostaza-Energizante: #dca410;
+  --Feedback-Warning-Dark: #e0982b;
+  --Feedback-Warning-Light: #fffbed;
+
 }
 
 h1 {
@@ -41,6 +45,36 @@ a {
   font-family: var(--font-inter);
   color: var(--Grises-Gris-03);
   text-align: left;
+}
+.notice {
+  border-radius: 8px;
+  background-color: var(--Feedback-Warning-Light);
+  border: 1px solid var(--Feedback-Warning-Dark);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 16px;
+  gap: 16px;
+  text-align: center;
+  margin: 20px 0;
+  width: fit-content;
+}
+.alert {
+  border-radius: 8px;
+  background-color: var(--Feedback-Alert-Light);
+  border: 1px solid var(--Feedback-Alert-Dark);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 16px;
+  gap: 16px;
+  text-align: center;
+  margin: 20px 0;
+  width: fit-content;
 }
 .section {
   margin: 50px 0;

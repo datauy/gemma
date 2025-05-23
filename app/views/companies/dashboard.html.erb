@@ -1,0 +1,51 @@
+<div id="content">
+  <div id="company-dashboard">
+    <div id="company-data">
+      <% if @company.logo.attached? %>
+        <%= image_tag @company.logo %>
+      <% else %>
+        <div class="rectangle-div"></div>
+      <% end %>
+      <div id="company-info" class="section">
+        <h1><%= @company.fake_name %></h1>
+        <h4>última puntuación</h4>
+        <span class="result">TODO</span>
+        <span>RUT: <%= @company.registration_number %></span>
+        <span>Persona de contacto: <%= @company.contact_name %></span>
+        <span>Teléfono: <%= @company.contact_tel %></span>
+        <span>Dirección: <%= @company.address %></span>
+        <%= link_to 'Editar datos de la empresa', edit_company_registration_path, class: 'main-button' %>
+      </div>
+    </div>
+    <div id="main-companies" class="section">
+      <h2>Empresas tractoras aprobadas</h2>
+      <span class="disclaimer">Las empresas tractoras seleccionadas en esta sección podrán acceder a la información de los formularios completos de la empresa.</span>
+      <div id="main-companies-options">
+        <ul>
+          <% Company.where(is_main_company: true).each do |c| 
+            sel = @company.companies.include? c.id ? true : false
+          %>
+            <li>
+              <%= check_box_tag 'companies_ids[]', c.id, sel  %>
+              <%= h c.fake_name %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div id="main-companies" class="section">
+      <h2>Evaluaciones completadas</h2>
+      <div id="company-evaluations">
+      </div>
+    </div>
+    <div class="image-box image-box-left">
+      <div class="image-box-image"><div class="rectangle-div"></div></div>
+      <div class="image-box-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus.
+
+        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna.
+
+        Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+      </div>
+    </div>
+  </div>
+</div>

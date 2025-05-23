@@ -5,9 +5,8 @@
       <li><%= link_to "Planes", planes_path() %>
       <li><%= link_to "Sobre el proyecto", sobre_el_proyecto_path() %>
       <% if company_signed_in? %>
-        <strong><%= current_company.email %></strong>
-        <li><%= link_to 'Editar perfil', edit_company_registration_path, :class => 'navbar-link' %> |
-        <%= link_to "Cerrar sesión", destroy_company_session_path, method: :delete, :class => 'navbar-link'  %></li>
+        <li><%= link_to 'Tablero', dashboard_path, :class => 'navbar-link' %> </li>
+        <li><%= link_to "Cerrar sesión", destroy_company_session_path, method: :delete, :class => 'navbar-link'  %></li>
       <% else %>
         <li><%= link_to "Acceso a clientes",  company_session_path() %>
       <% end %>

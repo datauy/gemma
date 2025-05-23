@@ -1,0 +1,9 @@
+#company-data {
+  display: flex;
+  gap: 100px;
+  align-items: center;
+}
+#company-data img {
+  width: 250px;
+  height: max-content;
+}

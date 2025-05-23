@@ -37,6 +37,26 @@ h2 {
   color: #000;
   text-align: center;
 }
+
+h3 {
+  font-size: 18px;
+  line-height: 22px;
+  display: inline-block;
+  font-family: var(--font-work-sans);
+  color: var(--color-black);
+  text-align: left;
+}
+
+h4 {
+  font-size: 12px;
+  letter-spacing: 2px;
+  line-height: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: var(--font-inter);
+  color: var(--color-black);
+  text-align: left;
+}
 a {
   font-size: 12px;
   text-decoration: underline;
@@ -75,6 +95,13 @@ a {
   text-align: center;
   margin: 20px 0;
   width: fit-content;
+}
+.result {
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 500;
+  font-family: var(--font-work-sans);
+  color: var(--color-black);
 }
 .section {
   margin: 50px 0;

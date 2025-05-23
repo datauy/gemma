@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get "question/get_options/:question_id" => 'question#get_options'
   get "question/get_semaphore/:question_id" => 'question#get_semaphore'
 
+  # Company pages
+  get "dashboard" => 'companies#dashboard'
   # Public pages
   get "sobre-el-proyecto" => "static_pages#about"
   get "planes" => "static_pages#pricing"

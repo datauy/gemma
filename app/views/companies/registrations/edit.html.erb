@@ -1,5 +1,5 @@
 <div id="content">
-  <h2>Edit <%= resource_name.to_s.humanize %></h2>
+  <h2>Editar datos de Empresa</h2>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= render "companies/shared/error_messages", resource: resource %>
@@ -10,36 +10,77 @@
     </div>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-    <% end %>
-
-    <div class="field">
-      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-      <%= f.password_field :password, autocomplete: "new-password" %>
-      <% if @minimum_password_length %>
-        <br />
-        <em><%= @minimum_password_length %> characters minimum</em>
+      <div>Aún no hemos identificado su correo, por favor sigue las instrucciones enviadas a: <%= resource.unconfirmed_email %></div>
+    <% else %>
+      <% if resource.logo.attached? %>
+        <%= image_tag resource.logo %>
       <% end %>
-    </div>
+      <div class="field">
+        <%= f.label :logo %>
+        <%= f.file_field :logo %>
+      </div>
+      <div class="field">
+        <%= f.text_field :name, required: true, autocomplete: "name", placeholder: "Razón social" %>
+      </div>
+      <div class="field">
+        <%= f.text_field :fake_name,required: true,  autocomplete: "fake_name", placeholder: "Nombre fantasía" %>
+      </div>
+      <div class="field">
+        <%= f.select :state, Company.states.keys, required: true, include_blank: "Departamento" , autocomplete: "state", placeholder: "Departamento" %>
+      </div>
+      <div class="field">
+        <%= f.text_field :address, required: true, autocomplete: "address", placeholder: "Dirección" %>
+      </div>
+      <div class="field">
+        <%= f.select :activity, Company.activities.keys, required: true, include_blank: "Giro principal", autocomplete: "activity" %>
+      </div>
+      <div class="field">
+        <%= f.select :size, Company.sizes.keys, required: true, include_blank: "Tamaño de la empresa", autocomplete: "size" %>
+      </div>
+      <div class="field">
+        <%= f.number_field :man_workers, required: true, autocomplete: "man_workers", placeholder: "Trabajadores hombres" %>
+      </div>
+      <div class="field">
+        <%= f.number_field :woman_workers, required: true, autocomplete: "woman_workers", placeholder: "Trabajadoras Mujeres" %>
+      </div>
+      <div class="field">
+        <%= f.number_field :start_year, required: true, autocomplete: "start_year", placeholder: "Año de comienzo de actividad" %>
+      </div>
+      <div class="field">
+        <%= f.text_field :contact_name, required: true, autocomplete: "contact_name", placeholder: "Nombre de la persona de contacto" %>
+      </div>
+      <div class="field">
+        <%= f.text_field :contact_position, required: true, autocomplete: "contact_position", placeholder: "Cargo de la persona de contacto" %>
+      </div>
+      <div class="field">
+        <%= f.text_field :contact_tel, required: true, autocomplete: "contact_tel", placeholder: "Teléfono de contacto" %>
+      </div>
+      <div class="field">
+        <%= f.email_field :contact_email, required: true, autocomplete: "contact_email", placeholder: "Email de contacto" %>
+      </div>
+      <div class="field">
+        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password, autocomplete: "new-password" %>
+        <% if @minimum_password_length %>
+          <br />
+          <em><%= @minimum_password_length %> characters minimum</em>
+        <% end %>
+      </div>
 
-    <div class="field">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-    </div>
+      <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
 
-    <div class="field">
-      <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-      <%= f.password_field :current_password, autocomplete: "current-password" %>
-    </div>
-
+      <div class="field">
+        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+        <%= f.password_field :current_password, autocomplete: "current-password" %>
+      </div>
+    <% end %>
     <div class="actions">
       <%= f.submit "Update" %>
     </div>
   <% end %>
 
-  <h3>Cancel my account</h3>
-
-  <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-  <%= link_to "Back", :back %>
+  <%= link_to "Volver", :back %>
 </div>

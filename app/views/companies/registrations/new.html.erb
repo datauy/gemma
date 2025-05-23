@@ -5,13 +5,16 @@
     <%= render "companies/shared/error_messages", resource: resource %>
 
     <div class="field">
-      <%= f.email_field :email, required: true, autofocus: true, autocomplete: "email", placeholder: "Email de empresa" %>
+      <%= f.text_field :registration_number, required: true,  autocomplete: "registration_number", placeholder: "RUT" %>
     </div>
     <div class="field">
       <%= f.text_field :name, required: true, autocomplete: "name", placeholder: "Razón social" %>
     </div>
     <div class="field">
-      <%= f.text_field :fake_name,required: true,  autocomplete: "fake_name", placeholder: "Nombre fantasía" %>
+      <%= f.text_field :fake_name, required: true,  autocomplete: "fake_name", placeholder: "Nombre fantasía" %>
+    </div>
+    <div class="field">
+      <%= f.email_field :email, required: true, autofocus: true, autocomplete: "email", placeholder: "Email de empresa" %>
     </div>
     <div class="field">
       <%= f.select :state, Company.states.keys, required: true, include_blank: "Departamento" , autocomplete: "state", placeholder: "Departamento" %>
@@ -46,7 +49,10 @@
     <div class="field">
       <%= f.email_field :contact_email, required: true, autocomplete: "contact_email", placeholder: "Email de contacto" %>
     </div>
-
+    <div class="field">
+      <%= f.label :logo %>
+      <%= f.file_field :logo %>
+    </div>
     <div class="field">
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>

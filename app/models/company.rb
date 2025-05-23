@@ -7,6 +7,8 @@ class Company < ApplicationRecord
   has_many :company_main_companies
   has_many :companies, through: :company_main_companies
 
+  has_one_attached :logo
+
   enum :state, [
     'Artigas',
     'Canelones',

@@ -1,61 +1,61 @@
 <div id="content">
   <h1>Registro</h1>
-
+  <h4>Todos los campos son requeridos</h4>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= render "companies/shared/error_messages", resource: resource %>
 
     <div class="field">
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email de empresa" %>
+      <%= f.email_field :email, required: true, autofocus: true, autocomplete: "email", placeholder: "Email de empresa" %>
     </div>
     <div class="field">
-      <%= f.text_field :name, autocomplete: "name", placeholder: "Razón social" %>
+      <%= f.text_field :name, required: true, autocomplete: "name", placeholder: "Razón social" %>
     </div>
     <div class="field">
-      <%= f.text_field :fake_name, autocomplete: "fake_name", placeholder: "Nombre fantasía" %>
+      <%= f.text_field :fake_name,required: true,  autocomplete: "fake_name", placeholder: "Nombre fantasía" %>
     </div>
     <div class="field">
-      <%= f.select :state, Company.states, include_blank: "Departamento" , autocomplete: "state", placeholder: "Departamento" %>
+      <%= f.select :state, Company.states.keys, required: true, include_blank: "Departamento" , autocomplete: "state", placeholder: "Departamento" %>
     </div>
     <div class="field">
-      <%= f.text_field :address, autocomplete: "address", placeholder: "Dirección" %>
+      <%= f.text_field :address, required: true, autocomplete: "address", placeholder: "Dirección" %>
     </div>
     <div class="field">
-      <%= f.select :activity, Company.activities, include_blank: "Giro principal", autocomplete: "activity" %>
+      <%= f.select :activity, Company.activities.keys, required: true, include_blank: "Giro principal", autocomplete: "activity" %>
     </div>
     <div class="field">
-      <%= f.select :size, Company.sizes, include_blank: "Tamaño de la empresa", autocomplete: "size" %>
+      <%= f.select :size, Company.sizes.keys, required: true, include_blank: "Tamaño de la empresa", autocomplete: "size" %>
     </div>
     <div class="field">
-      <%= f.number_field :man_workers, autocomplete: "man_workers", placeholder: "Trabajadores hombres" %>
+      <%= f.number_field :man_workers, required: true, autocomplete: "man_workers", placeholder: "Trabajadores hombres" %>
     </div>
     <div class="field">
-      <%= f.number_field :woman_workers, autocomplete: "woman_workers", placeholder: "Trabajadoras Mujeres" %>
+      <%= f.number_field :woman_workers, required: true, autocomplete: "woman_workers", placeholder: "Trabajadoras Mujeres" %>
     </div>
     <div class="field">
-      <%= f.number_field :start_year, autocomplete: "start_year", placeholder: "Año de comienzo de actividad" %>
+      <%= f.number_field :start_year, required: true, autocomplete: "start_year", placeholder: "Año de comienzo de actividad" %>
     </div>
     <div class="field">
-      <%= f.text_field :contact_name, autocomplete: "contact_name", placeholder: "Nombre de la persona de contacto" %>
+      <%= f.text_field :contact_name, required: true, autocomplete: "contact_name", placeholder: "Nombre de la persona de contacto" %>
     </div>
     <div class="field">
-      <%= f.text_field :contact_position, autocomplete: "contact_position", placeholder: "Cargo de la persona de contacto" %>
+      <%= f.text_field :contact_position, required: true, autocomplete: "contact_position", placeholder: "Cargo de la persona de contacto" %>
     </div>
     <div class="field">
-      <%= f.text_field :contact_tel, autocomplete: "contact_tel", placeholder: "Teléfono de contacto" %>
+      <%= f.text_field :contact_tel, required: true, autocomplete: "contact_tel", placeholder: "Teléfono de contacto" %>
     </div>
     <div class="field">
-      <%= f.email_field :contact_email, autocomplete: "contact_email", placeholder: "Email de contacto" %>
+      <%= f.email_field :contact_email, required: true, autocomplete: "contact_email", placeholder: "Email de contacto" %>
     </div>
 
     <div class="field">
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password" %>
+      <%= f.password_field :password, required: true, autocomplete: "new-password", placeholder: "Password" %>
     </div>
 
     <div class="field">
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirmar password" %>
+      <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: "Confirmar password" %>
     </div>
 
     

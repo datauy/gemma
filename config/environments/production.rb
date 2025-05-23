@@ -92,8 +92,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     :address              => "mail.data.org.uy",
     :port                 =>  587,
-    :user_name            => "no-respoder@data.org.uy",
-    :password             => Rails.application.credentials.dig(:production, :mail_password),
+    :user_name            => Rails.application.credentials.mail[:user],
+    :password             => Rails.application.credentials.mail[:password],
     :authentication       => "plain",
     :enable_starttls_auto => true
   }

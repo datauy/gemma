@@ -154,7 +154,7 @@ es:
       admin_user: "Administradores"
       semaphore: "Semáforo"
       option: "Opción"
-      company: "Empresa"
+      company: "Organización"
     attributes:
       active_admin/comment:
         author_type: Author type

@@ -1,6 +1,6 @@
 ActiveAdmin.register Company do
   # Specify parameters which should be permitted for assignment
-  permit_params :email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :name, :fake_name, :state, :address, :activity, :size, :man_workers, :woman_workers, :start_year, :contact_name, :contact_position, :contact_tel, :contact_email, :is_confirmed, :is_main_company, :password
+  permit_params :email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :name, :fake_name, :state, :address, :activity, :size, :man_workers, :woman_workers, :start_year, :contact_name, :contact_position, :contact_tel, :contact_email, :is_confirmed, :is_main_company, :password, company_ids:[]
 
   # or consider:
   #
@@ -105,11 +105,7 @@ ActiveAdmin.register Company do
       f.input :contact_email
       f.input :is_confirmed
       f.input :is_main_company
-      if f.object.new_record?
-        f.input :companies, as: :check_boxes, collection: Company.where(is_main_company: true)
-      else
-        f.input :companies, as: :check_boxes, collection: Company.where(is_main_company: true).where.not(id: f.object.id)
-      end
+      f.input :main_companies, as: :check_boxes, collection: Company.where(is_main_company: true)
     end
     f.actions
   end

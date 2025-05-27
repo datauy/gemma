@@ -4,8 +4,9 @@ class Company < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable
 
-  has_many :company_main_companies
-  has_many :companies, through: :company_main_companies
+  has_many :company_main_companies, foreign_key: 'company_id'
+  has_many :main_companies, through: :company_main_companies, foreign_key: 'main_company_id'
+  accepts_nested_attributes_for :company_main_companies, :allow_destroy => true
 
   has_one_attached :logo
 

@@ -69,7 +69,6 @@ ActiveAdmin.register Poll do
       div '', id: 'poll-sections' do
         text_node "<script>window.questions=[]; window.section={}; window.new_questions=[]; window.deleted_questions=[];</script>".html_safe
         if !f.object.new_record?
-          logger.debug("\nQUESTIONS: #{f.object.questions.ids.to_json} \n\n\n")
           text_node "<script>window.questions=#{f.object.questions.ids.to_json};</script>".html_safe
           condition_options = f.object.questions.ids
         end

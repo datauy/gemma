@@ -158,6 +158,7 @@ a {
 .image-box {
   display: flex;
   gap: 100px;
+  align-items: center;
 }
 .image-box-image {
   min-width: 250px;
@@ -246,7 +247,7 @@ input {
   font-family: var(--font-font-awesome-6-pro);
 }
 
-/****** FRONT ******/
+/****** HOME ******/
 .home .header {
   min-height: 400px;
   display: flex;
@@ -255,9 +256,24 @@ input {
   justify-content: center;
 }
 
-
 .logo-slider{
   min-height: 150px;
   background: #c6c6c6;
   width: 100%;
+}
+
+/******* PRICING *****/
+.section.pricing {
+  display: inline-flex;
+  flex-direction: row;
+  gap: 100px;
+}
+.section.pricing .image-box {
+  flex-direction: column;
+  gap: 50px;
+  flex: 1 1;
+}
+.section.pricing h2 {
+  text-align: left;
+  margin-bottom: 20px;
 }

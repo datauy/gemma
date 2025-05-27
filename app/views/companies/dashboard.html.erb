@@ -18,20 +18,28 @@
       </div>
     </div>
     <div id="main-companies" class="section">
-      <h2>Empresas tractoras aprobadas</h2>
-      <span class="disclaimer">Las empresas tractoras seleccionadas en esta sección podrán acceder a la información de los formularios completos de la empresa.</span>
-      <div id="main-companies-options">
-        <ul>
+      <% if @company.is_main_company %>
+
+      <% else %>
+        <h2>Empresas tractoras aprobadas</h2>
+        <span class="disclaimer">Las empresas tractoras seleccionadas podrán acceder a la información de los formularios completos de la empresa.</span>
+        <div id="main-companies-options">
+          <ul>
           <% Company.where(is_main_company: true).each do |c| 
-            sel = @company.companies.include? c.id ? true : false
+              checked = false
+              if @company.main_company_ids.include? c.id
+                checked = true
+              end 
+              logger.debug "\n\n MAIN COMPANIES: #{c.fake_name}\n\n"
           %>
             <li>
-              <%= check_box_tag 'companies_ids[]', c.id, sel  %>
-              <%= h c.fake_name %>
+              <%= check_box_tag c.fake_name, disabled: true, checked: checked %>
+              <%= c.fake_name %>
             </li>
           <% end %>
-        </ul>
-      </div>
+          </ul>
+        </div>
+      <% end %>
     </div>
     <div id="main-companies" class="section">
       <h2>Evaluaciones completadas</h2>

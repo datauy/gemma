@@ -20,50 +20,63 @@
         <%= f.file_field :logo %>
       </div>
       <div class="field">
+        <%= f.label "Razón social" %>
         <%= f.text_field :name, required: true, autocomplete: "name", placeholder: "Razón social" %>
       </div>
       <div class="field">
+        <%= f.label "Nombre fantasía" %>
         <%= f.text_field :fake_name,required: true,  autocomplete: "fake_name", placeholder: "Nombre fantasía" %>
       </div>
       <div class="field">
+        <%= f.label "Deparatamento" %>
         <%= f.select :state, Company.states.keys, required: true, include_blank: "Departamento" , autocomplete: "state", placeholder: "Departamento" %>
       </div>
       <div class="field">
+        <%= f.label "Dirección" %>
         <%= f.text_field :address, required: true, autocomplete: "address", placeholder: "Dirección" %>
       </div>
       <div class="field">
+        <%= f.label "Giro principal" %>
         <%= f.select :activity, Company.activities.keys, required: true, include_blank: "Giro principal", autocomplete: "activity" %>
       </div>
       <div class="field">
+        <%= f.label "Tamaño" %>
         <%= f.select :size, Company.sizes.keys, required: true, include_blank: "Tamaño de la empresa", autocomplete: "size" %>
       </div>
       <div class="field">
+        <%= f.label "Trabajadores hombres" %>
         <%= f.number_field :man_workers, required: true, autocomplete: "man_workers", placeholder: "Trabajadores hombres" %>
       </div>
       <div class="field">
+        <%= f.label "Trabajadoras mujeres" %>
         <%= f.number_field :woman_workers, required: true, autocomplete: "woman_workers", placeholder: "Trabajadoras Mujeres" %>
       </div>
       <div class="field">
+        <%= f.label "Año de comienzo de actividad" %>
         <%= f.number_field :start_year, required: true, autocomplete: "start_year", placeholder: "Año de comienzo de actividad" %>
       </div>
       <div class="field">
+        <%= f.label "Nombre de la persona de contacto" %>
         <%= f.text_field :contact_name, required: true, autocomplete: "contact_name", placeholder: "Nombre de la persona de contacto" %>
       </div>
       <div class="field">
+        <%= f.label "Cargo de la persona de contacto" %>
         <%= f.text_field :contact_position, required: true, autocomplete: "contact_position", placeholder: "Cargo de la persona de contacto" %>
       </div>
       <div class="field">
+        <%= f.label "Teléfono de contacto" %>
         <%= f.text_field :contact_tel, required: true, autocomplete: "contact_tel", placeholder: "Teléfono de contacto" %>
       </div>
       <div class="field">
+        <%= f.label "Email de contacto" %>
         <%= f.email_field :contact_email, required: true, autocomplete: "contact_email", placeholder: "Email de contacto" %>
       </div>
       <div class="field">
-        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.label :password %> <i>(Dejar vacío si no se quiere cambiar)</i><br />
         <%= f.password_field :password, autocomplete: "new-password" %>
         <% if @minimum_password_length %>
           <br />
-          <em><%= @minimum_password_length %> characters minimum</em>
+          <em><%= @minimum_password_length %> caracteres mínimo</em>
         <% end %>
       </div>
 
@@ -73,12 +86,19 @@
       </div>
 
       <div class="field">
-        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+        <%= f.label :current_password %> <i>(necesitamos tu contraseña actual para confirmar los cambios)</i><br />
         <%= f.password_field :current_password, autocomplete: "current-password" %>
       </div>
+      <% if resource.is_main_company %>
+
+      <% else %>
+        <h2>Empresas tractoras aprobadas</h2>
+        <span class="disclaimer">Las empresas tractoras seleccionadas en esta sección podrán acceder a la información de los formularios completos de la empresa.</span>
+        <%= f.collection_checkboxes :main_company_ids, Company.where(is_main_company: true), :id, :fake_name, :include_hidden => false, :input_html => { :include_hidden => false } %>
+      <% end %>
     <% end %>
     <div class="actions">
-      <%= f.submit "Update" %>
+      <%= f.submit "Actualizar", class:'main-button' %>
     </div>
   <% end %>
 

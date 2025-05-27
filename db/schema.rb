@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_27_160232) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_27_171431) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -110,7 +110,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_27_160232) do
 
   create_table "company_main_companies", force: :cascade do |t|
     t.bigint "company_id", null: false
-    t.integer "main_company", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "main_company_id"
@@ -179,6 +178,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_27_160232) do
     t.text "last_disclaimer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "version", default: 1, null: false
+    t.boolean "enabled", default: false, null: false
     t.index ["area_id"], name: "index_polls_on_area_id"
     t.index ["provision_id"], name: "index_polls_on_provision_id"
   end

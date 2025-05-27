@@ -175,8 +175,9 @@ es:
       poll:
         title: "Título"
         description: "Descripción"
-        provision_id: "Característica"
-        provision: "Característica"
+        area: "Filtro 1"
+        provision_id: "Filtro2"
+        provision: "Filtro2"
         last_disclaimer: "Notas al pie"
         created_at: "Creado"
         updated_at: "Actualizado"

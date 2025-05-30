@@ -14,6 +14,18 @@ ActiveAdmin.register Question do
   # For security, limit the actions that should be available
   actions :all, except: []
 
+  before_action :is_editable, only: [:edit, :update, :destroy]
+  #
+  controller do
+    def is_editable
+      #check evaluations for poll, Do not allow to edit if it has evaluations done
+      logger.debug "\n\nEDIT QUESTION\n#{params[:id]}\n"
+      if EvaluationQuestion.where(question_id: params[:id]).present?
+        flash[:error] = "Ésta pregunta está siendo usada, consulte en las Evaluaciones que puedan estar usándola y elimínelas en caso de querer proceder."
+        redirect_to action: :index
+      end
+    end
+  end
   # Add or remove filters to toggle their visibility
   filter :id
   filter :qtype

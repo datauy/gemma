@@ -1,0 +1,17 @@
+<div id="company-data">
+  <% if @company.logo.attached? %>
+    <%= image_tag @company.logo %>
+  <% else %>
+    <div class="rectangle-div"></div>
+  <% end %>
+  <div id="company-info" class="section">
+    <h1><%= @company.fake_name %></h1>
+    <h4>última puntuación</h4>
+    <span class="result">TODO</span>
+    <span>RUT: <%= @company.registration_number %></span>
+    <span>Persona de contacto: <%= @company.contact_name %></span>
+    <span>Teléfono: <%= @company.contact_tel %></span>
+    <span>Dirección: <%= @company.address %></span>
+    <%= link_to 'Editar datos de la empresa', edit_company_registration_path, class: 'main-button' %>
+  </div>
+</div>

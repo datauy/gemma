@@ -1,0 +1,94 @@
+.section-right {
+  display: flex;
+  gap: 20px;
+}
+.question-right {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+.question-middle {
+  display: flex;
+}
+#evaluation {
+  width: 100%;
+}
+.evaluation-header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.title h1 {
+  padding: 0;
+}
+.total {
+  font-size: 20px;
+  font-weight: bold;
+}
+.filters {
+  display: flex;
+  gap: 20px;
+}
+.tag {
+  background-color: var(--Mostaza-Energizante);
+  color: var(--Grises-Blanco);
+  padding: 4px 12px;
+  border-radius: 15px;
+}
+.semaphore {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: #00000040;
+  padding: 5px;
+  border-radius: 2px;
+}
+.semaphore-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.question-middle .semaphore {
+  flex-direction: row-reverse;
+}
+.circle {
+  border-radius: 50%;
+  min-width: 20px;
+  min-height: 20px;
+  display: block;
+}
+.circle.big {
+  width: 24px;
+  height: 24px;
+}
+.fade {
+  opacity: 0.1;
+}
+.green {
+  background-color: var(--color-green);
+}
+.yellow {
+  background-color: var(--color-yellow);
+}
+.red {
+  background-color: var(--color-red);
+}
+.section-header.question {
+  display: grid;
+  grid-template-columns: 50% 120px calc(50% - 120px);
+}
+#company-evaluations {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.evaluation {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}

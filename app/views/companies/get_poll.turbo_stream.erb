@@ -1,0 +1,7 @@
+<%= turbo_stream.update("poll") do %>
+  <% if @poll.present? %>
+    <%= render partial: '/evaluations/form' %>
+  <% else %>
+    <div class="disclaimer">Aún no hay cuestionarios asociados a tus preferencias, por favor contáctanos para saber tus necesidades.</div>
+  <% end %>  
+<% end %>

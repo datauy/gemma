@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_27_171431) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_28_151205) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -114,6 +114,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_27_171431) do
     t.datetime "updated_at", null: false
     t.integer "main_company_id"
     t.index ["company_id"], name: "index_company_main_companies_on_company_id"
+  end
+
+  create_table "evaluation_questions", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.bigint "evaluation_id", null: false
+    t.text "qvalue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["evaluation_id"], name: "index_evaluation_questions_on_evaluation_id"
+    t.index ["question_id"], name: "index_evaluation_questions_on_question_id"
+  end
+
+  create_table "evaluations", force: :cascade do |t|
+    t.bigint "poll_id", null: false
+    t.bigint "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "is_submitted"
+    t.date "submitted_date"
+    t.index ["company_id"], name: "index_evaluations_on_company_id"
+    t.index ["poll_id"], name: "index_evaluations_on_poll_id"
   end
 
   create_table "options", force: :cascade do |t|
@@ -239,6 +260,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_27_171431) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "company_main_companies", "companies"
+  add_foreign_key "evaluation_questions", "evaluations"
+  add_foreign_key "evaluation_questions", "questions"
+  add_foreign_key "evaluations", "companies"
+  add_foreign_key "evaluations", "polls"
   add_foreign_key "options", "questions"
   add_foreign_key "poll_areas", "areas"
   add_foreign_key "poll_areas", "provisions"

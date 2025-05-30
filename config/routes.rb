@@ -23,7 +23,11 @@ Rails.application.routes.draw do
 
   # Company pages
   get "dashboard" => 'companies#dashboard'
+  get "company/get-poll/:area/:provision" => 'companies#get_poll'
+  get "company/answer-poll" => 'companies#answer_poll'
   # Public pages
   get "sobre-el-proyecto" => "static_pages#about"
   get "planes" => "static_pages#pricing"
+
+  resources :evaluations
 end

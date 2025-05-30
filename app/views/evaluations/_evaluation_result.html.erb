@@ -1,0 +1,70 @@
+<div id="evaluation">
+  <%= render partial: '/companies/company_data' %>
+  <div class="evaluation-content">
+    <div class="evaluation-header">
+      <div class="title">
+        <h1>Evaluación <%= @poll.title %></h1>
+        <div class="total">Puntaje total: <%= @total %></div>
+      </div>
+      <div class="filters">
+        <div class="tag"><%= @poll.area.title %></div>
+        <div class="tag"><%= @poll.provision.title %></div>
+      </div>
+      <div class="date">Fecha de evaluación: <%= @evaluation.submitted_date %></div>
+      <div class="description"><%= @poll.description %></div>
+    </div>
+    <div class="evaluation-sections">
+    <% @sections.each do |section| %>
+      <div class="section">
+        <div class="section-header" style="background: <%= section[:color] %>">
+          <div class="section-left">
+            <h3>Sección <%= section[:title] %></h3>
+            <span><%= section[:description] %></span>
+          </div>
+          <div class="section-right">
+            <div class="semaphore">
+              <span class="circle big red <%= section[:semaphore][0] != 'red' ? 'fade' : '' %>"></span>
+              <span class="circle big yellow <%= section[:semaphore][0] != 'yellow' ? 'fade' : '' %>"></span>
+              <span class="circle big green <%= section[:semaphore][0] != 'green' ? 'fade' : '' %>"></span>
+            </div>
+            <div class="semaphore-text">
+              <div class="section-total">Resultado de la sección: <%= section[:total] %></div>
+              <span><%= section[:semaphore][1] %></span>
+            </div>
+          </div>
+        </div>
+        <div class="section-questions">
+          <% section[:questions].each do |question| %>
+            <% if question[:eqvalue].present? %>
+              <div class="question section-header">
+                <div class="question-left">
+                  <h4><%= question[:title] %></h4>
+                  <span><%= question[:description] %></span>
+                </div>
+                <div class="question-middle">
+                  <div class="semaphore">
+                    <span class="circle big red <%= question[:color] != 'red' ? 'fade' : '' %>"></span>
+                    <span class="circle big yellow <%= question[:color] != 'yellow' ? 'fade' : '' %>"></span>
+                    <span class="circle big green <%= question[:color] != 'green' ? 'fade' : '' %>"></span>
+                  </div>
+                </div>
+                <div class="question-right">
+                  <div class="question-total">Valor obtenido: <%= question[:eqvalue] %></div>
+                  <div class="question-text"><%= question[:semaphore_text] %></div>
+                </div>
+              </div>
+            <% else %>
+              <div class="question disabled">
+                <div class="section-left">
+                  <h4><%= question[:title] %></h4>
+                  <span><%= question[:description] %></span>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>  

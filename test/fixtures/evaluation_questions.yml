@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  question: one
+  evaluation: one
+  qvalue: MyText
+  section: one
+
+two:
+  question: two
+  evaluation: two
+  qvalue: MyText
+  section: two

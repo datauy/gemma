@@ -1,0 +1,26 @@
+<div id="content" class="answer-poll">
+  <div class="header">
+    <h1>Contestar cuestionario</h1>
+    <h4>Bienvenida <%= current_company.fake_name %></h4>
+    <div class='anser-poll-explained'>
+      <p>Aquí podrá acceder al cuestionario que mejor se aplica a su empresa. Mediante la selección de los filtros siguientes, el sistema asignará un cuestionario para su empresa.</p>
+      <p>El mismo podrá ser guardado de forma parcial, para que pueda recabar la información que se requiere en dicho cuestionario.</p>
+      <p>Tenga en cuenta que una vez finalizado el mismo no podrán corregirse los datos directamente, acción que deberá ser solicitada através del formulario de contacto con el usuario</p>
+    </div>
+  </div>
+  <div class="poll-filters" data-controller='company'>
+    <%= select_tag :area, 
+      options_for_select( Area.all.pluck(:title, :id), 0 ),
+      include_blank: "Filtro1",
+      class: 'poll-filters-area', 
+      data: {action: 'company#selectFilter'}
+    %>
+    <%= select_tag :provision, 
+      options_for_select( Provision.all.pluck(:title, :id), 0 ),
+      include_blank: "Filtro2",
+      class: 'poll-filters-provision', 
+      data: {action: 'company#selectFilter'}
+    %>
+  </div>
+  <%= turbo_frame_tag "poll" %>
+</div>

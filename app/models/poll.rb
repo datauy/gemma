@@ -4,6 +4,7 @@ class Poll < ApplicationRecord
   has_many :poll_questions, dependent: :delete_all
   has_many :questions, through: :poll_questions
   has_many :poll_sections, dependent: :delete_all
+  has_many :sections, through: :poll_sections
   has_many :semaphores, through: :poll_sections
   accepts_nested_attributes_for :poll_questions, :allow_destroy => true
   accepts_nested_attributes_for :poll_sections, :allow_destroy => true

@@ -155,6 +155,8 @@ es:
       semaphore: "Semáforo"
       option: "Opción"
       company: "Organización"
+      evaluation: "Evaluación"
+      evaluations: "Evaluaciones"
     attributes:
       active_admin/comment:
         author_type: Author type

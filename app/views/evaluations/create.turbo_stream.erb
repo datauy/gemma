@@ -1,0 +1,11 @@
+<%= turbo_stream.update("poll") do %>
+  <% if @evaluation.present? %>
+    <% if @evaluation.is_submitted %>
+      <%= render partial: 'evaluation_result' %>
+    <% else %>
+      <%= render partial: 'form' %>
+    <% end %>
+  <% else %>
+    <div class="error">Ha habido un problema en la publicación de la evaluación, contacte a soporte.</div>
+  <% end %>
+<% end %>

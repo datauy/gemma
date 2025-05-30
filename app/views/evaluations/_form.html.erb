@@ -1,0 +1,71 @@
+<%= form_with(
+      model: @evaluation,
+      html: {
+          novalidate: true
+      },
+      data: {
+          controller: "company",
+          target: "company.evaluation",
+          action: "ajax:beforeSend->company#submitForm"
+      }) do |form| %>
+      <%= form.hidden_field :poll_id, value: @poll.id %>
+      <div class="header">
+        <h1><%= @poll.title %></h1>
+        <div class="filters">
+          <div class="tag"><%= @poll.area.title %></div>
+          <div class="tag"><%= @poll.provision.title %></div>
+        </div>
+        <div class="description"><%= @poll.description %>
+      </div>
+      <div class="poll-sections">
+        <% qnum = 0
+        @poll.sections.order(:weight).each do |section| %>
+          <div class="section">
+            <div class="section-header" style="background: <%= section.color %>">
+              <h3><%= section.title %></h3>
+              <span><%= section.description %></span>
+            </div>
+            <div class="section-questions">
+              <% @poll.questions.includes(:poll_questions).where(section_id: section.id).order(:"poll_questions.question_weight").each do |question| %>
+                <div class='question'>
+                  <div class='question-header'>
+                    <h4><%= question.title %></h4>
+                    <div class='description'><%= question.description %></div>
+                  </div>
+                  <%= form.hidden_field :"evaluation_questions_attributes][#{qnum}][question_id", value: question.id %>
+                  <div class='question-input'>
+                    <%=
+                      case question.qtype
+                      when "Opciones"
+                        form.select :"evaluation_questions_attributes][#{qnum}][qvalue", options_for_select( question.options.pluck(:title,:id) ), include_blank: true
+                      when 'Numérica'
+                        result=''
+                        option = question.options.first
+                        if option.prefix.present?
+                          result += "<div class='prefix'>#{option.prefix}</div>"
+                        end
+                        result += form.number_field :"evaluation_questions_attributes][#{qnum}][qvalue"
+                        if option.sufix.present?
+                          result += "<div class='sufix'>#{question.options.first.prefix}</div>"
+                        end
+                        result.html_safe
+                      when 'Texto'
+                        form.text_field :"evaluation_questions_attributes][#{qnum}][qvalue"
+                      when'Adjunto'
+                        form.file_field :"evaluation_questions_attributes][#{qnum}][qvalue"
+                      end
+                    %>
+                  </div>
+                </div>
+              <% qnum += 1
+              end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <% if @poll.last_disclaimer.present? %>
+      <div class="last-disclaimer"><%= @poll.last_disclaimer %>
+      <% end %>
+      <%= form.submit "Evaluar" %> 
+      <%= form.submit "Guardar" %>
+    <% end %>

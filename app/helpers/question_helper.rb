@@ -23,4 +23,32 @@ module QuestionHelper
     end
     result.html_safe
   end
+
+  def format_question(question)
+    result = "<div class='question'>
+    <div class='question-header'>
+    <h4>#{question.title}</h4>
+    <div class='description'>#{question.description}</div>
+    </div>"
+    case question.qtype
+    when "Opciones"
+      result += select_tag :"questions[#{question.id}]", options_for_select( question.options.pluck(:title,:id) )
+    when 'Numérica'
+      option = question.options.first
+      result += "<div class='question-header'>#{option.prefix}<div>"
+      if question.options.first.prefix.present?
+        result += "<div class='prefix'>#{question.options.first.prefix}<div>"
+      end
+      result += number_field_tag :"questions[#{question.id}]"
+      if question.options.first.sufix.present?
+        result += "<div class='sufix'>#{question.options.first.prefix}<div>"
+      end
+    when 'Texto'
+      result += text_field_tag :"questions[#{question.id}]"
+    when'Adjunto'
+      result += file_field_tag :"questions[#{question.id}]"
+    end
+    result += "</div>"
+    result.html_safe
+  end
 end

@@ -14,6 +14,18 @@ ActiveAdmin.register Poll do
   # For security, limit the actions that should be available
   actions :all, except: []
 
+  before_action :is_editable, only: [:edit, :update, :destroy]
+  #
+  controller do
+    def is_editable
+      #check evaluations for poll, Do not allow to edit if it has evaluations done
+      logger.debug "\n\nEDIT POLL\n#{params[:id]}\n"
+      if Evaluation.where(poll_id: params[:id]).present?
+        flash[:error] = "Éste cuestionario está siendo usado, consulte en la sección de Evaluaciones y elimine las evaluaciones asociadas antes de proceder."
+        redirect_to action: :index
+      end
+    end
+  end
   #
   action_item :new_version, only: :show do
     logger.debug "\n\n NEW VERSION link #{resource.inspect} \n"
@@ -100,7 +112,7 @@ ActiveAdmin.register Poll do
 
   # Add or remove fields to toggle their visibility in the form
   form do |f|
-      div '', id: 'poll-form', data: {controller: "pollform", "pollform-target": 'form'} do
+    div '', id: 'poll-form', data: {controller: "pollform", "pollform-target": 'form'} do
       #text_node javascript_include_tag "/gemma.js"
       f.semantic_errors(*f.object.errors.attribute_names)
       new_version = false

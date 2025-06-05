@@ -2,7 +2,7 @@ class Evaluation < ApplicationRecord
   belongs_to :poll
   belongs_to :company
 
-  has_many :evaluation_questions
+  has_many :evaluation_questions, dependent: :delete_all
   accepts_nested_attributes_for :evaluation_questions, :allow_destroy => true
 
   def self.ransackable_attributes(auth_object = nil)

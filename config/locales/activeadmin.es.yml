@@ -156,7 +156,6 @@ es:
       option: "Opción"
       company: "Organización"
       evaluation: "Evaluación"
-      evaluations: "Evaluaciones"
     attributes:
       active_admin/comment:
         author_type: Author type
@@ -223,4 +222,11 @@ es:
         is_confirmed: "Confirmada"
         is_main_company: "Empresa tractora"
         password: "Contraseña"
+      evaluation:
+        poll: "Cuestionario"
+        company: "Organización"
+        created_at: "Creado"
+        updated_at: "Actualizado"
+        is_submitted: "Está enviado"
+        submitted_date: "Fecha de envío"
       

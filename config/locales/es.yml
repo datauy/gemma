@@ -251,3 +251,5 @@ es:
       short: "%-d/%-m/%Y %H:%M"
     pm: pm
   remember_me: "Recordar contraseña"
+  company_not_confirmed: "Su organización aún no ha sido confirmada en nuestro sistema, por lo que aún no se encuentra habilitado el envío. Si pasaron más de 5 días hábiles por favor contáctenos"
+  new_version: "Completar otra versión"

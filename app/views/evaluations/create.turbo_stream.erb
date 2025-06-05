@@ -3,6 +3,7 @@
     <% if @evaluation.is_submitted %>
       <%= render partial: 'evaluation_result' %>
     <% else %>
+      <div class="notice warning"><%= t :company_not_confirmed %>
       <%= render partial: 'form' %>
     <% end %>
   <% else %>

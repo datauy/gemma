@@ -1,51 +1,79 @@
 <div id="content">
   <div id="company-dashboard">
     <%= render partial: 'company_data' %>
-    <div id="main-companies" class="section">
-      <% if @company.is_main_company %>
-
-      <% else %>
-        <h2>Empresas tractoras aprobadas</h2>
-        <span class="disclaimer">Las empresas tractoras seleccionadas podrán acceder a la información de los formularios completos de la empresa.</span>
-        <div id="main-companies-options">
-          <ul>
-          <% Company.where(is_main_company: true).each do |c| 
-              checked = false
-              if @company.main_company_ids.include? c.id
-                checked = true
-              end 
-              logger.debug "\n\n MAIN COMPANIES: #{c.fake_name}\n\n"
-          %>
-            <li>
-              <%= check_box_tag c.fake_name, disabled: true, checked: checked %>
-              <%= c.fake_name %>
-            </li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-    </div>
-    <div id="main-companies" class="section">
-      <h2>Evaluaciones completadas</h2>
-      <div id="company-evaluations">
-        <% @company.evaluations.each do |evaluation| %>
+    <% if current_company.is_main_company %>
+      <h2>Evaluacciones de Organizaciones asociadas</h2>
+      <% Evaluation.where(is_submitted: true, company_id: current_company.company_child_companies.pluck(:id)).order(:submitted_date).each do |e| %>
+        <% company = e.company %>
+        <div id="company-evaluations">
           <div class="evaluation">
-            <h3><%= evaluation.poll.title %></h3>
+            <h3><%= "#{company.fake_name} - #{e.poll.title}" %></h3>
             <div class="filters">
               <div class="tag"><%= evaluation.poll.area.title %></div>
               <div class="tag"><%= evaluation.poll.provision.title %></div>
             </div>
-            <% if evaluation.is_submitted %>
-              <div class="evaluation-date"><%= evaluation.submitted_date %></div>
-              <%= link_to "Ver evaluación", evaluation_path(evaluation), class: "main-button" %>
-              <%= link_to "Descargar certificado", '/', class: "secondary-button" %>
-            <% else %>
-              <%= link_to "Contniuar editando", edit_evaluation_path(evaluation), class: "main-button" %>
-            <% end %>
+            <div class="evaluation-date"><%= evaluation.submitted_date %></div>
+            <%= link_to "Ver evaluación", evaluation_path(evaluation), class: "main-button" %>
+            <%= link_to "Descargar certificado", '/', class: "secondary-button" %>
           </div>
-        <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <% if current_company.is_confirmed %>
+        <div id="main-companies" class="section">
+          <h2>Empresas tractoras aprobadas</h2>
+          <span class="disclaimer">Las empresas tractoras seleccionadas podrán acceder a la información de los formularios completos de la empresa.</span>
+          <div id="main-companies-options">
+            <ul>
+              <% Company.where(is_main_company: true).each do |c| 
+                  checked = false
+                  if current_company.main_company_ids.include? c.id
+                    checked = true
+                  end 
+              %>
+                <li>
+                  <%= check_box_tag c.fake_name, disabled: true, checked: checked %>
+                  <%= c.fake_name %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% else %>
+        <div class="notice warning"><%= t :company_not_confirmed %></div>
+      <% end %>
+      <div id="evaluations" class="section">
+        <h2>Evaluaciones</h2>
+        <div id="company-evaluations">
+          <% 
+            i = 0
+            current_company.evaluations.each do |evaluation| 
+          %>
+            <div class="evaluation">
+              <h3><%= evaluation.poll.title %></h3>
+              <div class="filters">
+                <div class="tag"><%= evaluation.poll.area.title %></div>
+                <div class="tag"><%= evaluation.poll.provision.title %></div>
+              </div>
+              <% if evaluation.is_submitted %>
+                <% if i == 0 
+                  i = 1
+                %>
+                  <script>document.getElementById('last-result').textContent = "<%= @total %>"</script>
+                <% end %>
+                <div class="evaluation-date"><%= evaluation.submitted_date %></div>
+                <%= link_to "Ver evaluación", evaluation_path(evaluation), class: "main-button" %>
+                <%= link_to "Descargar certificado", '/', class: "secondary-button" %>
+              <% else %>
+                <div class="evaluation-date"><%= evaluation.updated_at %></div>
+                <%= link_to "Contniuar editando", edit_evaluation_path(evaluation), class: "main-button" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
       </div>
-    </div>
+      <%= link_to t(:new_version), company_answer_poll_path, class: "main-button" %>
+    <% end %>
     <div class="image-box image-box-left">
       <div class="image-box-image"><div class="rectangle-div"></div></div>
       <div class="image-box-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus.

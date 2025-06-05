@@ -29,3 +29,5 @@
 
 en:
   hello: "Hello world"
+  company_not_confirmed: "You must confirm your organization before sending any evaluations"
+  new_version: "Complete another version"

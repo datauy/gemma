@@ -27,6 +27,13 @@
             </div>
             <div class="section-questions">
               <% @poll.questions.includes(:poll_questions).where(section_id: section.id).order(:"poll_questions.question_weight").each do |question| %>
+                <%
+                dvalue = ''  
+                eq = @evaluation.evaluation_questions.where(question_id: question.id ).first 
+                if eq.present? %>
+                  <% dvalue = eq.qvalue %>
+                  <input type="hidden" name=<%= "evaluation[evaluation_questions_attributes][#{qnum}][id]"%> value="<%= eq.id %>">
+                <% end %>
                 <div class='question'>
                   <div class='question-header'>
                     <h4><%= question.title %></h4>
@@ -37,21 +44,22 @@
                     <%=
                       case question.qtype
                       when "Opciones"
-                        form.select :"evaluation_questions_attributes][#{qnum}][qvalue", options_for_select( question.options.pluck(:title,:id) ), include_blank: true
+                        form.select :"evaluation_questions_attributes][#{qnum}][qvalue", options_for_select( question.options.pluck(:title,:id), dvalue ), include_blank: true
                       when 'Numérica'
                         result=''
                         option = question.options.first
                         if option.prefix.present?
                           result += "<div class='prefix'>#{option.prefix}</div>"
                         end
-                        result += form.number_field :"evaluation_questions_attributes][#{qnum}][qvalue"
+                        result += form.number_field :"evaluation_questions_attributes][#{qnum}][qvalue", value: dvalue
                         if option.sufix.present?
                           result += "<div class='sufix'>#{question.options.first.prefix}</div>"
                         end
                         result.html_safe
                       when 'Texto'
-                        form.text_field :"evaluation_questions_attributes][#{qnum}][qvalue"
+                        form.text_field :"evaluation_questions_attributes][#{qnum}][qvalue", value: dvalue
                       when'Adjunto'
+                        #TODO
                         form.file_field :"evaluation_questions_attributes][#{qnum}][qvalue"
                       end
                     %>
@@ -66,6 +74,8 @@
       <% if @poll.last_disclaimer.present? %>
       <div class="last-disclaimer"><%= @poll.last_disclaimer %>
       <% end %>
-      <%= form.submit "Evaluar" %> 
+      <% if current_company.is_confirmed %>
+        <%= form.submit "Evaluar" %>
+      <% end %>
       <%= form.submit "Guardar" %>
     <% end %>

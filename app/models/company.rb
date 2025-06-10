@@ -54,4 +54,7 @@ class Company < ApplicationRecord
     ["company", "company_main_companies"]
   end
 
+  def after_confirmation
+    AdminMailer.with(company: self).new_company.deliver
+  end
 end

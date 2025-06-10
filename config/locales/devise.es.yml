@@ -18,7 +18,7 @@ es:
       unconfirmed: "Debe confirmar su dirección de correo para continuar."
     mailer:
       confirmation_instructions:
-        subject: "Confirma tu dirección de correo"
+        subject: "Confirma tu dirección de correo en Gemma"
       reset_password_instructions:
         subject: "Instrucciones para el cambio de contraseña"
       unlock_instructions:
@@ -31,6 +31,7 @@ es:
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."
     passwords:
+      password: "Contraseña"
       no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
       send_instructions: "Recibirá un correo con instrucciones para cambiar su contraseña en unos minutos."
       send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
@@ -49,6 +50,7 @@ es:
       signed_in: "Sesión iniciada."
       signed_out: "Sesión terminada."
       already_signed_out: "Sesión terminada."
+      remember_me: "Recordarme"
     unlocks:
       send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."

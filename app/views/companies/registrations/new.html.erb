@@ -29,13 +29,13 @@
       <%= f.select :size, Company.sizes.keys, required: true, include_blank: "Tamaño de la empresa", autocomplete: "size" %>
     </div>
     <div class="field">
-      <%= f.number_field :man_workers, required: true, autocomplete: "man_workers", placeholder: "Trabajadores hombres" %>
+      <%= f.number_field :man_workers, min: 0, required: true, autocomplete: "man_workers", placeholder: "Trabajadores hombres" %>
     </div>
     <div class="field">
-      <%= f.number_field :woman_workers, required: true, autocomplete: "woman_workers", placeholder: "Trabajadoras Mujeres" %>
+      <%= f.number_field :woman_workers, min: 0, required: true, autocomplete: "woman_workers", placeholder: "Trabajadoras Mujeres" %>
     </div>
     <div class="field">
-      <%= f.number_field :start_year, required: true, autocomplete: "start_year", placeholder: "Año de comienzo de actividad" %>
+      <%= f.number_field :start_year, min: 1950, max: 2025, step: 1, required: true, autocomplete: "start_year", placeholder: "Año de comienzo de actividad" %>
     </div>
     <div class="field">
       <%= f.text_field :contact_name, required: true, autocomplete: "contact_name", placeholder: "Nombre de la persona de contacto" %>
@@ -55,19 +55,19 @@
     </div>
     <div class="field">
       <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <em>(<%= @minimum_password_length %> caracteres mínimo)</em>
       <% end %><br />
-      <%= f.password_field :password, required: true, autocomplete: "new-password", placeholder: "Password" %>
+      <%= f.password_field :password, required: true, autocomplete: "new-password", placeholder: "Contraseña" %>
     </div>
 
     <div class="field">
-      <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: "Confirmar password" %>
+      <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: "Confirmar contraseña" %>
     </div>
 
     
 
     <div class="actions">
-      <%= f.submit "Sign up", class: "main-button" %>
+      <%= f.submit "Registrarse", class: "main-button" %>
     </div>
   <% end %>
 

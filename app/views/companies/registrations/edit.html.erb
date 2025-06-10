@@ -45,15 +45,15 @@
       </div>
       <div class="field">
         <%= f.label "Trabajadores hombres" %>
-        <%= f.number_field :man_workers, required: true, autocomplete: "man_workers", placeholder: "Trabajadores hombres" %>
+        <%= f.number_field :man_workers, min:0, required: true, autocomplete: "man_workers", placeholder: "Trabajadores hombres" %>
       </div>
       <div class="field">
         <%= f.label "Trabajadoras mujeres" %>
-        <%= f.number_field :woman_workers, required: true, autocomplete: "woman_workers", placeholder: "Trabajadoras Mujeres" %>
+        <%= f.number_field :woman_workers, min: 0, required: true, autocomplete: "woman_workers", placeholder: "Trabajadoras Mujeres" %>
       </div>
       <div class="field">
         <%= f.label "Año de comienzo de actividad" %>
-        <%= f.number_field :start_year, required: true, autocomplete: "start_year", placeholder: "Año de comienzo de actividad" %>
+        <%= f.number_field :start_year, min: 1950, max: 2025, step: 1, required: true, autocomplete: "start_year", placeholder: "Año de comienzo de actividad" %>
       </div>
       <div class="field">
         <%= f.label "Nombre de la persona de contacto" %>

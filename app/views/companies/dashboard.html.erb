@@ -47,7 +47,9 @@
         <div id="company-evaluations">
           <% 
             i = 0
-            current_company.evaluations.each do |evaluation| 
+            j = 0
+            current_company.evaluations.each do |evaluation|
+            j = 1
           %>
             <div class="evaluation">
               <h3><%= evaluation.poll.title %></h3>
@@ -72,7 +74,11 @@
           <% end %>
         </div>
       </div>
-      <%= link_to t(:new_version), company_answer_poll_path, class: "main-button" %>
+      <% if j %>
+        <%= link_to t(:new_version), company_answer_poll_path, class: "main-button" %>
+      <% else %>
+        <%= link_to t(:new_evaluation), company_answer_poll_path, class: "main-button" %>
+      <% end %>
     <% end %>
     <div class="image-box image-box-left">
       <div class="image-box-image"><div class="rectangle-div"></div></div>

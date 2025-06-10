@@ -253,3 +253,9 @@ es:
   remember_me: "Recordar contraseña"
   company_not_confirmed: "Su organización aún no ha sido confirmada en nuestro sistema, por lo que aún no se encuentra habilitado el envío. Si pasaron más de 5 días hábiles por favor contáctenos"
   new_version: "Completar otra versión"
+  new_evaluation: "Nueva evaluación"
+  #Éstos no andan
+  minimum_password_length: "(6 caracteres mínimo)"
+  sign_up: "Registrarse"
+  password_confirm: "Confirmar contraseña"
+  password: "Contraseña"

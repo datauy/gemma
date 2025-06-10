@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
   /* Fonts */
   --font-work-sans: 'Work Sans';
@@ -19,6 +21,10 @@
   --color-green: #3eb076;
   --color-red: #f63b3b;
   --color-yellow: #f7ec5b;
+  
+}
+body {
+  font-family: var(--font-inter);
 }
 
 h1 {
@@ -246,7 +252,7 @@ input {
   text-align: left;
   font-size: var(--font-size-base);
   color: var(--Grises-Gris-03);
-  font-family: var(--font-font-awesome-6-pro);
+  font-family: var(--font-inter);
 }
 
 /****** HOME ******/

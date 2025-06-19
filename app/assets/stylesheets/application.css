@@ -8,9 +8,42 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
- :root {
+:root {
   /* Fonts */
   --body-text-general-strong: Inter;
   /* font sizes */
   --body-text-general-strong-size: 16px;
+}
+
+.burger {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  body {
+    overflow-x: hidden;
   }
+  h1 {
+    text-align: center;
+  }
+  h2 {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  nav {
+    display: none;
+  }
+  .burger {
+    display: block;
+  }
+  .image-box,
+  .section {
+    flex-direction: column;
+  }
+  .image-box-right {
+    flex-direction: column-reverse;
+  }
+  .main-button {
+    width: 100%;
+  }
+}

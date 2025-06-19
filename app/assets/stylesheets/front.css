@@ -278,7 +278,6 @@ input {
 /******* PRICING *****/
 .section.pricing {
   display: inline-flex;
-  flex-direction: row;
   gap: 100px;
 }
 .section.pricing .image-box {

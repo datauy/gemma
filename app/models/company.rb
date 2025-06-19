@@ -37,13 +37,15 @@ class Company < ApplicationRecord
     'Treinta y Tres'
   ]
   enum :activity, [
-    'Actividad 1',
-    'Actividad 2'
+    'Agroindustria',
+    'Comercio',
+    'Industria',
+    'Servicios'
   ]
   enum :size, [
     'Empresa chica (hasta 20 empleados)',
     'Empresa mediana (desde 20 empleados hasta 50)',
-    'Empresa grande (más de 50 empleados)'
+    'Empresa grande (desde 50 empleados)'
   ]
 
   def self.ransackable_attributes(auth_object = nil)

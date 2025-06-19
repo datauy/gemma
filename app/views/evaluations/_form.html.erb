@@ -48,11 +48,11 @@
                       when 'Numérica'
                         result=''
                         option = question.options.first
-                        if option.prefix.present?
+                        if option.present? && option.prefix.present?
                           result += "<div class='prefix'>#{option.prefix}</div>"
                         end
                         result += form.number_field :"evaluation_questions_attributes][#{qnum}][qvalue", value: dvalue
-                        if option.sufix.present?
+                        if option.present? && option.sufix.present?
                           result += "<div class='sufix'>#{question.options.first.prefix}</div>"
                         end
                         result.html_safe

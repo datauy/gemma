@@ -1,0 +1,75 @@
+@media (max-width: 760px) {
+  body {
+    overflow-x: hidden;
+  }
+  #content {
+    padding: 0 20px;
+  }
+  #mobile-menu {
+    display: block;
+  }
+  h1 {
+    text-align: center;
+  }
+  h2 {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  header {
+    height: 80px;
+  }
+  .header-inner {
+    position: fixed;
+    width: 100%;
+    background: #FFF;
+    z-index: 2;
+    box-shadow: 8px 8px 12px -15px;
+  }
+  nav {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 90px;
+    width: 100%;
+    justify-content: center;
+    background: #FFF;
+    z-index: 1;
+    padding: 40px;
+    box-shadow: 8px 8px 12px -5px;
+  }
+  nav ul {
+    flex-direction: column;
+  }
+  nav li,
+  nav li button {
+    text-align: center;
+  }
+  
+  /** GENERAL **/
+  .image-box,
+  .section {
+    flex-direction: column;
+    margin-top: 0;
+  }
+  .image-box-right {
+    flex-direction: column-reverse;
+  }
+  .main-button {
+    width: 100%;
+    text-align: center;
+  }
+  /** EVALUATIONS */
+  #company-data {
+    flex-direction: column;
+    gap: 0;
+  }
+  .evaluation {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px 20px;
+    margin-bottom: 40px;
+    h3 {
+      grid-column: 1/3;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 .question {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 10px;
 }
 h3 {
@@ -10,6 +10,24 @@ h3 {
   font-family: var(--body-text-general-strong);
   color: #000;
 }
+
+.evaluation [type="date"],
+.evaluation [type="datetime-local"],
+.evaluation [type="email"],
+.evaluation [type="month"],
+.evaluation [type="number"],
+.evaluation [type="password"],
+.evaluation [type="search"],
+.evaluation [type="tel"],
+.evaluation [type="text"],
+.evaluation [type="time"],
+.evaluation [type="url"],
+.evaluation [type="week"],
+.evaluation select,
+.evaluation textarea {
+  width: max-content;
+}
+
 .dinamic-question > div {
   display: flex;
   justify-content: space-evenly;

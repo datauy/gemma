@@ -127,6 +127,7 @@ a {
   gap: 20px;
 }
 .main-button {
+  cursor: pointer;
   border-radius: 4px;
   background-color: var(--Mostaza-Energizante);
   width: fit-content;
@@ -145,6 +146,7 @@ a {
   line-height: 16px;
 }
 .secondary-button {
+  cursor: pointer;
   border-radius: 4px;
   background-color: var(--Grises-Blanco);
   border: 2px solid var(--Mostaza-Energizante);
@@ -172,7 +174,17 @@ a {
   min-width: 250px;
 }
 /**** HEADER  *****/
-header a {
+#mobile-menu {
+  display: none;
+  .menu-bar {
+    width: 34px;
+    height: 3px;
+    background: #000;
+    margin: 8px;
+  }
+}
+header a,
+header button {
   font-size: 12px;
   letter-spacing: 2px;
   line-height: 14px;
@@ -192,6 +204,7 @@ header a {
 nav ul {
   display: flex;
   gap: 55px;
+  align-items: center;
 }
 /*FOOTER*/
 footer {
@@ -234,14 +247,18 @@ footer .footer-left > div ul {
   flex-direction: column;
   gap: 20px;
 }
+
 /*CONTENT*/
 #content {
   padding: 50px 15%;
-}
-form {
-  display: flex;
   flex-direction: column;
-  gap: 20px;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 60px;
+  }
 }
 
 input {

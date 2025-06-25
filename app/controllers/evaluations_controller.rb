@@ -53,21 +53,27 @@ class EvaluationsController < ApplicationController
   end
 
   def update
-    if params[:commit] == "Evaluar"
-      if current_company.is_confirmed
-        params[:evaluation][:is_submitted] = true
-        params[:evaluation][:submitted_date] = Time.current
-        @evaluation = Evaluation.update(evaluation_update_params)
-        @poll = Poll.find(@evaluation.poll_id)
-        self.process_evaluation
-        flash[:warning] = "Evaluación enviada"
+    @evaluation = Evaluation.find(params[:id])
+    if @evaluation.present?
+      if params[:commit] == "Evaluar"
+        if current_company.is_confirmed
+          params[:evaluation][:is_submitted] = true
+          params[:evaluation][:submitted_date] = Time.current
+          @evaluation.update(evaluation_update_params)
+          @poll = Poll.find(@evaluation.poll_id)
+          self.process_evaluation
+          @notice = "Evaluación enviada"
+        else
+          @evaluation.update(evaluation_update_params)
+          @notice = "Evaluación actualizada"
+        end
       else
-        @evaluation = Evaluation.update(evaluation_update_params)
-        flash[:warning] = "Evaluación actualizada"
+        @evaluation.update(evaluation_update_params)
+        @notice = "Evaluación actualizada"
       end
-    else
-      @evaluation = Evaluation.update(evaluation_update_params)
-      flash[:warning] = "Evaluación actualizada"
+    end
+    respond_to do |format|
+      format.turbo_stream
     end
     #redirect_to dashboard_path()
   end
@@ -175,6 +181,6 @@ class EvaluationsController < ApplicationController
     params.require(:evaluation).permit(:company_id, :poll_id, :is_submitted, :submitted_date, evaluation_questions_attributes:[:question_id, :qvalue])
   end
   def evaluation_update_params
-    params.require(:evaluation).permit(:id, :poll_id, :is_submitted, :submitted_date, evaluation_questions_attributes:[:id, :question_id, :qvalue])
+    params.require(:evaluation).permit(:is_submitted, :poll_id, :submitted_date, evaluation_questions_attributes:[:id, :question_id, :qvalue])
   end
 end

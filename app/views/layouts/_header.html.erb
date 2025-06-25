@@ -1,5 +1,9 @@
 <div class="header-inner">
   <%= link_to image_tag("/images/Group.svg"), root_path() %>
+  <%= link_to '
+    <div class="menu-bar first"></div>
+    <div class="menu-bar middle"></div>
+    <div class="menu-bar last"></div>'.html_safe, '#', id:"mobile-menu", onClick:'toggleMenu(event)' %>
   <nav>
     <ul>
       <li><%= link_to "Planes", planes_path() %></li>
@@ -11,4 +15,16 @@
         <li><%= link_to "Acceso a clientes",  company_session_path() %>
       <% end %>
   </nav>
+  <script>
+    function toggleMenu(e){
+      e.preventDefault()
+      let nav = document.querySelector('nav')
+      if ( nav.style.display == 'none' || nav.style.display == '' ) {
+        nav.style.display = 'flex'
+      }
+      else {
+        nav.style.display = 'none'
+      } 
+    }
+  </script>
 </div>

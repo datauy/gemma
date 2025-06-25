@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  default_url_options :host => "gemma.stage.data.org.uy"
   devise_for :companies, :controllers => { registrations: 'companies/registrations' }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

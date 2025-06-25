@@ -33,6 +33,7 @@
 .filters {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
 }
 .tag {
   background-color: var(--Mostaza-Energizante);

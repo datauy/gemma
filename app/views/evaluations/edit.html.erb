@@ -1,3 +1,5 @@
-<div id="content" class="evaluation">
-    <%= render partial: 'form' %>
+<div id="content" class="single-evaluation">
+    <%= turbo_frame_tag "poll" do %>
+        <%= render partial: 'form' %>
+    <% end %>
 </div>

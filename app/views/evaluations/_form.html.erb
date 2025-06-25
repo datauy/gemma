@@ -1,3 +1,6 @@
+<% if @notice.present? %>
+  <div class="notice success"><%= @notice %></div>
+<% end %>
 <%= form_with(
       model: @evaluation,
       html: {
@@ -15,7 +18,7 @@
           <div class="tag"><%= @poll.area.title %></div>
           <div class="tag"><%= @poll.provision.title %></div>
         </div>
-        <div class="description"><%= @poll.description %>
+        <div class="description"><%= @poll.description %></div>
       </div>
       <div class="poll-sections">
         <% qnum = 0
@@ -72,10 +75,10 @@
         <% end %>
       </div>
       <% if @poll.last_disclaimer.present? %>
-      <div class="last-disclaimer"><%= @poll.last_disclaimer %>
+      <div class="last-disclaimer"><%= @poll.last_disclaimer %></div>
       <% end %>
+      <%= form.submit "Guardar", class: "secondary-button" %>
       <% if current_company.is_confirmed %>
-        <%= form.submit "Evaluar" %>
+        <%= form.submit "Evaluar", class: "main-button", data: { confirm: 'Una vez enviado el formulario no podrá ser editado' }  %>
       <% end %>
-      <%= form.submit "Guardar" %>
     <% end %>

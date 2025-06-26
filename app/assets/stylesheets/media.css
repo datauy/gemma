@@ -49,7 +49,7 @@
   .image-box,
   .section {
     flex-direction: column;
-    margin-top: 0;
+    margin-bottom: 0;
   }
   .image-box-right {
     flex-direction: column-reverse;

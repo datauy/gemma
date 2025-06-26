@@ -44,6 +44,7 @@ h2 {
   font-family: var(--font-work-sans);
   color: #000;
   text-align: center;
+  margin-bottom: 15px;
 }
 
 h3 {
@@ -74,6 +75,9 @@ a {
   font-family: var(--font-inter);
   color: var(--Grises-Gris-03);
   text-align: left;
+}
+span {
+  font-size: 14px;
 }
 .notice {
   border-radius: 8px;
@@ -254,6 +258,7 @@ footer .footer-left > div ul {
 #content {
   padding: 50px 15%;
   flex-direction: column;
+  display: flex;
   form {
     display: flex;
     flex-direction: column;
@@ -298,11 +303,19 @@ input {
 .section.pricing {
   display: inline-flex;
   gap: 100px;
+  justify-content: center;
+  flex-direction: row;
 }
 .section.pricing .image-box {
   flex-direction: column;
   gap: 50px;
   flex: 1 1;
+  max-width: 400px;
+  .image-box-image {
+    max-height: 396.4px;
+    overflow: hidden;
+    width: 100%;
+  }
 }
 .section.pricing h2 {
   text-align: left;

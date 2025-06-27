@@ -40,4 +40,5 @@ h3 {
 }
 #poll form .section-header {
   flex-direction: column;
+  align-items: flex-start;
 }

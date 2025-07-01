@@ -12,6 +12,10 @@
       <label>Formula para el valor</label>
       <input name="poll[poll_sections_attributes][<%= isec %>][semaphore_attributes][formula]" type="text" value="<%= (poll_section.present? && poll_section.semaphore.formula.present?) ? poll_section.semaphore.formula : '' %>" />
     </div>
+    <div class="percentage">
+      <label>Porcentaje del total</label>
+      <input name="poll[poll_sections_attributes][<%= isec %>][semaphore_attributes][percentage]" type="text" value="<%= (poll_section.present? && poll_section.semaphore.percentage.present?) ? poll_section.semaphore.percentage : 0 %>" />%
+    </div>
     <div class="semaphore-wrapper">
       <label>Semáforo verde</label>
       <input name="poll[poll_sections_attributes][<%= isec %>][semaphore_attributes][green_text]" type="textarea" value="<%= (poll_section.present? && poll_section.semaphore.green_text.present?) ? poll_section.semaphore.green_text.html_safe : '' %>" />

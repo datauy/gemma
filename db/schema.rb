@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_05_134847) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_01_150750) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -133,7 +133,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_134847) do
     t.datetime "updated_at", null: false
     t.boolean "is_submitted"
     t.date "submitted_date"
-    t.integer "total"
+    t.decimal "total", precision: 8, scale: 2
     t.index ["company_id"], name: "index_evaluations_on_company_id"
     t.index ["poll_id"], name: "index_evaluations_on_poll_id"
   end
@@ -244,6 +244,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_134847) do
     t.integer "red_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "percentage"
   end
 
   create_table "users", force: :cascade do |t|

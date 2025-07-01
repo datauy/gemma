@@ -47,7 +47,7 @@
                     <%=
                       case question.qtype
                       when "Opciones"
-                        form.select :"evaluation_questions_attributes][#{qnum}][qvalue", options_for_select( question.options.pluck(:title,:id), dvalue ), include_blank: true
+                        form.select :"evaluation_questions_attributes][#{qnum}][qvalue", options_for_select( question.options.pluck(:title,:ovalue), dvalue ), include_blank: true
                       when 'Numérica'
                         result=''
                         option = question.options.first

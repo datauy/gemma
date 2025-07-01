@@ -1,7 +1,7 @@
 ActiveAdmin.register Poll do
   # Specify parameters which should be permitted for assignment
   menu priority: 5
-  permit_params :title, :description, :area_id, :provision_id, :last_disclaimer, :enabled, :version, poll_questions_attributes:[:question_id, :question_weight, :poll_id, :_destroy, :id, :semaphore_id, :condition_question, :condition_operator, :condition_value, :section_yellow, :section_red], poll_sections_attributes:[:id, :section_id, :poll_id, :disabled, :_destroy, semaphore_attributes: [:id, :formula, :green_text, :green_value, :yellow_text, :red_text, :red_value, :_destroy]]
+  permit_params :title, :description, :area_id, :provision_id, :last_disclaimer, :enabled, :version, poll_questions_attributes:[:question_id, :question_weight, :poll_id, :_destroy, :id, :semaphore_id, :condition_question, :condition_operator, :condition_value, :section_yellow, :section_red], poll_sections_attributes:[:id, :section_id, :poll_id, :disabled, :_destroy, semaphore_attributes: [:id, :formula, :percentage, :green_text, :green_value, :yellow_text, :red_text, :red_value, :_destroy]]
 
   # or consider:
   #

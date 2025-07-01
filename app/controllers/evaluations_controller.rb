@@ -99,6 +99,7 @@ class EvaluationsController < ApplicationController
       section = ps.section
       section_semaphore = ps.semaphore
       formula = section_semaphore.formula
+      max_formula = section_semaphore.formula.dup
       ssemaphore = nil
       total = 0
       sections[section.id] = {
@@ -110,46 +111,65 @@ class EvaluationsController < ApplicationController
       @poll.questions.where(section_id: section.id).order(:"poll_questions.question_weight").each do |question|
         eq = @evaluation.evaluation_questions.where(question_id: question.id ).first
         pq = @poll.poll_questions.where(question_id: question.id ).first
-          color = nil
-          semaphore_text = nil
-          eqvalue = nil
-        if eq.present?
-          eqvalue = eq.qvalue
-          #Evaluate yellow/red for section
-          if question.semaphore.green_value < eq.qvalue.to_i
-            color = 'green'
-            semaphore_text = question.semaphore.green_text
-          elsif question.semaphore.red_value > eq.qvalue.to_i
-            color = 'red'
-            semaphore_text = question.semaphore.red_text
-            if pq.section_red
-              ssemaphore = ['red', section_semaphore.red_text]
-            end
+        color = nil
+        semaphore_text = nil
+        eqvalue = nil
+        process = true
+        case question.qtype
+          when 'Numérica'
+            max_value = 100
+          when 'Opciones'
+            max_value = question.options.order("ovalue desc").first.ovalue
           else
-            color = 'yellow'
-            semaphore_text = question.semaphore.yellow_text
-            if pq.section_yellow
-              ssemaphore = ['yellow', section_semaphore.yellow_text]
+            process = false
+        end
+        if process
+          if eq.present?
+            eqvalue = eq.qvalue
+            #Evaluate yellow/red for section
+            if question.semaphore.green_value < eq.qvalue.to_i
+              color = 'green'
+              semaphore_text = question.semaphore.green_text
+            elsif question.semaphore.red_value > eq.qvalue.to_i
+              color = 'red'
+              semaphore_text = question.semaphore.red_text
+              if pq.section_red
+                ssemaphore = ['red', section_semaphore.red_text]
+              end
+            else
+              color = 'yellow'
+              semaphore_text = question.semaphore.yellow_text
+              if pq.section_yellow
+                ssemaphore = ['yellow', section_semaphore.yellow_text]
+              end
             end
           end
+          sections[section.id][:questions].push({
+            title: question.title,
+            description: question.description,
+            color: color,
+            semaphore_text: semaphore_text,
+            eqvalue: eqvalue
+          })
+          #Store max value
+          #Replace value in formula
+          max_formula.gsub!("[#{eq.question_id}]", "#{max_value.present? ? max_value : 0}")
+          formula.gsub!("[#{eq.question_id}]", "#{eq.qvalue}")
+          logger.debug("\n\nFORMULA\n#{formula}\n\n")
+          logger.debug("\n\nMAX FORMULA\n#{max_formula}\n\n")
         end
-        sections[section.id][:questions].push({
-          title: question.title,
-          description: question.description,
-          color: color,
-          semaphore_text: semaphore_text,
-          eqvalue: eqvalue
-        })
-        #Replace value in formula
-        formula.gsub!("[#{eq.qvalue}]")
       end
       #Evaluate formula
       #TODO ver cómo se evalúan las preguntas condicionales en la fórmula, por ahora se sustituyen con 0 (No puede ser multiplicador, sí suma o resta)
       formula.gsub!(/\[\d+\]/, "0")
+      max_formula.gsub!(/\[\d+\]/, "0")
       total = eval formula
+      max_total = eval max_formula
       sections[section.id][:total] = total
       #Add total to poll total
-      @total += total.to_i
+      logger.debug "\n\n SECTIONS SEMAPHORE\n#{section_semaphore.inspect}\n"
+      @total += total.to_d*(section_semaphore.percentage.present? ? section_semaphore.percentage : 0)/max_total
+      logger.debug("\n\nTOTAL\n#{@total}\n\n")
       #Calculate section semaphore if not seted by question
       if ssemaphore.nil?
         ssemaphore = self.semaphore(section_semaphore, total)
@@ -160,7 +180,6 @@ class EvaluationsController < ApplicationController
       @evaluation.update(total: @total)
     end
     @sections = sections.values
-    logger.debug "\n\n SECTIONS \n#{@sections.inspect}\n"
   end
   #
   def semaphore(semaphore, value)

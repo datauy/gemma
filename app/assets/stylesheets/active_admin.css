@@ -144,6 +144,7 @@ form > fildset {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  margin-top: 40px;
 }
 .question-top {
   display: flex;
@@ -213,6 +214,7 @@ form > fildset {
   gap: 10px;
   align-items: center;
 }
+.percentage,
 .formula {
   display: flex;
   align-items: center;
@@ -225,6 +227,10 @@ form > fildset {
     width: 75%;
   }
 }
+.percentage input {
+  width: 50px;
+  text-align: center;
+}
 .operator {
   text-align: center;
 }
@@ -233,4 +239,5 @@ form > fildset {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-bottom: 40px;
 }

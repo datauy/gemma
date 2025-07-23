@@ -58,7 +58,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "gemma.stage.data.org.uy" }
+  config.action_mailer.default_url_options = { host: "gestionec.gemma.uy" }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
@@ -90,7 +90,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   # SMTP settings
   config.action_mailer.smtp_settings = {
-    :address              => "mail.data.org.uy",
+    :address              => "mail.gemma.uy",
     :port                 =>  587,
     :user_name            => Rails.application.credentials.mail[:user],
     :password             => Rails.application.credentials.mail[:password],

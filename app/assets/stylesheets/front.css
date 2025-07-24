@@ -130,6 +130,7 @@ span {
 .actions {
   display: flex;
   gap: 20px;
+  align-self: baseline;
 }
 .main-button {
   cursor: pointer;

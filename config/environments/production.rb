@@ -90,7 +90,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   # SMTP settings
   config.action_mailer.smtp_settings = {
-    :address              => "mail.gemma.uy",
+    :address              => "smtp.gmail.com",
     :port                 =>  587,
     :user_name            => Rails.application.credentials.mail[:user],
     :password             => Rails.application.credentials.mail[:password],

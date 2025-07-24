@@ -49,7 +49,7 @@ class Company < ApplicationRecord
   ]
 
   def self.ransackable_attributes(auth_object = nil)
-    ["activity", "address", "contact_email", "contact_name", "contact_position", "contact_tel", "created_at", "email", "encrypted_password", "fake_name", "id", "is_confirmed", "is_main_company", "man_workers", "name", "remember_created_at", "reset_password_sent_at", "reset_password_token", "size", "start_year", "state", "updated_at", "woman_workers"]
+    ["activity", "address", "contact_email", "contact_name", "contact_position", "contact_tel", "created_at", "email", "encrypted_password", "fake_name", "registration_number", "id", "is_confirmed", "is_main_company", "man_workers", "name", "remember_created_at", "reset_password_sent_at", "reset_password_token", "size", "start_year", "state", "updated_at", "woman_workers"]
   end
 
   def self.ransackable_associations(auth_object = nil)

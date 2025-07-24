@@ -85,6 +85,10 @@ class EvaluationsController < ApplicationController
     else
       @poll = @evaluation.poll
       if @evaluation.is_submitted
+        @print = false
+        if params[:print].present?
+          @print = true
+        end
         self.process_evaluation
       else
         redirect_to edit_evaluation_path(@evaluation)
@@ -145,6 +149,7 @@ class EvaluationsController < ApplicationController
             end
           end
           sections[section.id][:questions].push({
+            id: question.id,
             title: question.title,
             description: question.description,
             color: color,
@@ -179,6 +184,7 @@ class EvaluationsController < ApplicationController
     if @evaluation.total.nil?
       @evaluation.update(total: @total)
     end
+    @total = @total.to_i
     @sections = sections.values
   end
   #

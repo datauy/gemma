@@ -65,7 +65,7 @@
                 <% end %>
                 <div class="evaluation-date"><%= evaluation.submitted_date %></div>
                 <%= link_to "Ver evaluación", evaluation_path(evaluation), class: "main-button" %>
-                <%= link_to "Descargar certificado", '/', class: "secondary-button" %>
+                <%= link_to "Descargar certificado", evaluation_path(evaluation, {print: true}), class: "secondary-button" %>
               <% else %>
                 <div class="evaluation-date"><%= evaluation.updated_at %></div>
                 <%= link_to "Continuar editando", edit_evaluation_path(evaluation), class: "main-button" %>

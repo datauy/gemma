@@ -42,12 +42,12 @@ class Companies::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :fake_name, :logo, :state, :address, :activity, :size, :man_workers, :woman_workers, :start_year, :contact_name, :contact_position, :contact_tel, :contact_email, :is_confirmed, :is_main_company, :password])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :fake_name, :registration_number, :logo, :state, :address, :activity, :size, :man_workers, :woman_workers, :start_year, :contact_name, :contact_position, :contact_tel, :contact_email, :is_confirmed, :is_main_company, :password])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :fake_name, :logo, :state, :address, :activity, :size, :man_workers, :woman_workers, :start_year, :contact_name, :contact_position, :contact_tel, :contact_email, :is_confirmed, :is_main_company, :password, main_company_ids:[]])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :fake_name, :registration_number, :logo, :state, :address, :activity, :size, :man_workers, :woman_workers, :start_year, :contact_name, :contact_position, :contact_tel, :contact_email, :is_confirmed, :is_main_company, :password, main_company_ids:[]])
   end
 
   # The path used after sign up.

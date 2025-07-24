@@ -1,4 +1,4 @@
-<div id="evaluation">
+<div id="poll">
   <%= render partial: '/companies/company_data' %>
   <div class="evaluation-content">
     <div class="evaluation-header">
@@ -22,11 +22,7 @@
             <span><%= section[:description] %></span>
           </div>
           <div class="section-right">
-            <div class="semaphore">
-              <span class="circle big red <%= section[:semaphore][0] != 'red' ? 'fade' : '' %>"></span>
-              <span class="circle big yellow <%= section[:semaphore][0] != 'yellow' ? 'fade' : '' %>"></span>
-              <span class="circle big green <%= section[:semaphore][0] != 'green' ? 'fade' : '' %>"></span>
-            </div>
+            <%= format_semaphore(section[:semaphore][0]) %>
             <div class="semaphore-text">
               <div class="section-total">Resultado de la sección: <%= section[:total] %></div>
               <span><%= section[:semaphore][1] %></span>
@@ -38,15 +34,11 @@
             <% if question[:eqvalue].present? %>
               <div class="question section-header">
                 <div class="question-left">
-                  <h4><%= question[:title] %></h4>
+                  <h4><%= question[:id] %>. <%= question[:title] %></h4>
                   <span><%= question[:description] %></span>
                 </div>
                 <div class="question-middle">
-                  <div class="semaphore">
-                    <span class="circle big red <%= question[:color] != 'red' ? 'fade' : '' %>"></span>
-                    <span class="circle big yellow <%= question[:color] != 'yellow' ? 'fade' : '' %>"></span>
-                    <span class="circle big green <%= question[:color] != 'green' ? 'fade' : '' %>"></span>
-                  </div>
+                  <%= format_semaphore(question[:color], true) %>
                 </div>
                 <div class="question-right">
                   <div class="question-total">Valor obtenido: <%= question[:eqvalue] %></div>
@@ -67,15 +59,25 @@
     <% end %>
     </div>
   </div>
-  <div class="actions">
-    <button class="main-button" onclick="printContent()">Imprimir</button>
-  </div>
+</div>
+<div class="actions">
+  <button class="main-button" onclick="printContent()">Imprimir</button>
 </div>
 <script>
   function printContent(){
     let originalContents = document.body.innerHTML
-    document.body.innerHTML = document.getElementById('content').innerHTML
+    let newContent = document.getElementById('poll')
+    /*newContent.querySelectorAll('.no-print').forEach(element => {
+      element.remove()
+    });*/
+    document.body.innerHTML = newContent.innerHTML
     window.print();
     document.body.innerHTML = originalContents;
   }
 </script>
+<% if @print %>
+<script>
+  printContent()
+  window.location.replace('/dashboard')
+</script>
+<% end %>

@@ -20,6 +20,9 @@
         <%= f.file_field :logo %>
       </div>
       <div class="field">
+        <%= f.text_field :registration_number, required: true,  autocomplete: "registration_number", placeholder: "RUT" %>
+      </div>
+      <div class="field">
         <%= f.label "Razón social" %>
         <%= f.text_field :name, required: true, autocomplete: "name", placeholder: "Razón social" %>
       </div>

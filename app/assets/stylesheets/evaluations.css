@@ -10,13 +10,16 @@
 .question-middle {
   display: flex;
 }
-#evaluation {
+#poll {
   width: 100%;
 }
 .evaluation-header {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+.evaluation-content {
+  margin-top: 30px;
 }
 .title {
   display: flex;

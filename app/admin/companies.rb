@@ -1,6 +1,6 @@
 ActiveAdmin.register Company do
   # Specify parameters which should be permitted for assignment
-  permit_params :email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :name, :fake_name, :state, :address, :activity, :size, :man_workers, :woman_workers, :start_year, :contact_name, :contact_position, :contact_tel, :contact_email, :is_confirmed, :is_main_company, :password, company_ids:[]
+  permit_params :email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :name, :fake_name, :registration_number, :state, :address, :activity, :size, :man_workers, :woman_workers, :start_year, :contact_name, :contact_position, :contact_tel, :contact_email, :is_confirmed, :is_main_company, :password, company_ids:[]
 
   # or consider:
   #
@@ -24,6 +24,7 @@ ActiveAdmin.register Company do
   filter :updated_at
   filter :name
   filter :fake_name
+  filter :registration_number
   filter :state
   filter :address
   filter :activity
@@ -45,6 +46,7 @@ ActiveAdmin.register Company do
     column :email
     column :name
     column :fake_name
+    column :registration_number
     column :state
     column :address
     column :activity
@@ -68,6 +70,7 @@ ActiveAdmin.register Company do
       row :email
       row :name
       row :fake_name
+      row :registration_number
       row :state
       row :address
       row :activity
@@ -92,6 +95,7 @@ ActiveAdmin.register Company do
       f.input :password
       f.input :name
       f.input :fake_name
+      f.input :registration_number
       f.input :state
       f.input :address
       f.input :activity

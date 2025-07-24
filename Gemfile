@@ -50,6 +50,7 @@ gem 'active_admin_datetimepicker'
 gem 'pagy'
 #gem "tailwindcss-rails", "~> 4.2"
 gem "cssbundling-rails", "~> 1.4"
+gem "sitemap_generator"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -18,7 +18,7 @@
           <div class="tag"><%= @poll.area.title %></div>
           <div class="tag"><%= @poll.provision.title %></div>
         </div>
-        <div class="description"><%= @poll.description %></div>
+        <div class="description"><%= @poll.description.html_safe %></div>
       </div>
       <div class="poll-sections">
         <% qnum = 0
@@ -26,7 +26,7 @@
           <div class="section">
             <div class="section-header" style="background: <%= section.color %>">
               <h3><%= section.title %></h3>
-              <span><%= section.description %></span>
+              <span><%= section.description.html_safe %></span>
             </div>
             <div class="section-questions">
               <% @poll.questions.includes(:poll_questions).where(section_id: section.id).order(:"poll_questions.question_weight").each do |question| %>
@@ -40,7 +40,7 @@
                 <div class='question'>
                   <div class='question-header'>
                     <h4><%= question.title %></h4>
-                    <div class='description'><%= question.description %></div>
+                    <div class='description'><%= question.description.html_safe %></div>
                   </div>
                   <%= form.hidden_field :"evaluation_questions_attributes][#{qnum}][question_id", value: question.id %>
                   <div class='question-input'>

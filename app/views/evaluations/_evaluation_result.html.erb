@@ -11,7 +11,7 @@
         <div class="tag"><%= @poll.provision.title %></div>
       </div>
       <div class="date">Fecha de evaluación: <%= @evaluation.submitted_date %></div>
-      <div class="description"><%= @poll.description %></div>
+      <div class="description"><%= @poll.description.html_safe %></div>
     </div>
     <div class="evaluation-sections">
     <% @sections.each do |section| %>
@@ -19,7 +19,7 @@
         <div class="section-header" style="background: <%= section[:color] %>">
           <div class="section-left">
             <h3>Sección <%= section[:title] %></h3>
-            <span><%= section[:description] %></span>
+            <span><%= section[:description].html_safe %></span>
           </div>
           <div class="section-right">
             <%= format_semaphore(section[:semaphore][0]) %>
@@ -35,7 +35,7 @@
               <div class="question section-header">
                 <div class="question-left">
                   <h4><%= question[:id] %>. <%= question[:title] %></h4>
-                  <span><%= question[:description] %></span>
+                  <span><%= question[:description].html_safe %></span>
                 </div>
                 <div class="question-middle">
                   <%= format_semaphore(question[:color], true) %>
@@ -49,7 +49,7 @@
               <div class="question disabled">
                 <div class="section-left">
                   <h4><%= question[:title] %></h4>
-                  <span><%= question[:description] %></span>
+                  <span><%= question[:description].html_safe %></span>
                 </div>
               </div>
             <% end %>

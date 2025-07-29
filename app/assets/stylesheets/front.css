@@ -180,6 +180,12 @@ span {
   min-width: 250px;
   width: 25%;
 }
+.print-only {
+  display: none;
+}
+img.print-only {
+  width: 180px;
+}
 /**** HEADER  *****/
 #mobile-menu {
   display: none;

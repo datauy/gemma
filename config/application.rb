@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Gemma
   class Application < Rails::Application
+    config.action_mailer.default_url_options = { host: "gestionec.gemma.uy" }
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 

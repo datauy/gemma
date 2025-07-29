@@ -63,5 +63,5 @@ es:
       not_found: "not found"
       not_locked: "was not locked"
       not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"
+        one: "No se ha podido guardar la %{resource} debido a un error"
+        other: "No se ha podido guardar la %{resource} debido a %{count} errores"

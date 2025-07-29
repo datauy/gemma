@@ -1,4 +1,5 @@
 <div id="poll">
+  <%= image_tag '/images/logo-gemma.png', class: "print-only" %>
   <%= render partial: '/companies/company_data' %>
   <div class="evaluation-content">
     <div class="evaluation-header">
@@ -67,9 +68,9 @@
   function printContent(){
     let originalContents = document.body.innerHTML
     let newContent = document.getElementById('poll')
-    /*newContent.querySelectorAll('.no-print').forEach(element => {
-      element.remove()
-    });*/
+    newContent.querySelectorAll('.print-only').forEach(element => {
+      element.style.display = "block"
+    });
     document.body.innerHTML = newContent.innerHTML
     window.print();
     document.body.innerHTML = originalContents;

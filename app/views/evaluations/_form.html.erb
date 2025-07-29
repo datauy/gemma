@@ -39,7 +39,7 @@
                 <% end %>
                 <div class='question'>
                   <div class='question-header'>
-                    <h4><%= question.title %></h4>
+                    <h4><%= question.title %> (#<%= question.id %>)</h4>
                     <div class='description'><%= question.description.html_safe %></div>
                   </div>
                   <%= form.hidden_field :"evaluation_questions_attributes][#{qnum}][question_id", value: question.id %>
@@ -79,6 +79,6 @@
       <% end %>
       <%= form.submit "Guardar", class: "secondary-button" %>
       <% if current_company.is_confirmed %>
-        <%= form.submit "Evaluar", class: "main-button", data: { confirm: 'Una vez enviado el formulario no podrá ser editado' }  %>
+        <%= form.submit "Evaluar", class: "main-button", onclick: "return confirm('Revise sus respuestas. Una vez evaluado el cuestionario no podrá ser editado')"  %>
       <% end %>
     <% end %>

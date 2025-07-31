@@ -71,7 +71,7 @@ ActiveAdmin.register Question do
       f.inputs do
         f.input :qtype, label: "Tipo de pregunta", required: true, input_html: {data: {controller: 'question', action: 'change->question#filter_options'}}
         f.input :title, required: true
-        f.input :description
+        f.input :description, as: :action_text
         f.input :section_id, as: :select, input_html: {required: true}, include_blank: true, collection: Section.all.map { |s| [s.title, s.id] }
       end
     end

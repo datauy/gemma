@@ -1,4 +1,5 @@
 <%= stylesheet_link_tag "active_admin" %>
+<%= stylesheet_link_tag "actiontext" %>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <%= csrf_meta_tags %>
 <%= csp_meta_tag %>
@@ -12,6 +13,7 @@
 <% end %>
 <%= javascript_importmap_tags "active_admin", importmap: ActiveAdmin.importmap %>
 <%= javascript_import_module_tag "application" %>
+<%= javascript_import_module_tag "active_admin_custom" %>
 
 <% if content_for?(:head) %>
   <%= yield(:head) %>

@@ -55,7 +55,7 @@ ActiveAdmin.register Section do
     f.semantic_errors(*f.object.errors.attribute_names)
     f.inputs do
       f.input :title
-      f.input :description
+      f.input :description, as: :action_text
       f.input :color
       f.input :weight
     end

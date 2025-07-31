@@ -124,8 +124,8 @@ ActiveAdmin.register Poll do
         f.input :area, required: true, input_html: {disabled: new_version}
         f.input :provision, required: true, input_html: {disabled: new_version}
         f.input :version, input_html: {disabled: true}
-        f.input :description
-        f.input :last_disclaimer
+        f.input :description, as: :action_text
+        f.input :last_disclaimer, as: :action_text
       end
       questions = []
       condition_options = []

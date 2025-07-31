@@ -75,7 +75,7 @@
         <% end %>
       </div>
       <% if @poll.last_disclaimer.present? %>
-      <div class="last-disclaimer"><%= @poll.last_disclaimer %></div>
+      <div class="last-disclaimer"><%= @poll.last_disclaimer.html_safe %></div>
       <% end %>
       <%= form.submit "Guardar", class: "secondary-button" %>
       <% if current_company.is_confirmed %>

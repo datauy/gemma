@@ -38,13 +38,11 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
 
 gem 'devise'
 gem 'activeadmin', "~> 4.0.0.beta15"
-gem 'ckeditor', git: 'https://github.com/galetahub/ckeditor.git'
 gem "mini_magick"
-gem "image_processing"
 gem 'activeadmin-searchable_select'
 gem 'active_admin_datetimepicker'
 gem 'pagy'

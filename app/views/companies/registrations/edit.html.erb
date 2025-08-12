@@ -92,7 +92,7 @@
       </div>
       <div class="field">
         <%= f.label "¿Su empresa está registrada en el Banco de Previsión Social (BPS) y al día con los aportes correspondientes?" %>
-        <%= f.select :worker_insurance, [['No',0],['Si',1]], required: true %>
+        <%= f.select :worker_insurance, [['No','false'],['Si','true']], required: true %>
       </div>
       <div class="field">
         <%= f.label "¿Su empresa cuenta con la habilitación de la Intendencia correspondiente para operar en su local o establecimiento?" %>

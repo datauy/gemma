@@ -186,6 +186,11 @@ span {
 img.print-only {
   width: 180px;
 }
+.options {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  align-items: center;
+}
 /**** HEADER  *****/
 #mobile-menu {
   display: none;

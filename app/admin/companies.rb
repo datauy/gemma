@@ -1,6 +1,6 @@
 ActiveAdmin.register Company do
   # Specify parameters which should be permitted for assignment
-  permit_params :email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :name, :fake_name, :registration_number, :state, :address, :activity, :size, :man_workers, :woman_workers, :start_year, :contact_name, :contact_position, :contact_tel, :contact_email, :is_confirmed, :is_main_company, :password, company_ids:[]
+  permit_params :email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :name, :fake_name, :registration_number, :state, :address, :activity, :size, :man_workers, :woman_workers, :start_year, :contact_name, :contact_position, :contact_tel, :contact_email, :is_confirmed, :is_main_company, :password, :countries, :women_participation, :women_leadership, :disability, :start_date, :registered, :abilitation, :worker_insurance, :building_abilitation, company_ids:[]
 
   # or consider:
   #
@@ -24,7 +24,6 @@ ActiveAdmin.register Company do
   filter :updated_at
   filter :name
   filter :fake_name
-  filter :registration_number
   filter :state
   filter :address
   filter :activity
@@ -38,6 +37,16 @@ ActiveAdmin.register Company do
   filter :contact_email
   filter :is_confirmed
   filter :is_main_company
+  filter :countries
+  filter :women_participation
+  filter :women_leadership
+  filter :disability
+  filter :start_date
+  filter :registered
+  filter :registration_number
+  filter :abilitation
+  filter :worker_insurance
+  filter :building_abilitation
 
   # Add or remove columns to toggle their visibility in the index action
   index do
@@ -46,7 +55,6 @@ ActiveAdmin.register Company do
     column :email
     column :name
     column :fake_name
-    column :registration_number
     column :state
     column :address
     column :activity
@@ -60,6 +68,16 @@ ActiveAdmin.register Company do
     column :contact_email
     column :is_confirmed
     column :is_main_company
+    column :countries
+    column :women_participation
+    column :women_leadership
+    column :disability
+    column :start_date
+    column :registered
+    column :registration_number
+    column :abilitation
+    column :worker_insurance
+    column :building_abilitation
     actions
   end
 
@@ -70,7 +88,6 @@ ActiveAdmin.register Company do
       row :email
       row :name
       row :fake_name
-      row :registration_number
       row :state
       row :address
       row :activity
@@ -84,6 +101,16 @@ ActiveAdmin.register Company do
       row :contact_email
       row :is_confirmed
       row :is_main_company
+      row :countries
+      row :women_participation
+      row :women_leadership
+      row :disability
+      row :start_date
+      row :registered
+      row :registration_number
+      row :abilitation
+      row :worker_insurance
+      row :building_abilitation
     end
   end
 
@@ -110,6 +137,17 @@ ActiveAdmin.register Company do
       f.input :is_confirmed
       f.input :is_main_company
       f.input :main_companies, as: :check_boxes, collection: Company.where(is_main_company: true)
+      f.input :destinations, as: :select, collection: Destination.order(:weight)
+      f.input :countries
+      f.input :women_participation
+      f.input :women_leadership
+      f.input :disability
+      f.input :start_date
+      f.input :registered
+      f.input :registration_number
+      f.input :abilitation
+      f.input :worker_insurance
+      f.input :building_abilitation
     end
     f.actions
   end

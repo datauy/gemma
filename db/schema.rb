@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_31_141624) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_12_162147) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -113,6 +113,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_31_141624) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "registration_number"
+    t.text "countries"
+    t.integer "women_participation"
+    t.integer "women_leadership"
+    t.integer "disability"
+    t.date "start_date"
+    t.boolean "registered"
+    t.integer "abilitation"
+    t.boolean "worker_insurance"
+    t.integer "building_abilitation"
+    t.integer "worker_registration"
     t.index ["confirmation_token"], name: "index_companies_on_confirmation_token", unique: true
     t.index ["email"], name: "index_companies_on_email", unique: true
     t.index ["reset_password_token"], name: "index_companies_on_reset_password_token", unique: true
@@ -124,6 +134,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_31_141624) do
     t.datetime "updated_at", null: false
     t.integer "main_company_id"
     t.index ["company_id"], name: "index_company_main_companies_on_company_id"
+  end
+
+  create_table "destinations", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "destinations_relations", force: :cascade do |t|
+    t.bigint "destination_id", null: false
+    t.bigint "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_destinations_relations_on_company_id"
+    t.index ["destination_id"], name: "index_destinations_relations_on_destination_id"
   end
 
   create_table "evaluation_questions", force: :cascade do |t|
@@ -272,6 +299,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_31_141624) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "company_main_companies", "companies"
+  add_foreign_key "destinations_relations", "companies"
+  add_foreign_key "destinations_relations", "destinations"
   add_foreign_key "evaluation_questions", "evaluations"
   add_foreign_key "evaluation_questions", "questions"
   add_foreign_key "evaluations", "companies"

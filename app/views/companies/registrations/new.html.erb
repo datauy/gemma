@@ -38,51 +38,51 @@
       <%= f.number_field :start_year, min: 1950, max: 2025, step: 1, required: true, autocomplete: "start_year", placeholder: "Año de comienzo de actividad" %>
     </div>
     <div class="field">
-      <%= f.label "¿Cuál es el alcance de la operación de tu empresa?" %>
+      <%= f.label :destination_ids, "¿Cuál es el alcance de la operación de tu empresa?" %>
       <div class="options">
         <%= f.collection_checkboxes :destination_ids, Destination.order(:weight), :id, :name, :include_hidden => false,  required: true, :input_html => { :include_hidden => false } %>
       </div>
     </div>
     <div class="field">
-      <%= f.label "En el caso de ser internacional, si tu empresa opera en otros países, especifique cuáles" %>
+      <%= f.label :countries, "En el caso de ser internacional, si tu empresa opera en otros países, especifique cuáles" %>
       <%= f.text_field :countries, autocomplete: "countries", placeholder: "Países internacionales" %>
     </div>
     <div class="field">
-      <%= f.label "¿La empresa es propiedad total o parcial de mujeres?" %>
+      <%= f.label :women_participation, "¿La empresa es propiedad total o parcial de mujeres?" %>
       <%= f.select :women_participation, Company.women_participations.keys, required: true %>
     </div>
     <div class="field">
-      <%= f.label "¿Qué porcentaje de los puestos de liderazgo en la empresa están ocupados por mujeres?" %>
+      <%= f.label :women_leadership, "¿Qué porcentaje de los puestos de liderazgo en la empresa están ocupados por mujeres?" %>
       <span class="disclaimer">Se consideran puestos de liderazgo la dirección de la empresa, la administración general, la gestión de áreas clave como compras, ventas, producción o logística, la supervisión de equipos de trabajo y la participación en la toma de decisiones estratégicas</span>
       <%= f.select :women_leadership, Company.women_leaderships.keys, required: true %>
     </div>
     <div class="field">
-      <%= f.label "¿La empresa incluye entre sus trabajadores permanentes, a personas con discapacidad?" %>
+      <%= f.label :disability, "¿La empresa incluye entre sus trabajadores permanentes, a personas con discapacidad?" %>
       <span class="disclaimer">Se considera con discapacidad a toda persona que presente una alteración funcional permanente o prolongada, física o mental que en relación a su edad y medio social implique desventajas considerables para su integración familiar, social, educacional o laboral. Artículo 2 de la Ley 18.651</span>
       <%= f.select :disability, Company.disabilities.keys, required: true %>
     </div>
     <div class="field">
-      <%= f.label "Fecha de inicio de actividad" %>
+      <%= f.label :start_date, "Fecha de inicio de actividad" %>
       <%= f.date_field :start_date, required: true %>
     </div>
     <div class="field">
-      <%= f.label "¿Su empresa está registrada en la Dirección General Impositiva (DGI) y cuenta con RUT activo?" %>
+      <%= f.label :registered, "¿Su empresa está registrada en la Dirección General Impositiva (DGI) y cuenta con RUT activo?" %>
       <%= f.select :registered, [['No','false'],['Si','true']], required: true %>
     </div>
     <div class="field">
-      <%= f.label "¿Su empresa está registrada en el Banco de Previsión Social (BPS) y al día con los aportes correspondientes?" %>
+      <%= f.label :worker_insurance, "¿Su empresa está registrada en el Banco de Previsión Social (BPS) y al día con los aportes correspondientes?" %>
       <%= f.select :worker_insurance, [['No','false'],['Si','true']], required: true %>
     </div>
     <div class="field">
-      <%= f.label "¿Su empresa cuenta con la habilitación de la Intendencia correspondiente para operar en su local o establecimiento?" %>
+      <%= f.label :abilitation, "¿Su empresa cuenta con la habilitación de la Intendencia correspondiente para operar en su local o establecimiento?" %>
       <%= f.select :abilitation, Company.abilitations.keys, required: true %>
     </div>
     <div class="field">
-      <%= f.label "Si tiene empleados ¿Su empresa está registrada en el Ministerio de Trabajo y Seguridad Social (MTSS) y cumple con las normativas laborales vigentes?" %>
+      <%= f.label :worker_registration, "Si tiene empleados ¿Su empresa está registrada en el Ministerio de Trabajo y Seguridad Social (MTSS) y cumple con las normativas laborales vigentes?" %>
       <%= f.select :worker_registration, Company.worker_registrations.keys, required: true %>
     </div>
     <div class="field">
-      <%= f.label "¿Su local cuenta con la habilitación de la Dirección Nacional de Bomberos cuando es requerida?" %>
+      <%= f.label :building_abilitation, "¿Su local cuenta con la habilitación de la Dirección Nacional de Bomberos cuando es requerida?" %>
       <%= f.select :building_abilitation, Company.building_abilitations.keys, required: true %>
     </div>
     <div class="field">

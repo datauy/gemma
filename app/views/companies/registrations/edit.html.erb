@@ -23,7 +23,7 @@
         <%= f.text_field :registration_number, required: true,  autocomplete: "registration_number", placeholder: "RUT" %>
       </div>
       <div class="field">
-        <%= f.label "Razón social" %>
+        <%= f.label :name, "Razón social" %>
         <%= f.text_field :name, required: true, autocomplete: "name", placeholder: "Razón social" %>
       </div>
       <div class="field">
@@ -31,95 +31,95 @@
         <%= f.text_field :fake_name,required: true,  autocomplete: "fake_name", placeholder: "Nombre fantasía" %>
       </div>
       <div class="field">
-        <%= f.label "Deparatamento" %>
+        <%= f.label :state, "Deparatamento" %>
         <%= f.select :state, Company.states.keys, required: true, include_blank: "Departamento" , autocomplete: "state", placeholder: "Departamento" %>
       </div>
       <div class="field">
-        <%= f.label "Dirección" %>
+        <%= f.label :address, "Dirección" %>
         <%= f.text_field :address, required: true, autocomplete: "address", placeholder: "Dirección" %>
       </div>
       <div class="field">
-        <%= f.label "Giro principal" %>
+        <%= f.label :activity, "Giro principal" %>
         <%= f.select :activity, Company.activities.keys, required: true, include_blank: "Giro principal", autocomplete: "activity" %>
       </div>
       <div class="field">
-        <%= f.label "Tamaño" %>
+        <%= f.label :size, "Tamaño" %>
         <%= f.select :size, Company.sizes.keys, required: true, include_blank: "Tamaño de la empresa", autocomplete: "size" %>
       </div>
       <div class="field">
-        <%= f.label "Trabajadores hombres" %>
+        <%= f.label :man_workers, "Trabajadores hombres" %>
         <%= f.number_field :man_workers, min:0, required: true, autocomplete: "man_workers", placeholder: "Trabajadores hombres" %>
       </div>
       <div class="field">
-        <%= f.label "Trabajadoras mujeres" %>
+        <%= f.label :woman_workers, "Trabajadoras mujeres" %>
         <%= f.number_field :woman_workers, min: 0, required: true, autocomplete: "woman_workers", placeholder: "Trabajadoras Mujeres" %>
       </div>
       <div class="field">
-        <%= f.label "Año de comienzo de actividad" %>
+        <%= f.label :start_year, "Año de comienzo de actividad" %>
         <%= f.number_field :start_year, min: 1950, max: 2025, step: 1, required: true, autocomplete: "start_year", placeholder: "Año de comienzo de actividad" %>
       </div>
       <div class="field">
-        <%= f.label "¿Cuál es el alcance de la operación de tu empresa?" %>
+        <%= f.label :destination_ids, "¿Cuál es el alcance de la operación de tu empresa?" %>
         <div class="options">
           <%= f.collection_checkboxes :destination_ids, Destination.order(:weight), :id, :name, :include_hidden => false,  required: true, :input_html => { :include_hidden => false } %>
         </div>
       </div>
       <div class="field">
-        <%= f.label "En el caso de ser internacional, si tu empresa opera en otros países, especifique cuáles" %>
+        <%= f.label :countries, "En el caso de ser internacional, si tu empresa opera en otros países, especifique cuáles" %>
         <%= f.text_field :countries, autocomplete: "countries", placeholder: "Países internacionales" %>
       </div>
       <div class="field">
-        <%= f.label "¿La empresa es propiedad total o parcial de mujeres?" %>
+        <%= f.label :women_participation, "¿La empresa es propiedad total o parcial de mujeres?" %>
         <%= f.select :women_participation, Company.women_participations.keys, required: true %>
       </div>
       <div class="field">
-        <%= f.label "¿Qué porcentaje de los puestos de liderazgo en la empresa están ocupados por mujeres?" %>
+        <%= f.label :women_leadership, "¿Qué porcentaje de los puestos de liderazgo en la empresa están ocupados por mujeres?" %>
         <span class="disclaimer">Se consideran puestos de liderazgo la dirección de la empresa, la administración general, la gestión de áreas clave como compras, ventas, producción o logística, la supervisión de equipos de trabajo y la participación en la toma de decisiones estratégicas</span>
         <%= f.select :women_leadership, Company.women_leaderships.keys, required: true %>
       </div>
       <div class="field">
-        <%= f.label "¿La empresa incluye entre sus trabajadores permanentes, a personas con discapacidad?" %>
+        <%= f.label :disability, "¿La empresa incluye entre sus trabajadores permanentes, a personas con discapacidad?" %>
         <span class="disclaimer">Se considera con discapacidad a toda persona que presente una alteración funcional permanente o prolongada, física o mental que en relación a su edad y medio social implique desventajas considerables para su integración familiar, social, educacional o laboral. Artículo 2 de la Ley 18.651</span>
         <%= f.select :disability, Company.disabilities.keys, required: true %>
       </div>
       <div class="field">
-        <%= f.label "Fecha de inicio de actividad" %>
+        <%= f.label :start_date, "Fecha de inicio de actividad" %>
         <%= f.date_field :start_date, required: true %>
       </div>
       <div class="field">
-        <%= f.label "¿Su empresa está registrada en la Dirección General Impositiva (DGI) y cuenta con RUT activo?" %>
+        <%= f.label :registered, "¿Su empresa está registrada en la Dirección General Impositiva (DGI) y cuenta con RUT activo?" %>
         <%= f.select :registered, [['No','false'],['Si','true']], required: true %>
       </div>
       <div class="field">
-        <%= f.label "¿Su empresa está registrada en el Banco de Previsión Social (BPS) y al día con los aportes correspondientes?" %>
+        <%= f.label :worker_insurance, "¿Su empresa está registrada en el Banco de Previsión Social (BPS) y al día con los aportes correspondientes?" %>
         <%= f.select :worker_insurance, [['No','false'],['Si','true']], required: true %>
       </div>
       <div class="field">
-        <%= f.label "¿Su empresa cuenta con la habilitación de la Intendencia correspondiente para operar en su local o establecimiento?" %>
+        <%= f.label :abilitation, "¿Su empresa cuenta con la habilitación de la Intendencia correspondiente para operar en su local o establecimiento?" %>
         <%= f.select :abilitation, Company.abilitations.keys, required: true %>
       </div>
       <div class="field">
-        <%= f.label "Si tiene empleados ¿Su empresa está registrada en el Ministerio de Trabajo y Seguridad Social (MTSS) y cumple con las normativas laborales vigentes?" %>
+        <%= f.label :worker_registration, "Si tiene empleados ¿Su empresa está registrada en el Ministerio de Trabajo y Seguridad Social (MTSS) y cumple con las normativas laborales vigentes?" %>
         <%= f.select :worker_registration, Company.worker_registrations.keys, required: true %>
       </div>
       <div class="field">
-        <%= f.label "¿Su local cuenta con la habilitación de la Dirección Nacional de Bomberos cuando es requerida?" %>
+        <%= f.label :building_abilitation, "¿Su local cuenta con la habilitación de la Dirección Nacional de Bomberos cuando es requerida?" %>
         <%= f.select :building_abilitation, Company.building_abilitations.keys, required: true %>
       </div>
       <div class="field">
-        <%= f.label "Nombre de la persona de contacto" %>
+        <%= f.label :contact_name, "Nombre de la persona de contacto" %>
         <%= f.text_field :contact_name, required: true, autocomplete: "contact_name", placeholder: "Nombre de la persona de contacto" %>
       </div>
       <div class="field">
-        <%= f.label "Cargo de la persona de contacto" %>
+        <%= f.label :contact_position, "Cargo de la persona de contacto" %>
         <%= f.text_field :contact_position, required: true, autocomplete: "contact_position", placeholder: "Cargo de la persona de contacto" %>
       </div>
       <div class="field">
-        <%= f.label "Teléfono de contacto" %>
+        <%= f.label :contact_tel, "Teléfono de contacto" %>
         <%= f.text_field :contact_tel, required: true, autocomplete: "contact_tel", placeholder: "Teléfono de contacto" %>
       </div>
       <div class="field">
-        <%= f.label "Email de contacto" %>
+        <%= f.label :contact_email, "Email de contacto" %>
         <%= f.email_field :contact_email, required: true, autocomplete: "contact_email", placeholder: "Email de contacto" %>
       </div>
       <div class="field">

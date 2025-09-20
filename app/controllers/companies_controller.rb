@@ -3,6 +3,7 @@ class CompaniesController < ApplicationController
 
   #Dashboard page
   def dashboard
+    @company = current_company
   end
   #Answer page
   def answer_poll

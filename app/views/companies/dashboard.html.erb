@@ -3,18 +3,18 @@
     <%= render partial: 'company_data' %>
     <% if current_company.is_main_company %>
       <h2>Evaluaciones de Organizaciones asociadas</h2>
-      <% Evaluation.where(is_submitted: true, company_id: current_company.company_child_companies.pluck(:id)).order(:submitted_date).each do |e| %>
+      <% Evaluation.where(is_submitted: true, company_id: current_company.company_child_companies.pluck(:company_id)).order(:submitted_date).each do |e| %>
         <% company = e.company %>
         <div id="company-evaluations">
           <div class="evaluation">
             <h3><%= "#{company.fake_name} - #{e.poll.title}" %></h3>
             <div class="filters">
-              <div class="tag"><%= evaluation.poll.area.title %></div>
-              <div class="tag"><%= evaluation.poll.provision.title %></div>
+              <div class="tag"><%= e.poll.area.title %></div>
+              <div class="tag"><%= e.poll.provision.title %></div>
             </div>
-            <div class="evaluation-date"><%= evaluation.submitted_date %></div>
-            <%= link_to "Ver evaluación", evaluation_path(evaluation), class: "main-button" %>
-            <%= link_to "Descargar certificado", '/', class: "secondary-button" %>
+            <div class="evaluation-date"><%= e.submitted_date %></div>
+            <%= link_to "Ver evaluación", evaluation_path(e), class: "main-button" %>
+            <%= link_to "Descargar certificado", evaluation_path(e, print: true), class: "secondary-button" %>
           </div>
         </div>
       <% end %>

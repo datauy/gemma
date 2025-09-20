@@ -35,7 +35,7 @@
             <% if question[:eqvalue].present? %>
               <div class="question section-header">
                 <div class="question-left">
-                  <h4><%= question[:id] %>. <%= question[:title] %></h4>
+                  <h4><%= question[:title] %> (#<%= question[:id] %>)</h4>
                   <span><%= question[:description].html_safe %></span>
                 </div>
                 <div class="question-middle">

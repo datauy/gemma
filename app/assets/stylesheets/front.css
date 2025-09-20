@@ -126,6 +126,7 @@ span {
   width: 100%;
   background-color: #d9d9d9;
   height: 249px;
+  max-width: 400px;
 }
 .actions {
   display: flex;

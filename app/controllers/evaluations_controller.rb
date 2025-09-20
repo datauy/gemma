@@ -80,11 +80,16 @@ class EvaluationsController < ApplicationController
 
   def show
     @evaluation = Evaluation.find_by(id: params[:id])
-    if !@evaluation.present? || @evaluation.company_id != current_company.id
+    child_companies = current_company.company_child_companies.pluck(:company_id)
+    if !@evaluation.present? || (@evaluation.company_id != current_company.id && !child_companies.include?(@evaluation.company_id))
       redirect_to dashboard_path()
     else
       @poll = @evaluation.poll
       if @evaluation.is_submitted
+        @company = current_company
+        if @evaluation.company_id != current_company.id
+          @company = Company.find(@evaluation.company_id)
+        end
         @print = false
         if params[:print].present?
           @print = true

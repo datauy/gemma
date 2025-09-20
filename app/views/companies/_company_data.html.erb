@@ -1,19 +1,23 @@
 <div id="company-data">
-  <% if current_company.logo.attached? %>
-    <%= image_tag current_company.logo %>
+  <% if @company.logo.attached? %>
+    <%= image_tag @company.logo %>
   <% else %>
     <div class="rectangle-div"></div>
   <% end %>
   <div id="company-info" class="section">
-    <h1><%= current_company.fake_name %></h1>
-    <% if !current_company.is_main_company %>
-      <h4>última puntuación</h4>
-      <span id="last-result">Aún no hay evaluaciones enviadas</span>
+    <h1><%= @company.fake_name %></h1>
+    <% if !@company.is_main_company %>
+      <% last_total = @company.evaluations.
+      where(is_submitted: true).
+      where.not(total: nil).
+      order(submitted_date: 'desc').
+      first %>
+      <h4>última puntuación: <span id="last-result"><%= last_total.nil? ? "Sin evaluaciones" : last_total.total %></span></h4>
     <% end %>
-    <span>RUT: <%= current_company.registration_number %></span>
-    <span>Persona de contacto: <%= current_company.contact_name %></span>
-    <span>Teléfono: <%= current_company.contact_tel %></span>
-    <span>Dirección: <%= current_company.address %></span>
+    <span>RUT: <%= @company.registration_number %></span>
+    <span>Persona de contacto: <%= @company.contact_name %></span>
+    <span>Teléfono: <%= @company.contact_tel %></span>
+    <span>Dirección: <%= @company.address %></span>
     <%= link_to 'Editar datos de la empresa', edit_company_registration_path, class: 'main-button' %>
   </div>
 </div>

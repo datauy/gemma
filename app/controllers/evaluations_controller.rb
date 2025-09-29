@@ -1,5 +1,7 @@
 class EvaluationsController < ApplicationController
   before_action :authenticate_company!, :company_is_confirmed
+  skip_before_action :authenticate_company!, if: -> {current_admin_user}
+  skip_before_action :company_is_confirmed, if: -> {current_admin_user}
   skip_before_action :company_is_confirmed, only: [:create, :edit]
 
   #
@@ -42,7 +44,7 @@ class EvaluationsController < ApplicationController
 
   def edit
     @evaluation = Evaluation.find_by(id: params[:id])
-    if !@evaluation.present? || @evaluation.company_id != current_company.id
+    if !@evaluation.present? || !current_company.present? || @evaluation.company_id != current_company.id
       redirect_to dashboard_path()
     else
       @poll = @evaluation.poll
@@ -80,24 +82,29 @@ class EvaluationsController < ApplicationController
 
   def show
     @evaluation = Evaluation.find_by(id: params[:id])
-    child_companies = current_company.company_child_companies.pluck(:company_id)
-    if !@evaluation.present? || (@evaluation.company_id != current_company.id && !child_companies.include?(@evaluation.company_id))
+    if !@evaluation.present?
       redirect_to dashboard_path()
-    else
-      @poll = @evaluation.poll
-      if @evaluation.is_submitted
-        @company = current_company
-        if @evaluation.company_id != current_company.id
-          @company = Company.find(@evaluation.company_id)
-        end
-        @print = false
-        if params[:print].present?
-          @print = true
-        end
-        self.process_evaluation
+    end
+    if !current_admin_user
+      if !current_company.present?
+        redirect_to dashboard_path()
       else
-        redirect_to edit_evaluation_path(@evaluation)
+        child_companies = current_company.company_child_companies.pluck(:company_id)
+        if  @evaluation.company_id != current_company.id && !child_companies.include?(@evaluation.company_id)
+          redirect_to dashboard_path()
+        end
       end
+    end
+    @poll = @evaluation.poll
+    if @evaluation.is_submitted
+      @company = Company.find(@evaluation.company_id)
+      @print = false
+      if params[:print].present?
+        @print = true
+      end
+      self.process_evaluation
+    else
+      redirect_to edit_evaluation_path(@evaluation)
     end
   end
 
@@ -164,7 +171,7 @@ class EvaluationsController < ApplicationController
           #Store max value
           #Replace value in formula
           max_formula.gsub!("[#{eq.question_id}]", "#{max_value.present? ? max_value : 0}")
-          formula.gsub!("[#{eq.question_id}]", "#{eq.qvalue}")
+          formula.gsub!("[#{eq.question_id}]", "#{eq.qvalue.to_i}")
           logger.debug("\n\nFORMULA\n#{formula}\n\n")
           logger.debug("\n\nMAX FORMULA\n#{max_formula}\n\n")
         end

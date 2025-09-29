@@ -28,6 +28,9 @@ ActiveAdmin.register Evaluation do
     id_column
     column :poll
     column :company
+    column "Ver Evaluacion" do |e|
+      link_to "Ver Evaluacion", evaluation_path(e), target: "_blank"
+    end
     column :created_at
     column :updated_at
     column :is_submitted

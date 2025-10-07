@@ -1,6 +1,7 @@
 class Poll < ApplicationRecord
   belongs_to :area
   belongs_to :provision
+  has_many :evaluations
   has_many :poll_questions, dependent: :delete_all
   has_many :questions, through: :poll_questions
   has_many :poll_sections, dependent: :delete_all

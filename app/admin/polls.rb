@@ -1,4 +1,5 @@
 ActiveAdmin.register Poll do
+  require 'csv'
   # Specify parameters which should be permitted for assignment
   menu priority: 5
   permit_params :title, :description, :area_id, :provision_id, :last_disclaimer, :enabled, :version, poll_questions_attributes:[:question_id, :question_weight, :poll_id, :_destroy, :id, :semaphore_id, :condition_question, :condition_operator, :condition_value, :section_yellow, :section_red], poll_sections_attributes:[:id, :section_id, :poll_id, :disabled, :_destroy, semaphore_attributes: [:id, :formula, :percentage, :green_text, :green_value, :yellow_text, :red_text, :red_value, :_destroy]]
@@ -35,6 +36,11 @@ ActiveAdmin.register Poll do
   action_item :publish, only: :show do
     logger.debug "\n\n PUBLISH link #{resource.inspect} \n"
     button_to 'PUBLICAR', publish_admin_poll_path(resource), method: :put, class: "action-item-button", remote: true, data: { confirm: '¿Seguro que desea publicar ésta versión?' }
+  end
+  #
+  action_item :export_evaluations, only: :show do
+    logger.debug "\n\n EXPORT #{resource.inspect} \n"
+    link_to 'Exportar evaluaciones', "/export/#{resource.id}", target: '_blank', class: "action-item-button"
   end
   #
   member_action :publish, method: :put do

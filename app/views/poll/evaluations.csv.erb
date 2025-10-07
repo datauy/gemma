@@ -1,0 +1,4 @@
+<%= CSV.generate_line @headers %>
+<% @lines.each do |l| %>
+  <%= CSV.generate_line(l) %>
+<% end %>

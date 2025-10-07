@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   # Public pages
   get "sobre-el-proyecto" => "static_pages#about"
   get "planes" => "static_pages#pricing"
+  get "export/:poll_id" => 'poll#export_evaluations', defaults: { format: :csv }
 
   resources :evaluations
 end

@@ -32,4 +32,30 @@ class PollController < ApplicationController
       format.turbo_stream
     end
   end
+  def export_evaluations
+    if !current_admin_user
+      redirect_to dashboard_path()
+    else
+      resource = Poll.find(params[:poll_id])
+      @headers = ['ID', 'Organization', 'Fecha de envío', 'TOTAL']
+      resource.questions.order(:id).each do |q|
+        @headers.push("##{q.id}")
+      end
+      @lines = []
+      resource.evaluations.each do |e|
+        line = [e.id, e.company_id, e.submitted_date, e.total]
+        e.evaluation_questions.order(:question_id).each do |eq|
+          line.push(eq.qvalue)
+        end
+        @lines.push(line)
+      end
+      respond_to do |format|
+        format.csv do
+          response.headers['Content-Type'] = 'text/csv'
+          response.headers['Content-Disposition'] = "attachment; filename=evaluations-poll##{resource.id}-#{Date.today.to_s}.csv"
+          render template: "poll/evaluations"
+        end
+      end
+    end
+  end
 end

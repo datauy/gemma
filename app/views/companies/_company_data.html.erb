@@ -12,7 +12,7 @@
       where.not(total: nil).
       order(submitted_date: 'desc').
       first %>
-      <h4>última puntuación: <span id="last-result"><%= last_total.nil? ? "Sin evaluaciones" : last_total.total %></span></h4>
+      <h4>última puntuación: <span id="last-result"><%= last_total.nil? ? "Sin evaluaciones" : last_total.total.to_i %></span></h4>
     <% end %>
     <span>RUT: <%= @company.registration_number %></span>
     <span>Persona de contacto: <%= @company.contact_name %></span>

@@ -80,5 +80,6 @@
         <%= link_to t(:new_evaluation), company_answer_poll_path, class: "main-button" %>
       <% end %>
     <% end %>
+    <a class="secondary-button mailto" href="<%= "mailto:gestionec@gemma.uy?subject=Solicitud de datos de GEC: #{ current_company.fake_name }&body=Como representante de la empresa que figura, solicito se me envíe un reporte con las evaluaciones realizadas entre las fechas" %>">Solicitar reporte</a>
   </div>
 </div>

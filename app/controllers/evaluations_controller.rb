@@ -111,6 +111,7 @@ class EvaluationsController < ApplicationController
   def process_evaluation
     sections = {}
     @total = 0
+    @maxtotal = 0
     @poll.poll_sections.joins(:section).order(:"section.weight").each do |ps|
       section = ps.section
       section_semaphore = ps.semaphore
@@ -142,6 +143,12 @@ class EvaluationsController < ApplicationController
         if process
           if eq.present?
             eqvalue = eq.qvalue
+            if eq.question.qtype == "Opciones"
+              logger.debug("\nEVALUATION QUESTION: #{eq.inspect}")
+              option_text = eq.question.options.where(ovalue: eqvalue).first.title
+            else
+              option_text = eq.qvalue
+            end
             #Evaluate yellow/red for section
             if question.semaphore.green_value < eq.qvalue.to_i
               color = 'green'
@@ -166,7 +173,9 @@ class EvaluationsController < ApplicationController
             description: question.description,
             color: color,
             semaphore_text: semaphore_text,
-            eqvalue: eqvalue
+            eqvalue: eqvalue,
+            maxvalue: max_value,
+            option_text: option_text
           })
           #Store max value
           #Replace value in formula
@@ -183,10 +192,12 @@ class EvaluationsController < ApplicationController
       total = eval formula
       max_total = eval max_formula
       sections[section.id][:total] = total
+      sections[section.id][:maxtotal] = max_total
       #Add total to poll total
       logger.debug "\n\n SECTIONS SEMAPHORE\n#{section_semaphore.inspect}\n"
       @total += total.to_d*(section_semaphore.percentage.present? ? section_semaphore.percentage : 0)/max_total
-      logger.debug("\n\nTOTAL\n#{@total}\n\n")
+      @maxtotal += section_semaphore.percentage.present? ? section_semaphore.percentage : 0
+      logger.debug("\n\nTOTAL\n#{@maxtotal}\n\n")
       #Calculate section semaphore if not seted by question
       if ssemaphore.nil?
         ssemaphore = self.semaphore(section_semaphore, total)

@@ -7,6 +7,11 @@
   gap: 20px;
   flex-direction: column;
 }
+.evaluation-header .total-wraper {
+  align-items: center;
+  gap: 10px;
+  display: flex;
+}
 .question-middle {
   display: flex;
 }

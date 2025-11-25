@@ -37,15 +37,16 @@ class PollController < ApplicationController
       redirect_to dashboard_path()
     else
       resource = Poll.find(params[:poll_id])
-      @headers = ['ID', 'Organization', 'Fecha de envío', 'TOTAL']
+      @headers = ['ID', 'ID Organización', 'Nombre de Organización', 'Fecha de envío', 'TOTAL']
       resource.questions.order(:id).each do |q|
-        @headers.push("##{q.id}")
+        @headers.push("#{q.id} - #{q.title}")
       end
       @lines = []
       resource.evaluations.each do |e|
-        line = [e.id, e.company_id, e.submitted_date, e.total]
+        company = Company.find(e.company_id)
+        line = [e.id, e.company_id, company.name, e.submitted_date, e.total]
         e.evaluation_questions.order(:question_id).each do |eq|
-          line.push(eq.qvalue)
+          eq.qvalue.nil ? line.push("Sin respuesta") : line.push(eq.qvalue)
         end
         @lines.push(line)
       end

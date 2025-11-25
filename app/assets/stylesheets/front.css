@@ -172,6 +172,9 @@ span {
   text-decoration: none;
 }
 
+.mailto {
+  margin-top: 20px;
+}
 .image-box {
   display: flex;
   gap: 100px;

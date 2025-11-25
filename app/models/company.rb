@@ -61,7 +61,8 @@ class Company < ApplicationRecord
     'Más del 50% - La mayoría de los puestos de liderazgo están ocupados por mujeres',
     'Entre 25% y 50% - Hay una presencia significativa de mujeres en estos puestos',
     'Menos del 25% - Hay algunas mujeres en estos puestos',
-    'No hay mujeres en estos puestos'
+    'No hay mujeres en estos puestos',
+    '100% de los puestos de liderazgo están ocupados por mujeres'
   ]
 
   enum :disability, [

@@ -5,11 +5,14 @@
     <div class="evaluation-header">
       <div class="title">
         <h1>Evaluación <%= @poll.title %></h1>
-        <div class="total">Puntaje total: <%= @total %></div>
+        <div class="total-wraper">
+          <div class="total">Puntaje total: <%= @total %> / <%= @maxtotal %></div>
+          <% ecolor = @total < 41 ? 'red' : @total > 70 ? 'green' : 'yellow' %> 
+          <%= format_semaphore(ecolor, true) %>
+        </div>
       </div>
       <div class="filters">
         <div class="tag"><%= @poll.area.title %></div>
-        <div class="tag"><%= @poll.provision.title %></div>
       </div>
       <div class="date">Fecha de evaluación: <%= @evaluation.submitted_date %></div>
       <div class="description"><%= @poll.description.html_safe %></div>
@@ -25,7 +28,7 @@
           <div class="section-right">
             <%= format_semaphore(section[:semaphore][0]) %>
             <div class="semaphore-text">
-              <div class="section-total">Resultado de la sección: <%= section[:total] %></div>
+              <div class="section-total">Resultado de la sección: <%= section[:total] %> / <%= section[:maxtotal] %></div>
               <span><%= section[:semaphore][1] %></span>
             </div>
           </div>
@@ -36,13 +39,13 @@
               <div class="question section-header">
                 <div class="question-left">
                   <h4><%= question[:title] %> (#<%= question[:id] %>)</h4>
-                  <span><%= question[:description].html_safe %></span>
                 </div>
                 <div class="question-middle">
                   <%= format_semaphore(question[:color], true) %>
                 </div>
                 <div class="question-right">
-                  <div class="question-total">Valor obtenido: <%= question[:eqvalue] %></div>
+                  <div class="question-text">Su respuesta: <%= question[:option_text] %></div>
+                  <div class="question-total">Valor obtenido: <%= question[:eqvalue] %> / <%= question[:maxvalue] %></div>
                   <div class="question-text"><%= question[:semaphore_text] %></div>
                 </div>
               </div>

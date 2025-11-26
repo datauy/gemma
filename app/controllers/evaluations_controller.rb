@@ -145,7 +145,11 @@ class EvaluationsController < ApplicationController
             eqvalue = eq.qvalue
             if eq.question.qtype == "Opciones"
               logger.debug("\nEVALUATION QUESTION: #{eq.inspect}")
-              option_text = eq.question.options.where(ovalue: eqvalue).first.title
+              if ( eqvalue.empty? )
+                option_text = "Sin contestar"
+              else
+                option_text = eq.question.options.where(ovalue: eqvalue).first.title
+              end
             else
               option_text = eq.qvalue
             end
@@ -204,7 +208,7 @@ class EvaluationsController < ApplicationController
       end
       sections[section.id][:semaphore] = ssemaphore
     end
-    if @evaluation.total.nil?
+    if @evaluation.total != @total
       @evaluation.update(total: @total)
     end
     @total = @total.to_i

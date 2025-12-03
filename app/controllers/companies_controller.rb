@@ -10,6 +10,7 @@ class CompaniesController < ApplicationController
   end
   #Turbo to get poll by filters
   def get_poll
+    @errors = []
     @poll = Poll.where( area_id: params[:area], provision_id: params[:provision], enabled: true ).first
     @evaluation = Evaluation.new
     respond_to do |format|

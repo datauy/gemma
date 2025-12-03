@@ -50,12 +50,17 @@
                 </div>
               </div>
             <% else %>
-              <div class="question disabled">
+              <!-- <div class="question section-header disabled">
                 <div class="section-left">
-                  <h4><%= question[:title] %></h4>
-                  <span><%= question[:description].html_safe %></span>
+                  <h4><%= question[:title] %> (#<%= question[:id] %>)</h4>
                 </div>
-              </div>
+                <div class="question-middle">
+                  <%= format_semaphore('grey', true) %>
+                </div>
+                <div class="question-right">
+                  <div class="question-text">Sin contestar</div>
+                </div>
+              </div> -->
             <% end %>
           <% end %>
         </div>

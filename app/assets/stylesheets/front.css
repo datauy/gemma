@@ -18,6 +18,8 @@
   --Mostaza-Energizante: #dca410;
   --Feedback-Warning-Dark: #e0982b;
   --Feedback-Warning-Light: #fffbed;
+  --Feedback-Error-Dark: #F63B3B;
+  --Feedback-Error-Light: #fff5f5;
   --color-green: #3eb076;
   --color-red: #f63b3b;
   --color-yellow: #f7ec5b;
@@ -96,8 +98,8 @@ span {
 }
 .alert {
   border-radius: 8px;
-  background-color: var(--Feedback-Warning-Light);
-  border: 1px solid var(--Feedback-Warning-Dark);
+  background-color: var(--Feedback-Error-Light);
+  border: 1px solid var(--Feedback-Error-Dark);
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -108,6 +110,9 @@ span {
   text-align: center;
   margin: 20px 0;
   width: fit-content;
+}
+.error {
+  color: var(--Feedback-Error-Dark);
 }
 .result {
   font-size: 28px;

@@ -13,6 +13,7 @@ class EvaluationsController < ApplicationController
   # INDEX??
   def index
     @evaluation = Evaluation.find_by(id: params[:id])
+    @errors = []
     if @evaluation.present? && @evaluation.company_id == current_company.id
 
     else
@@ -24,17 +25,10 @@ class EvaluationsController < ApplicationController
     if params[:evaluation].present?
       params[:evaluation][:company_id] = current_company.id
       @poll = Poll.find(params[:evaluation][:poll_id])
+      @evaluation = Evaluation.create(evaluation_create_params)
+      @errors = []
       if params[:commit] == "Evaluar"
-        if current_company.is_confirmed
-          params[:evaluation][:is_submitted] = true
-          params[:evaluation][:submitted_date] = Time.current
-          @evaluation = Evaluation.create(evaluation_create_params)
-          self.process_evaluation
-        else
-          @evaluation = Evaluation.create(evaluation_create_params)
-        end
-      else
-        @evaluation = Evaluation.create(evaluation_create_params)
+        self.process_update
       end
       respond_to do |format|
         format.turbo_stream
@@ -44,6 +38,7 @@ class EvaluationsController < ApplicationController
 
   def edit
     @evaluation = Evaluation.find_by(id: params[:id])
+    @errors = []
     if !@evaluation.present? || !current_company.present? || @evaluation.company_id != current_company.id
       redirect_to dashboard_path()
     else
@@ -57,21 +52,11 @@ class EvaluationsController < ApplicationController
   def update
     @evaluation = Evaluation.find(params[:id])
     if @evaluation.present?
+      @errors = []
+      @poll = Poll.find(@evaluation.poll_id)
+      @evaluation.update(evaluation_update_params)
       if params[:commit] == "Evaluar"
-        if current_company.is_confirmed
-          params[:evaluation][:is_submitted] = true
-          params[:evaluation][:submitted_date] = Time.current
-          @evaluation.update(evaluation_update_params)
-          @poll = Poll.find(@evaluation.poll_id)
-          self.process_evaluation
-          @notice = "Evaluación enviada"
-        else
-          @evaluation.update(evaluation_update_params)
-          @notice = "Evaluación actualizada"
-        end
-      else
-        @evaluation.update(evaluation_update_params)
-        @notice = "Evaluación actualizada"
+        self.process_update
       end
     end
     respond_to do |format|
@@ -130,7 +115,7 @@ class EvaluationsController < ApplicationController
         pq = @poll.poll_questions.where(question_id: question.id ).first
         color = nil
         semaphore_text = nil
-        eqvalue = nil
+        eqvalue = ""
         process = true
         case question.qtype
           when 'Numérica'
@@ -151,13 +136,13 @@ class EvaluationsController < ApplicationController
                 option_text = eq.question.options.where(ovalue: eqvalue).first.title
               end
             else
-              option_text = eq.qvalue
+              option_text = eqvalue
             end
             #Evaluate yellow/red for section
-            if question.semaphore.green_value < eq.qvalue.to_i
+            if question.semaphore.green_value < eqvalue.to_i
               color = 'green'
               semaphore_text = question.semaphore.green_text
-            elsif question.semaphore.red_value > eq.qvalue.to_i
+            elsif question.semaphore.red_value > eqvalue.to_i
               color = 'red'
               semaphore_text = question.semaphore.red_text
               if pq.section_red
@@ -184,7 +169,7 @@ class EvaluationsController < ApplicationController
           #Store max value
           #Replace value in formula
           max_formula.gsub!("[#{eq.question_id}]", "#{max_value.present? ? max_value : 0}")
-          formula.gsub!("[#{eq.question_id}]", "#{eq.qvalue.to_i}")
+          formula.gsub!("[#{eq.question_id}]", "#{eqvalue.to_i}")
           logger.debug("\n\nFORMULA\n#{formula}\n\n")
           logger.debug("\n\nMAX FORMULA\n#{max_formula}\n\n")
         end
@@ -213,6 +198,64 @@ class EvaluationsController < ApplicationController
     end
     @total = @total.to_i
     @sections = sections.values
+    @notice = "Evaluación enviada"
+  end
+  #
+  def process_update
+    if current_company.is_confirmed
+      if self.process_validate
+        params[:evaluation][:is_submitted] = true
+        params[:evaluation][:submitted_date] = Time.current
+        @evaluation.update(evaluation_update_params)
+        @company = current_company
+        self.process_evaluation
+      else
+        @error = "Revise su evaluación, faltan preguntas por contestar."
+      end
+    else
+      @evaluation.update(evaluation_update_params)
+      @error = "No se ha confirmado su companía, por lo que se ha guardado un borrador de la evaluación. Solicite se confirme la misma a fin de proceder."
+    end
+  end
+  #
+  def process_validate
+    @evaluation.evaluation_questions.each do |eq|
+      if eq.qvalue.empty?
+        pq = @poll.poll_questions.where(question_id: eq.question_id).first
+        if pq.condition_question.nil?
+          @errors.push eq.question_id
+        else
+          # Check condition
+          cq = @evaluation.evaluation_questions.where(question_id: pq.condition_question).first
+          if cq.qvalue.empty?
+            @errors.push eq.question_id
+          else
+            formula = "#{cq.qvalue} #{self.condition_operator_formula(pq.condition_operator)} #{pq.condition_value}"
+            logger.debug "\n\nFORMULA: #{formula} \n\n"
+            if !(eval formula)
+              @errors.push eq.question_id
+            end
+          end
+        end
+      end
+    end
+    if @errors.size > 0
+      logger.debug "ERRORES: #{@errors.inspect}"
+      return false
+    else
+      return true
+    end
+  end
+  #
+  def condition_operator_formula(str)
+    case str
+    when "Mayor"
+      return '>'
+    when "Menor"
+      return '<'
+    else
+      return '=='
+    end
   end
   #
   def semaphore(semaphore, value)

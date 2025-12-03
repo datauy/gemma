@@ -13,4 +13,15 @@ module EvaluationsHelper
     semaphore += '</div>'
     semaphore.html_safe
   end
+  #
+  def condition_operator_formula(str)
+    case str
+    when "Mayor"
+      return '>'
+    when "Menor"
+      return '<'
+    else
+      return '='
+    end
+  end
 end

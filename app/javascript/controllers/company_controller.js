@@ -11,22 +11,22 @@ export default class extends Controller {
   selectFilter(e) {
     console.log("SELECT FILTER", e.target)
     console.log(this.hasAreaValue, this.hasProvisionValue)
-    if ( e.target.id == 'provision' ) {
+    /*if ( e.target.id == 'provision' ) {
       this.provisionValue = e.target.value
       if (this.hasAreaValue && this.provisionValue ) {
         this.fetchPoll()
       }
     }
-    else {
+    else {*/
       this.areaValue = e.target.value
-      if ( this.hasProvisionValue && this.areaValue ) {
+      //if ( this.hasProvisionValue && this.areaValue ) {
         this.fetchPoll()
-      }
-    }
+      //}
+    //}
   }
   //
   fetchPoll() {
-    fetch('/company/get-poll/'+this.areaValue+'/'+this.provisionValue, {
+    fetch('/company/get-poll/'+this.areaValue+'/1', {
       method: "GET",
       headers: {
         Accept: "text/vnd.turbo-stream.html"

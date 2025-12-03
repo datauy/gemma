@@ -10,17 +10,17 @@
   </div>
   <div class="poll-filters" data-controller='company'>
     <%= select_tag :area, 
-      options_for_select( Area.all.pluck(:title, :id), 0 ),
-      include_blank: "Filtro1",
+      options_for_select( Area.all.pluck(:title, :id), "" ),
+      include_blank: "Seleccione el área",
       class: 'poll-filters-area', 
       data: {action: 'company#selectFilter'}
     %>
-    <%= select_tag :provision, 
+    <!-- <%= select_tag :provision, 
       options_for_select( Provision.all.pluck(:title, :id), 0 ),
       include_blank: "Filtro2",
       class: 'poll-filters-provision', 
       data: {action: 'company#selectFilter'}
-    %>
+    %>-->
   </div>
   <%= turbo_frame_tag "poll" %>
 </div>

@@ -29,17 +29,24 @@
               <span><%= section.description.html_safe %></span>
             </div>
             <div class="section-questions">
+              <% cquestions = {} %>
               <% @poll.questions.includes(:poll_questions).where(section_id: section.id).order(:"poll_questions.question_weight").each do |question| %>
                 <%
                 dvalue = ''  
-                eq = @evaluation.evaluation_questions.where(question_id: question.id ).first 
+                eq = @evaluation.evaluation_questions.where(question_id: question.id ).first
+                pq = @poll.poll_questions.where(question_id: question.id ).first
                 if eq.present? %>
                   <% dvalue = eq.qvalue %>
                   <input type="hidden" name=<%= "evaluation[evaluation_questions_attributes][#{qnum}][id]"%> value="<%= eq.id %>">
                 <% end %>
-                <div class='question'>
+                <%
+                  if pq.condition_question.present?
+                    cquestions[pq.condition_question] = { target: "question-#{question.id}", formula: " #{condition_operator_formula(pq.condition_operator)} #{pq.condition_value}" }
+                  end
+                %>
+                <div class='question' id='question-<%= question.id %>'>
                   <div class='question-header'>
-                    <h4><%= question.title %> (#<%= question.id %>)</h4>
+                    <h4 class="<%= @errors.include?(question.id) ? 'error' : '' %>"><%= question.title %> (#<%= question.id %>)</h4>
                     <div class='description'><%= question.description.html_safe %></div>
                   </div>
                   <%= form.hidden_field :"evaluation_questions_attributes][#{qnum}][question_id", value: question.id %>
@@ -47,14 +54,29 @@
                     <%=
                       case question.qtype
                       when "Opciones"
-                        form.select :"evaluation_questions_attributes][#{qnum}][qvalue", options_for_select( question.options.pluck(:title,:ovalue), dvalue ), include_blank: true
+                        form.select :"evaluation_questions_attributes][#{qnum}][qvalue",
+                        options_for_select( question.options.pluck(:title,:ovalue), dvalue ), 
+                        {include_blank: true}, 
+                        {data: {
+                          controller: 'evaluation-question', 
+                          action: 'evaluation-question#changeInput',
+                          evaluation_question_cquestion_value: question.id,
+                          evaluation_question_target: 'qinput'
+                        }}
                       when 'Numérica'
                         result=''
                         option = question.options.first
                         if option.present? && option.prefix.present?
                           result += "<div class='prefix'>#{option.prefix}</div>"
                         end
-                        result += form.number_field :"evaluation_questions_attributes][#{qnum}][qvalue", value: dvalue
+                        result += form.number_field :"evaluation_questions_attributes][#{qnum}][qvalue", 
+                        value: dvalue, 
+                        data: {
+                          controller: 'evaluation-question',
+                          action: 'evaluation-question#changeInput',
+                          evaluation_question_cquestion_value: question.id,
+                          evaluation_question_target: 'qinput'
+                        }
                         if option.present? && option.sufix.present?
                           result += "<div class='sufix'>#{question.options.first.prefix}</div>"
                         end
@@ -71,6 +93,16 @@
               <% qnum += 1
               end %>
             </div>
+            <script> 
+              var cquestions=<%= cquestions.to_json.html_safe %>
+              for ( const key in cquestions ) {
+                let formula = document.querySelector('[data-evaluation-question-cquestion-value="'+key+'"').value + cquestions[key].formula
+                console.log(formula)
+                if ( !eval(formula) ) {
+                  document.getElementById(cquestions[key].target).style.display = 'none'
+                }
+              }
+            </script>
           </div>
         <% end %>
       </div>

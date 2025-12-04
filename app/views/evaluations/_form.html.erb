@@ -109,8 +109,10 @@
       <% if @poll.last_disclaimer.present? %>
       <div class="last-disclaimer"><%= @poll.last_disclaimer.html_safe %></div>
       <% end %>
-      <%= form.submit "Guardar", class: "secondary-button" %>
-      <% if current_company.is_confirmed %>
-        <%= form.submit "Evaluar", class: "main-button", onclick: "return confirm('Revise sus respuestas. Una vez evaluado el cuestionario no podrá ser editado')"  %>
-      <% end %>
+      <div class="evaluation-actions">
+        <%= form.submit "Guardar", class: "secondary-button" %>
+        <% if current_company.is_confirmed %>
+          <%= form.submit "Evaluar", class: "main-button", onclick: "return confirm('Revise sus respuestas. Una vez evaluado el cuestionario no podrá ser editado')"  %>
+        <% end %>
+      </div>
     <% end %>

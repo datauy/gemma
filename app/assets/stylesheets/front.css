@@ -176,7 +176,9 @@ span {
   line-height: 16px;
   text-decoration: none;
 }
-
+.disabled {
+  display: none;
+}
 .mailto {
   margin-top: 20px;
 }

@@ -11,6 +11,8 @@ export default class extends Controller {
   selectFilter(e) {
     console.log("SELECT FILTER", e.target)
     console.log(this.hasAreaValue, this.hasProvisionValue)
+    this.areaValue = e.target.value
+    this.provisionValue = document.getElementById('provision').value
     /*if ( e.target.id == 'provision' ) {
       this.provisionValue = e.target.value
       if (this.hasAreaValue && this.provisionValue ) {
@@ -18,7 +20,6 @@ export default class extends Controller {
       }
     }
     else {*/
-      this.areaValue = e.target.value
       //if ( this.hasProvisionValue && this.areaValue ) {
         this.fetchPoll()
       //}
@@ -26,7 +27,7 @@ export default class extends Controller {
   }
   //
   fetchPoll() {
-    fetch('/company/get-poll/'+this.areaValue+'/1', {
+    fetch('/company/get-poll/'+this.areaValue+'/'+this.provisionValue, {
       method: "GET",
       headers: {
         Accept: "text/vnd.turbo-stream.html"

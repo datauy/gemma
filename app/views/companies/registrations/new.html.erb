@@ -112,7 +112,17 @@
       <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: "Confirmar contraseña" %>
     </div>
 
-    
+    <div class="disclaimer">
+      <input name="disclaimer" required="reuired" type="checkbox"> Acepto los términos</input>
+      <p>
+        De conformidad con la Ley Nº 18.331 de Protección de Datos Personales y su Decreto Reglamentario Nº 414/009, los datos proporcionados en este formulario de registro y en los formularios posteriores al registro serán incorporados a la base de datos denominada “Gemma – Economía Circular”, cuyo responsable es GEMMA SAS BIC. La finalidad del tratamiento es apoyar a las empresas en la realización del autodiagnóstico de economía circular y generar información estadística para el rediseño y mejora de procesos.
+Los datos no serán comunicados a terceros, excepto en los casos en que actúen como encargados del tratamiento en nombre de GEMMA, o cuando el usuario decida voluntariamente compartir sus resultados con empresas interesadas, lo cual podrá autorizar explícitamente desde el panel de control del sistema.
+GEMMA adoptará las medidas técnicas y organizativas necesarias para garantizar la confidencialidad, integridad y disponibilidad de la información, evitando su alteración, pérdida o acceso no autorizado.
+Usted podrá ejercer los derechos de acceso, rectificación, actualización, inclusión y supresión de sus datos personales enviando un correo electrónico a: gestionec@gemma.uy
+
+Los datos permanecerán en la base de datos hasta que la empresa usuaria solicite su eliminación, lo que podrá realizar mediante solicitud escrita a gestionec@gemma.uy
+      </p>
+    </div>
 
     <div class="actions">
       <%= f.submit "Registrarse", class: "main-button" %>

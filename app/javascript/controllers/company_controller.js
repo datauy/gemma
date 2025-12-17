@@ -11,18 +11,19 @@ export default class extends Controller {
   selectFilter(e) {
     console.log("SELECT FILTER", e.target)
     console.log(this.hasAreaValue, this.hasProvisionValue)
-    if ( e.target.id == 'provision' ) {
+    this.areaValue = e.target.value
+    this.provisionValue = document.getElementById('provision').value
+    /*if ( e.target.id == 'provision' ) {
       this.provisionValue = e.target.value
       if (this.hasAreaValue && this.provisionValue ) {
         this.fetchPoll()
       }
     }
-    else {
-      this.areaValue = e.target.value
-      if ( this.hasProvisionValue && this.areaValue ) {
+    else {*/
+      //if ( this.hasProvisionValue && this.areaValue ) {
         this.fetchPoll()
-      }
-    }
+      //}
+    //}
   }
   //
   fetchPoll() {

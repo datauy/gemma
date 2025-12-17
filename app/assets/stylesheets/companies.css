@@ -10,3 +10,7 @@
 #company-dashboard .image-box {
   margin: 60px 0;
 }
+.disclaimer p {
+  color: var(--Grises-Gris-03);
+  font-size: 14px;
+}

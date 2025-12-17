@@ -10,7 +10,7 @@
             <h3><%= "#{company.fake_name} - #{e.poll.title}" %></h3>
             <div class="filters">
               <div class="tag"><%= e.poll.area.title %></div>
-              <div class="tag"><%= e.poll.provision.title %></div>
+              <!--<div class="tag"><%= e.poll.provision.title %></div>-->
             </div>
             <div class="evaluation-date"><%= e.submitted_date %></div>
             <%= link_to "Ver evaluación", evaluation_path(e), class: "main-button" %>
@@ -55,7 +55,7 @@
               <h3><%= evaluation.poll.title %></h3>
               <div class="filters">
                 <div class="tag"><%= evaluation.poll.area.title %></div>
-                <div class="tag"><%= evaluation.poll.provision.title %></div>
+                <!--<div class="tag"><%= evaluation.poll.provision.title %></div>-->
               </div>
               <% if evaluation.is_submitted %>
                 <% if i == 0 

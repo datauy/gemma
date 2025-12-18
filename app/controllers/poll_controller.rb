@@ -33,29 +33,41 @@ class PollController < ApplicationController
     end
   end
   def export_evaluations
+    resource = Poll.find(params[:poll_id])
     if !current_admin_user
-      redirect_to dashboard_path()
+      if current_company.nil?
+        redirect_to company_session_path()
+        return
+      else
+        evals = resource.evaluations.where(company_id: current_company.id)
+      end
     else
-      resource = Poll.find(params[:poll_id])
+      evals = resource.evaluations
+    end
+    if evals.present?
       @headers = ['ID', 'ID Organización', 'Nombre de Organización', 'Fecha de envío', 'TOTAL']
       resource.questions.order(:id).each do |q|
         @headers.push("#{q.id} - #{q.title}")
       end
       @lines = []
-      resource.evaluations.each do |e|
+      evals.each do |e|
         company = Company.find(e.company_id)
         line = [e.id, e.company_id, company.name, e.submitted_date, e.total]
         e.evaluation_questions.order(:question_id).each do |eq|
-          eq.qvalue.nil ? line.push("Sin respuesta") : line.push(eq.qvalue)
+          eq.qvalue.nil? ? line.push("Sin respuesta") : line.push(eq.qvalue)
         end
         @lines.push(line)
       end
-      respond_to do |format|
-        format.csv do
-          response.headers['Content-Type'] = 'text/csv'
-          response.headers['Content-Disposition'] = "attachment; filename=evaluations-poll##{resource.id}-#{Date.today.to_s}.csv"
-          render template: "poll/evaluations"
-        end
+    else
+      flash.notice = "No hay evaluaciones para exportar"
+      redirect_to dashboard_path()
+      return
+    end
+    respond_to do |format|
+      format.csv do
+        response.headers['Content-Type'] = 'text/csv'
+        response.headers['Content-Disposition'] = "attachment; filename=evaluations-poll##{resource.id}-#{Date.today.to_s}.csv"
+        render template: "poll/evaluations"
       end
     end
   end

@@ -48,6 +48,7 @@
           <% 
             i = 0
             j = 0
+            polls = {}
             current_company.evaluations.each do |evaluation|
             j = 1
           %>
@@ -66,6 +67,7 @@
                 <div class="evaluation-date"><%= evaluation.submitted_date %></div>
                 <%= link_to "Ver evaluación", evaluation_path(evaluation), class: "main-button" %>
                 <%= link_to "Descargar certificado", evaluation_path(evaluation, {print: true}), class: "secondary-button" %>
+                <% polls[evaluation.poll.id] = {title: evaluation.poll.title, version: evaluation.poll.version } unless polls.has_key?(evaluation.poll.id) %>
               <% else %>
                 <div class="evaluation-date"><%= evaluation.updated_at %></div>
                 <%= link_to "Continuar editando", edit_evaluation_path(evaluation), class: "main-button" %>
@@ -80,6 +82,8 @@
         <%= link_to t(:new_evaluation), company_answer_poll_path, class: "main-button" %>
       <% end %>
     <% end %>
-    <a class="secondary-button mailto" href="<%= "mailto:gestionec@gemma.uy?subject=Solicitud de datos de GEC: #{ current_company.fake_name }&body=Como representante de la empresa que figura, solicito se me envíe un reporte con las evaluaciones realizadas entre las fechas" %>">Solicitar reporte</a>
+    <% polls.each do |pid, data| %>
+      <%= link_to "Descargar evaluaciones -> #{ data[:title] }, v:#{data[:version]}", "/export/#{pid}", {target: '_blank', class:"secondary-button mailto"} %>
+    <% end %>
   </div>
 </div>

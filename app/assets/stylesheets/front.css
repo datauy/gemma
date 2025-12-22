@@ -340,7 +340,11 @@ input {
     width: 100%;
   }
 }
-.section.pricing h2 {
+.section h2 {
   text-align: left;
   margin-bottom: 20px;
+}
+
+footer img {
+  max-width: 190px;
 }

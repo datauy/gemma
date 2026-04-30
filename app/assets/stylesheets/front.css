@@ -145,6 +145,9 @@ button[aria-expanded="true"] .arrow {
   flex-direction: column;
   gap: 20px;
 }
+.home .section {
+  margin: 50px 0;
+}
 .rectangle-div {
   width: 100%;
   background-color: #d9d9d9;

@@ -82,8 +82,10 @@
         <%= link_to t(:new_evaluation), company_answer_poll_path, class: "main-button" %>
       <% end %>
     <% end %>
-    <% polls.each do |pid, data| %>
-      <%= link_to "Descargar evaluaciones -> #{ data[:title] }, v:#{data[:version]}", "/export/#{pid}", {target: '_blank', class:"secondary-button mailto"} %>
+    <% if polls.present? %> 
+      <% polls.each do |pid, data| %>
+        <%= link_to "Descargar evaluaciones -> #{ data[:title] }, v:#{data[:version]}", "/export/#{pid}", {target: '_blank', class:"secondary-button mailto"} %>
+      <% end %>
     <% end %>
   </div>
 </div>

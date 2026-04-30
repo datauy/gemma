@@ -4,6 +4,7 @@
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= render "companies/shared/error_messages", resource: resource %>
 
+    <h4>Inforamación general</h4>
     <div class="field">
       <%= f.label :email %><br />
       <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
@@ -42,6 +43,7 @@
         <%= f.label :activity, "Giro principal" %>
         <%= f.select :activity, Company.activities.keys, required: true, include_blank: "Giro principal", autocomplete: "activity" %>
       </div>
+      <h4>Tamaño</h4>
       <div class="field">
         <%= f.label :size, "Tamaño" %>
         <%= f.select :size, Company.sizes.keys, required: true, include_blank: "Tamaño de la empresa", autocomplete: "size" %>
@@ -54,9 +56,14 @@
         <%= f.label :woman_workers, "Trabajadoras mujeres" %>
         <%= f.number_field :woman_workers, min: 0, required: true, autocomplete: "woman_workers", placeholder: "Trabajadoras Mujeres" %>
       </div>
+      <h4>Actividad</h4>
       <div class="field">
         <%= f.label :start_year, "Año de comienzo de actividad" %>
         <%= f.number_field :start_year, min: 1950, max: 2025, step: 1, required: true, autocomplete: "start_year", placeholder: "Año de comienzo de actividad" %>
+      </div>
+      <div class="field">
+        <%= f.label :start_date, "Fecha de inicio de actividad" %>
+        <%= f.date_field :start_date, required: true %>
       </div>
       <div class="field">
         <%= f.label :destination_ids, "¿Cuál es el alcance de la operación de tu empresa?" %>
@@ -68,6 +75,7 @@
         <%= f.label :countries, "En el caso de ser internacional, si tu empresa opera en otros países, especifique cuáles" %>
         <%= f.text_field :countries, autocomplete: "countries", placeholder: "Países internacionales" %>
       </div>
+      <h4>Diversidad e inclusión</h4>
       <div class="field">
         <%= f.label :women_participation, "¿La empresa es propiedad total o parcial de mujeres?" %>
         <%= f.select :women_participation, Company.women_participations.keys, required: true %>
@@ -82,10 +90,7 @@
         <span class="disclaimer">Se considera con discapacidad a toda persona que presente una alteración funcional permanente o prolongada, física o mental que en relación a su edad y medio social implique desventajas considerables para su integración familiar, social, educacional o laboral. Artículo 2 de la Ley 18.651</span>
         <%= f.select :disability, Company.disabilities.keys, required: true %>
       </div>
-      <div class="field">
-        <%= f.label :start_date, "Fecha de inicio de actividad" %>
-        <%= f.date_field :start_date, required: true %>
-      </div>
+      <h4>Registros y habilitaciones</h4>
       <div class="field">
         <%= f.label :registered, "¿Su empresa está registrada en la Dirección General Impositiva (DGI) y cuenta con RUT activo?" %>
         <%= f.select :registered, [['No','false'],['Si','true']], required: true %>
@@ -106,6 +111,7 @@
         <%= f.label :building_abilitation, "¿Su local cuenta con la habilitación de la Dirección Nacional de Bomberos cuando es requerida?" %>
         <%= f.select :building_abilitation, Company.building_abilitations.keys, required: true %>
       </div>
+      <h4>Persona de contacto</h4>
       <div class="field">
         <%= f.label :contact_name, "Nombre de la persona de contacto" %>
         <%= f.text_field :contact_name, required: true, autocomplete: "contact_name", placeholder: "Nombre de la persona de contacto" %>
@@ -122,24 +128,6 @@
         <%= f.label :contact_email, "Email de contacto" %>
         <%= f.email_field :contact_email, required: true, autocomplete: "contact_email", placeholder: "Email de contacto" %>
       </div>
-      <div class="field">
-        <%= f.label :password %> <i>(Dejar vacío si no se quiere cambiar)</i><br />
-        <%= f.password_field :password, autocomplete: "new-password" %>
-        <% if @minimum_password_length %>
-          <br />
-          <em><%= @minimum_password_length %> caracteres mínimo</em>
-        <% end %>
-      </div>
-
-      <div class="field">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-      </div>
-
-      <div class="field">
-        <%= f.label :current_password %> <i>(necesitamos tu contraseña actual para confirmar los cambios)</i><br />
-        <%= f.password_field :current_password, autocomplete: "current-password" %>
-      </div>
       <% if resource.is_main_company %>
 
       <% else %>
@@ -147,9 +135,14 @@
         <span class="disclaimer">Las empresas tractoras seleccionadas en esta sección podrán acceder a la información de los formularios completos de la empresa.</span>
         <%= f.collection_checkboxes :main_company_ids, Company.where(is_main_company: true), :id, :fake_name, :include_hidden => false, :input_html => { :include_hidden => false } %>
       <% end %>
+      <div class="field">
+        <%= f.label :current_password, 'Contraseña' %> <i>(necesitamos tu contraseña actual para confirmar los cambios)</i><br />
+        <%= f.password_field :current_password, autocomplete: "password" %>
+      </div>
     <% end %>
     <div class="actions">
       <%= f.submit "Actualizar", class:'main-button' %>
+      <%= link_to 'Cancelar', '/dashboard', class: 'secondary-button' %>
     </div>
   <% end %>
 

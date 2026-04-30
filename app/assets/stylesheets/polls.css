@@ -40,6 +40,13 @@ h3 {
 }
 #poll {
   width: 100%;
+  .poll-sections {
+    .section-questions {
+      display: none;
+      margin-top: 0;
+      margin-bottom: 40px;
+    }
+  }
 }
 #poll form .section-header {
   flex-direction: column;

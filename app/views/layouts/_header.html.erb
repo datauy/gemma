@@ -12,7 +12,7 @@
         <li><%= link_to 'Tablero', dashboard_path, :class => 'navbar-link' %> </li>
         <li><%= button_to "Cerrar sesión", destroy_company_session_path, method: :delete, :class => 'navbar-link'  %></li>
       <% else %>
-        <li><%= link_to "Acceso a clientes",  company_session_path() %>
+        <li><%= link_to "Iniciar sesión",  company_session_path() %>
       <% end %>
   </nav>
   <script>

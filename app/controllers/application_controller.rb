@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
         if resource.evaluations.length > 0
           dashboard_path
         else
-          company_answer_poll_path
+          edit_company_registration_path
+          #company_answer_poll_path
         end
       end
     else

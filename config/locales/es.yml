@@ -162,7 +162,7 @@ es:
       other_than: debe ser distinto de %{count}
       present: debe estar en blanco
       required: debe existir
-      taken: ya está en uso
+      taken: ya está en uso. Recupere su contraseña desde el menú INICIAR SESIÓN -> Olvidé mi contraseña
       too_long:
         one: es demasiado largo (1 carácter máximo)
         other: es demasiado largo (%{count} caracteres máximo)

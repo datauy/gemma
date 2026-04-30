@@ -16,19 +16,21 @@
         <h1><%= @poll.title %></h1>
         <div class="filters">
           <div class="tag"><%= @poll.area.title %></div>
-          <div class="tag"><%= @poll.provision.title %></div>
         </div>
         <div class="description"><%= @poll.description.html_safe %></div>
       </div>
       <div class="poll-sections">
         <% qnum = 0
-        @poll.sections.order(:weight).each do |section| %>
-          <div class="section">
+        total_sections = @poll.sections.length
+        @poll.sections.order(:weight).each_with_index do |section, i| %>
+          <div class="section" data-controller="tabs">
             <div class="section-header" style="background: <%= section.color %>">
-              <h3><%= section.title %></h3>
-              <span><%= section.description.html_safe %></span>
+              <button data-action="tabs#toggleInfo:prevent" data-tabs-target="infotrigger" aria-expanded="false" aria-control="section-<%= i %>-questions">
+                <h3><%= "#{section.title} (#{i+1}/#{total_sections})" %><div class="arrow"></div></h3>
+                <span><%= section.description.html_safe %></span>
+              </button>
             </div>
-            <div class="section-questions">
+            <div id="section-<%= i %>-questions" class="section-questions" data-tabs-target="infopanel">
               <% cquestions = {} %>
               <% @poll.questions.includes(:poll_questions).where(section_id: section.id).order(:"poll_questions.question_weight").each do |question| %>
                 <%

@@ -16,6 +16,19 @@
       </div>
       <div class="date">Fecha de evaluación: <%= @evaluation.submitted_date %></div>
       <div class="description"><%= @poll.description.html_safe %></div>
+      <div class="sections-summary">
+      <% @sections.each do |section| %>
+        <div class="section-left">
+          <h3>Sección <%= section[:title] %></h3>
+          <span><%= section[:description].html_safe %></span>
+        </div>
+        <%= format_semaphore(section[:semaphore][0]) %>
+        <div class="semaphore-text">
+          <div class="section-total">Resultado de la sección: <%= section[:total] %> / <%= section[:maxtotal] %></div>
+          <span><%= section[:semaphore][1] %></span>
+        </div>
+      <% end %>
+      </div>
     </div>
     <div class="evaluation-sections">
     <% @sections.each do |section| %>

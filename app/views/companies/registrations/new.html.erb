@@ -14,7 +14,7 @@
       <%= f.text_field :fake_name, required: true,  autocomplete: "fake_name", placeholder: "Nombre fantasía" %>
     </div>
     <div class="field">
-      <%= f.email_field :email, required: true, autofocus: true, autocomplete: "email", placeholder: "Email de empresa" %>
+      <%= f.email_field :email, required: true, autocomplete: "email", placeholder: "Email de empresa" %>
     </div>
     <div class="field">
       <%= f.select :state, Company.states.keys, required: true, include_blank: "Departamento" , autocomplete: "state", placeholder: "Departamento" %>
@@ -26,84 +26,8 @@
       <%= f.select :activity, Company.activities.keys, required: true, include_blank: "Giro principal", autocomplete: "activity" %>
     </div>
     <div class="field">
-      <%= f.select :size, Company.sizes.keys, required: true, include_blank: "Tamaño de la empresa", autocomplete: "size" %>
-    </div>
-    <div class="field">
-      <%= f.number_field :man_workers, min: 0, required: true, autocomplete: "man_workers", placeholder: "Trabajadores hombres" %>
-    </div>
-    <div class="field">
-      <%= f.number_field :woman_workers, min: 0, required: true, autocomplete: "woman_workers", placeholder: "Trabajadoras Mujeres" %>
-    </div>
-    <div class="field">
-      <%= f.number_field :start_year, min: 1950, max: 2025, step: 1, required: true, autocomplete: "start_year", placeholder: "Año de comienzo de actividad" %>
-    </div>
-    <div class="field">
-      <%= f.label :destination_ids, "¿Cuál es el alcance de la operación de tu empresa?" %>
-      <div class="options">
-        <%= f.collection_checkboxes :destination_ids, Destination.order(:weight), :id, :name, :include_hidden => false,  required: true, :input_html => { :include_hidden => false } %>
-      </div>
-    </div>
-    <div class="field">
-      <%= f.label :countries, "En el caso de ser internacional, si tu empresa opera en otros países, especifique cuáles" %>
-      <%= f.text_field :countries, autocomplete: "countries", placeholder: "Países internacionales" %>
-    </div>
-    <div class="field">
-      <%= f.label :women_participation, "¿La empresa es propiedad total o parcial de mujeres?" %>
-      <%= f.select :women_participation, Company.women_participations.keys, required: true %>
-    </div>
-    <div class="field">
-      <%= f.label :women_leadership, "¿Qué porcentaje de los puestos de liderazgo en la empresa están ocupados por mujeres?" %>
-      <span class="disclaimer">Se consideran puestos de liderazgo la dirección de la empresa, la administración general, la gestión de áreas clave como compras, ventas, producción o logística, la supervisión de equipos de trabajo y la participación en la toma de decisiones estratégicas</span>
-      <%= f.select :women_leadership, Company.women_leaderships.keys, required: true %>
-    </div>
-    <div class="field">
-      <%= f.label :disability, "¿La empresa incluye entre sus trabajadores permanentes, a personas con discapacidad?" %>
-      <span class="disclaimer">Se considera con discapacidad a toda persona que presente una alteración funcional permanente o prolongada, física o mental que en relación a su edad y medio social implique desventajas considerables para su integración familiar, social, educacional o laboral. Artículo 2 de la Ley 18.651</span>
-      <%= f.select :disability, Company.disabilities.keys, required: true %>
-    </div>
-    <div class="field">
-      <%= f.label :start_date, "Fecha de inicio de actividad" %>
-      <%= f.date_field :start_date, required: true %>
-    </div>
-    <div class="field">
-      <%= f.label :registered, "¿Su empresa está registrada en la Dirección General Impositiva (DGI) y cuenta con RUT activo?" %>
-      <%= f.select :registered, [['No','false'],['Si','true']], required: true %>
-    </div>
-    <div class="field">
-      <%= f.label :worker_insurance, "¿Su empresa está registrada en el Banco de Previsión Social (BPS) y al día con los aportes correspondientes?" %>
-      <%= f.select :worker_insurance, [['No','false'],['Si','true']], required: true %>
-    </div>
-    <div class="field">
-      <%= f.label :abilitation, "¿Su empresa cuenta con la habilitación de la Intendencia correspondiente para operar en su local o establecimiento?" %>
-      <%= f.select :abilitation, Company.abilitations.keys, required: true %>
-    </div>
-    <div class="field">
-      <%= f.label :worker_registration, "Si tiene empleados ¿Su empresa está registrada en el Ministerio de Trabajo y Seguridad Social (MTSS) y cumple con las normativas laborales vigentes?" %>
-      <%= f.select :worker_registration, Company.worker_registrations.keys, required: true %>
-    </div>
-    <div class="field">
-      <%= f.label :building_abilitation, "¿Su local cuenta con la habilitación de la Dirección Nacional de Bomberos cuando es requerida?" %>
-      <%= f.select :building_abilitation, Company.building_abilitations.keys, required: true %>
-    </div>
-    <div class="field">
-      <%= f.text_field :contact_name, required: true, autocomplete: "contact_name", placeholder: "Nombre de la persona de contacto" %>
-    </div>
-    <div class="field">
-      <%= f.text_field :contact_position, required: true, autocomplete: "contact_position", placeholder: "Cargo de la persona de contacto" %>
-    </div>
-    <div class="field">
-      <%= f.text_field :contact_tel, required: true, autocomplete: "contact_tel", placeholder: "Teléfono de contacto" %>
-    </div>
-    <div class="field">
-      <%= f.email_field :contact_email, required: true, autocomplete: "contact_email", placeholder: "Email de contacto" %>
-    </div>
-    <div class="field">
-      <%= f.label :logo %>
-      <%= f.file_field :logo %>
-    </div>
-    <div class="field">
       <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> caracteres mínimo)</em>
+      <em>Deberá usar mayúsculas y símbolos (<%= @minimum_password_length %> caracteres mínimo)</em>
       <% end %><br />
       <%= f.password_field :password, required: true, autocomplete: "new-password", placeholder: "Contraseña" %>
     </div>

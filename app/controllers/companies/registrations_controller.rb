@@ -50,6 +50,10 @@ class Companies::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :fake_name, :registration_number, :logo, :state, :address, :activity, :size, :man_workers, :woman_workers, :start_year, :contact_name, :contact_position, :contact_tel, :contact_email, :is_confirmed, :is_main_company, :password,  :countries, :women_participation, :women_leadership, :disability, :start_date, :registered, :abilitation, :worker_insurance, :building_abilitation, :worker_registration, main_company_ids:[], destination_ids:[]])
   end
 
+  def after_update_path_for(resource_or_scope)
+    dashboard_url
+  end
+
   # The path used after sign up.
   #def after_sign_up_path_for(resource)
   #  super(resource)
